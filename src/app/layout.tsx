@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Pacifico } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import BottomNav from "@/components/BottomNav";
+import { Providers } from "@/components/Providers";
+import { AppShell } from "@/components/AppShell";
 
 const pacifico = Pacifico({
   weight: '400',
@@ -22,8 +22,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "スマートQRドッグタグ",
-  description: "緊急モード付きデジタルドッグタグ",
+  title: "PawTag - スマートQRドッグタグ",
+  description: "愛犬を守る、新しい安心のカタチ。QRコードを読み取るだけで愛犬のプロフィールと緊急連絡先がすぐにわかります。",
   manifest: "/manifest.json",
   icons: {
     apple: "/icons/icon-192x192.png",
@@ -31,13 +31,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#14b8a6", // Tailwind teal-500
+  themeColor: "#14b8a6",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
 };
-
-import { Providers } from "@/components/Providers";
 
 export default function RootLayout({
   children,
@@ -46,17 +44,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning={true}>
+      <head>
+        {/* LP用 Remix Icon フォント */}
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased bg-gray-50`}
+        className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased`}
       >
         <Providers>
-          <Header />
-          <main className="pb-20">
-            {children}
-          </main>
-          <BottomNav />
+          <AppShell>{children}</AppShell>
         </Providers>
       </body>
     </html>
   );
 }
+

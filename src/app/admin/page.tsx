@@ -18,13 +18,6 @@ export default async function AdminDashboard() {
 
     return (
         <div className="space-y-6">
-            {/* デバッグ情報（問題特定後に削除） */}
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-xs text-yellow-800">
-                <p>🔍 デバッグ: ログインユーザーID = {userId || '取得できませんでした'}</p>
-                <p>🔍 デバッグ: 取得ペット数 = {pets.length}件</p>
-                <p>🔍 デバッグ: セッション = {session ? `${session.user?.email}` : 'セッションなし'}</p>
-            </div>
-
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <h2 className="text-2xl font-bold text-gray-900 tracking-tight">登録ペット一覧</h2>
                 <Link href="/admin/new" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-sm font-medium text-sm">
