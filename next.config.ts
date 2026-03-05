@@ -8,7 +8,9 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['@prisma/client', 'prisma'],
+  serverExternalPackages: ["@prisma/client", "prisma"],
+  // Turbopackのデフォルト有効化によるwebpackプラグイン（PWA）の競合を回避するため空設定を明示
+  turbopack: {},
 };
 
 export default withPWA(nextConfig);
