@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { supabase, STORAGE_BUCKET } from '@/lib/supabase'
+import { supabase, STORAGE_BUCKET, isSupabaseConfigured } from '@/lib/supabase'
 
 interface ImageUploadProps {
     currentImageUrl?: string | null
@@ -19,6 +19,11 @@ export function ImageUpload({ currentImageUrl, petId }: ImageUploadProps) {
 
         if (file.size > 5 * 1024 * 1024) {
             alert('画像サイズは5MB以下にしてください')
+            return
+        }
+
+        if (!isSupabaseConfigured()) {
+            alert('画像アップロードは現在設定中です。しばらくお待ちください。')
             return
         }
 
