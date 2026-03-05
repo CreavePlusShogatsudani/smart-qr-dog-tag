@@ -25,7 +25,9 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Storage not configured' }, { status: 500 })
     }
 
-    const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey)
+    const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
+        auth: { autoRefreshToken: false, persistSession: false },
+    })
 
     const ext = file.type.split('/')[1]?.replace('jpeg', 'jpg') || 'jpg'
     const path = `${petId}/profile.${ext}`
