@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { QRCodeDisplay } from '@/components/QRCodeDisplay'
+import { headers } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,7 +17,11 @@ export default async function AdminPetDetail({ params }: { params: Promise<{ id:
         notFound()
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    // リクエストヘッダーからホスト名を動的に取得（Vercel/ローカル両対応）
+    const headersList = await headers()
+    const host = headersList.get('host') || 'localhost:3000'
+    const protocol = headersList.get('x-forwarded-proto') || 'http'
+    const baseUrl = `${protocol}://${host}`
     const publicProfileUrl = `${baseUrl}/profile/${pet.id}`
 
     return (
