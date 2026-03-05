@@ -41,9 +41,10 @@ export function ImageUpload({ currentImageUrl, petId }: ImageUploadProps) {
             const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path)
             // キャッシュバスター付きURLをセット
             setImageUrl(`${data.publicUrl}?t=${Date.now()}`)
-        } catch (err) {
+        } catch (err: unknown) {
             console.error(err)
-            alert('アップロードに失敗しました')
+            const msg = err instanceof Error ? err.message : JSON.stringify(err)
+            alert(`アップロードに失敗しました: ${msg}`)
         } finally {
             setUploading(false)
         }
