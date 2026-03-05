@@ -3,8 +3,17 @@
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 
 export async function createPet(formData: FormData) {
+    const session = await getServerSession(authOptions)
+    const userId = session?.user?.id
+
+    if (!userId) {
+        throw new Error('Unauthorized')
+    }
+
     const name = formData.get('name') as string
     const ownerName = formData.get('ownerName') as string
     const phoneNumber = formData.get('phoneNumber') as string
@@ -22,6 +31,7 @@ export async function createPet(formData: FormData) {
             phoneNumber,
             email,
             features,
+            userId, // ユーザー紐付け
         }
     })
 
@@ -30,6 +40,19 @@ export async function createPet(formData: FormData) {
 }
 
 export async function updatePet(id: string, formData: FormData) {
+    const session = await getServerSession(authOptions)
+    const userId = session?.user?.id
+
+    if (!userId) {
+        throw new Error('Unauthorized')
+    }
+
+    // 所有者チェック
+    const existingPet = await prisma.pet.findUnique({ where: { id } })
+    if (!existingPet || existingPet.userId !== userId) {
+        throw new Error('Not found or Unauthorized')
+    }
+
     const name = formData.get('name') as string
     const ownerName = formData.get('ownerName') as string
     const phoneNumber = formData.get('phoneNumber') as string

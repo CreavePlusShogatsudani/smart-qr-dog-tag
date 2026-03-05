@@ -16,9 +16,8 @@ export default function HomePage() {
   return (
     <div className="min-h-screen px-4 py-6 max-w-2xl mx-auto">
       {showToast && (
-        <div className={`fixed top-20 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 ${
-          isEmergencyMode ? 'bg-red-500' : 'bg-teal-500'
-        } text-white font-semibold`}>
+        <div className={`fixed top-20 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 ${isEmergencyMode ? 'bg-red-500' : 'bg-teal-500'
+          } text-white font-semibold`}>
           {isEmergencyMode ? '緊急モードが有効になりました' : '通常モードに戻りました'}
         </div>
       )}
@@ -28,16 +27,14 @@ export default function HomePage() {
         <p className="text-gray-600">愛犬の安全を管理</p>
       </div>
 
-      <div className={`rounded-2xl p-6 mb-6 transition-all ${
-        isEmergencyMode 
-          ? 'bg-gradient-to-br from-red-400 to-orange-500 text-white' 
+      <div className={`rounded-2xl p-6 mb-6 transition-all ${isEmergencyMode
+          ? 'bg-gradient-to-br from-red-400 to-orange-500 text-white'
           : 'bg-gradient-to-br from-teal-400 to-teal-600 text-white'
-      }`}>
+        }`}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 flex items-center justify-center rounded-xl ${
-              isEmergencyMode ? 'bg-white/20' : 'bg-white/20'
-            }`}>
+            <div className={`w-12 h-12 flex items-center justify-center rounded-xl ${isEmergencyMode ? 'bg-white/20' : 'bg-white/20'
+              }`}>
               <i className={`${isEmergencyMode ? 'ri-alarm-warning-line' : 'ri-shield-check-line'} text-2xl text-white`}></i>
             </div>
             <div>
@@ -51,18 +48,16 @@ export default function HomePage() {
           </div>
           <button
             onClick={handleToggle}
-            className={`relative w-16 h-8 rounded-full transition-colors cursor-pointer ${
-              isEmergencyMode ? 'bg-white/30' : 'bg-white/30'
-            }`}
+            className={`relative w-16 h-8 rounded-full transition-colors cursor-pointer ${isEmergencyMode ? 'bg-white/30' : 'bg-white/30'
+              }`}
           >
-            <div className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${
-              isEmergencyMode ? 'translate-x-8' : 'translate-x-0'
-            }`}></div>
+            <div className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${isEmergencyMode ? 'translate-x-8' : 'translate-x-0'
+              }`}></div>
           </button>
         </div>
         <p className={`text-sm ${isEmergencyMode ? 'text-red-50' : 'text-teal-50'}`}>
-          {isEmergencyMode 
-            ? 'QRコードをスキャンすると、発見者に医療情報と連絡オプションが表示されます。' 
+          {isEmergencyMode
+            ? 'QRコードをスキャンすると、発見者に医療情報と連絡オプションが表示されます。'
             : 'QRコードをスキャンすると、愛犬の基本情報が表示されます。'}
         </p>
       </div>
@@ -74,11 +69,11 @@ export default function HomePage() {
           </div>
           <h2 className="text-xl font-bold text-gray-900">愛犬のプロフィール</h2>
         </div>
-        
+
         <div className="flex items-center gap-4 mb-4">
-          <img 
-            src="https://readdy.ai/api/search-image?query=A%20friendly%20golden%20retriever%20dog%20portrait%20with%20a%20happy%20expression%2C%20sitting%20outdoors%20in%20natural%20daylight%2C%20simple%20clean%20background%20with%20soft%20bokeh%2C%20professional%20pet%20photography%20style%2C%20warm%20and%20inviting%20atmosphere%2C%20high%20quality%20detailed%20fur%20texture%2C%20shallow%20depth%20of%20field&width=400&height=400&seq=dog-profile-001&orientation=squarish" 
-            alt="Dog Profile" 
+          <img
+            src="https://readdy.ai/api/search-image?query=A%20friendly%20golden%20retriever%20dog%20portrait%20with%20a%20happy%20expression%2C%20sitting%20outdoors%20in%20natural%20daylight%2C%20simple%20clean%20background%20with%20soft%20bokeh%2C%20professional%20pet%20photography%20style%2C%20warm%20and%20inviting%20atmosphere%2C%20high%20quality%20detailed%20fur%20texture%2C%20shallow%20depth%20of%20field&width=400&height=400&seq=dog-profile-001&orientation=squarish"
+            alt="Dog Profile"
             className="w-20 h-20 rounded-full object-cover object-top"
           />
           <div className="flex-1">
@@ -88,9 +83,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        <Link href="/profile">
+        <Link href="/admin">
           <button className="w-full py-3 bg-teal-500 text-white rounded-xl font-semibold hover:bg-teal-600 transition-colors whitespace-nowrap cursor-pointer">
-            プロフィールを編集
+            管理画面を開く（ログイン・無料登録）
           </button>
         </Link>
       </div>
@@ -185,7 +180,7 @@ export default function HomePage() {
           <p className="text-gray-700 mb-4">
             愛犬が見つかったら、必ず緊急モードをオフにしてください。
           </p>
-          <button 
+          <button
             onClick={handleToggle}
             className="w-full py-3 bg-yellow-400 text-gray-900 rounded-xl font-semibold hover:bg-yellow-500 transition-colors whitespace-nowrap cursor-pointer"
           >

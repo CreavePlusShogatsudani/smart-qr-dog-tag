@@ -2,10 +2,17 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { PlusCircle, QrCode } from 'lucide-react'
 
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboard() {
+    const session = await getServerSession(authOptions)
+    const userId = session?.user?.id
+
     const pets = await prisma.pet.findMany({
+        where: userId ? { userId } : { id: 'no-match' }, // 念のため取得制限
         orderBy: { createdAt: 'desc' }
     })
 

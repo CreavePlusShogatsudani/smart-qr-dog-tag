@@ -37,6 +37,8 @@ export const viewport = {
   maximumScale: 1,
 };
 
+import { Providers } from "@/components/Providers";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -47,11 +49,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pacifico.variable} antialiased bg-gray-50`}
       >
-        <Header />
-        <main className="pb-20">
-          {children}
-        </main>
-        <BottomNav />
+        <Providers>
+          <Header />
+          <main className="pb-20">
+            {children}
+          </main>
+          <BottomNav />
+        </Providers>
       </body>
     </html>
   );
