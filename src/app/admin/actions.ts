@@ -78,3 +78,25 @@ export async function updatePet(id: string, formData: FormData) {
     revalidatePath(`/admin/${id}`)
     redirect(`/admin/${id}`)
 }
+
+export async function deletePet(id: string) {
+    const session = await getServerSession(authOptions)
+    const userId = session?.user?.id
+
+    if (!userId) {
+        throw new Error('Unauthorized')
+    }
+
+    // 所有者チェック
+    const existingPet = await prisma.pet.findUnique({ where: { id } })
+    if (!existingPet || existingPet.userId !== userId) {
+        throw new Error('Not found or Unauthorized')
+    }
+
+    await prisma.pet.delete({
+        where: { id }
+    })
+
+    revalidatePath('/admin')
+    redirect('/admin')
+}

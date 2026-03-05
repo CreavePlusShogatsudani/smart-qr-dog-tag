@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { PlusCircle, QrCode } from 'lucide-react'
 import { redirect } from 'next/navigation'
+import { DeletePetButton } from '@/components/DeletePetButton'
 
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
@@ -54,8 +55,11 @@ export default async function AdminDashboard() {
                                     <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{pet.name}</h3>
                                     <p className="text-sm text-gray-500 mt-1 font-medium">飼い主: {pet.ownerName}</p>
                                 </div>
-                                <div className="bg-blue-50 bg-opacity-50 p-2.5 rounded-xl text-blue-600 group-hover:bg-blue-100 transition-colors">
-                                    <QrCode size={22} />
+                                <div className="flex flex-col items-end gap-2">
+                                    <div className="bg-blue-50 bg-opacity-50 p-2.5 rounded-xl text-blue-600 group-hover:bg-blue-100 transition-colors">
+                                        <QrCode size={22} />
+                                    </div>
+                                    <DeletePetButton petId={pet.id} petName={pet.name} variant="ghost" />
                                 </div>
                             </div>
                             <div className="text-sm text-gray-600 space-y-2">

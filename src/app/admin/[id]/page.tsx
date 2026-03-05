@@ -6,6 +6,7 @@ import { QRCodeDisplay } from '@/components/QRCodeDisplay'
 import { headers } from 'next/headers'
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
+import { DeletePetButton } from '@/components/DeletePetButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -104,6 +105,9 @@ export default async function AdminPetDetail({ params }: { params: Promise<{ id:
                             <Link href="/admin" className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 font-medium bg-gray-100 px-4 py-2 rounded-lg transition-colors w-full justify-center">
                                 <ArrowLeft size={16} /> 登録一覧に戻る
                             </Link>
+                            <div className="pt-2">
+                                <DeletePetButton petId={pet.id} petName={pet.name} />
+                            </div>
                         </div>
                     </div>
                 </div>
