@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { supabase, STORAGE_BUCKET, isSupabaseConfigured } from '@/lib/supabase'
 
 interface ImageUploadProps {
     currentImageUrl?: string | null
@@ -22,27 +21,18 @@ export function ImageUpload({ currentImageUrl, petId }: ImageUploadProps) {
             return
         }
 
-        if (!isSupabaseConfigured()) {
-            alert('画像アップロードは現在設定中です。しばらくお待ちください。')
-            return
-        }
-
         setUploading(true)
         try {
-            const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
-            const path = `${petId}/profile.${ext}`
-            // 日本語ファイル名はヘッダーエラーになるため ASCII 名に変換
-            const renamedFile = new File([file], `profile.${ext}`, { type: file.type })
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('petId', petId)
 
-            const { error } = await supabase.storage
-                .from(STORAGE_BUCKET)
-                .upload(path, renamedFile, { upsert: true })
+            const res = await fetch('/api/upload', { method: 'POST', body: formData })
+            const result = await res.json()
 
-            if (error) throw error
+            if (!res.ok) throw new Error(result.error ?? 'Upload failed')
 
-            const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path)
-            // キャッシュバスター付きURLをセット
-            setImageUrl(`${data.publicUrl}?t=${Date.now()}`)
+            setImageUrl(`${result.url}?t=${Date.now()}`)
         } catch (err: unknown) {
             console.error(err)
             const msg = err instanceof Error ? err.message : JSON.stringify(err)
