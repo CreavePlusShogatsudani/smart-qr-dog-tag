@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { QRCodeDisplay } from '@/components/QRCodeDisplay'
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminPetDetail({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
     const pet = await prisma.pet.findUnique({

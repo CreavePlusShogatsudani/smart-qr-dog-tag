@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { Phone, Mail, AlertTriangle } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export default async function PublicPetProfile({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
     const pet = await prisma.pet.findUnique({

@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { PlusCircle, QrCode } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminDashboard() {
     const pets = await prisma.pet.findMany({
         orderBy: { createdAt: 'desc' }
