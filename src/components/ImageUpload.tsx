@@ -29,12 +29,14 @@ export function ImageUpload({ currentImageUrl, petId }: ImageUploadProps) {
 
         setUploading(true)
         try {
-            const ext = file.name.split('.').pop()
+            const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
             const path = `${petId}/profile.${ext}`
+            // 日本語ファイル名はヘッダーエラーになるため ASCII 名に変換
+            const renamedFile = new File([file], `profile.${ext}`, { type: file.type })
 
             const { error } = await supabase.storage
                 .from(STORAGE_BUCKET)
-                .upload(path, file, { upsert: true })
+                .upload(path, renamedFile, { upsert: true })
 
             if (error) throw error
 
