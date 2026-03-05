@@ -106,7 +106,7 @@ export default function LandingPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-8 md:mb-12">
-                <Link href="/register" className="bg-teal-500 text-white text-xs md:text-sm font-semibold px-4 md:px-5 py-2 md:py-2.5 rounded-full hover:bg-teal-400 transition-all shadow-lg hover:-translate-y-0.5 whitespace-nowrap">
+                <Link href="/register" className="bg-teal-500 text-white text-sm md:text-base font-semibold px-6 md:px-8 py-4 rounded-full hover:bg-teal-400 transition-all shadow-lg hover:-translate-y-0.5 whitespace-nowrap text-center">
                   無料でプロフィールを作成する →
                 </Link>
                 <a href="#steps" className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-6 md:px-7 py-4 rounded-full font-medium text-sm md:text-base hover:bg-white/20 transition-all whitespace-nowrap text-center">
