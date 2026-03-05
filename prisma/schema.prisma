@@ -17,6 +17,7 @@ model Pet {
   ownerName   String
   phoneNumber String
   email       String?
+  isEmergency Boolean  @default(false)
   userId      String?
   user        User?    @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())

@@ -100,3 +100,27 @@ export async function deletePet(id: string) {
     revalidatePath('/admin')
     redirect('/admin')
 }
+
+export async function toggleEmergencyMode(id: string, isEmergency: boolean) {
+    const session = await getServerSession(authOptions)
+    const userId = session?.user?.id
+
+    if (!userId) {
+        throw new Error('Unauthorized')
+    }
+
+    // 所有者チェック
+    const existingPet = await prisma.pet.findUnique({ where: { id } })
+    if (!existingPet || existingPet.userId !== userId) {
+        throw new Error('Not found or Unauthorized')
+    }
+
+    await prisma.pet.update({
+        where: { id },
+        data: { isEmergency }
+    })
+
+    revalidatePath('/admin')
+    revalidatePath(`/admin/${id}`)
+    revalidatePath(`/profile/${id}`)
+}

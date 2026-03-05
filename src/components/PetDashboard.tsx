@@ -1,17 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import Link from 'next/link';
 import { QRCodeDisplay } from './QRCodeDisplay';
 import { DeletePetButton } from './DeletePetButton';
+import { toggleEmergencyMode } from '@/app/admin/actions';
 
 interface Pet {
     id: string;
     name: string;
-    features: String | null;
+    features: string | null;
     ownerName: string;
     phoneNumber: string;
-    email: String | null;
+    email: string | null;
+    isEmergency: boolean;
 }
 
 interface PetDashboardProps {
@@ -21,13 +23,27 @@ interface PetDashboardProps {
 }
 
 export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashboardProps) {
-    const [isEmergencyMode, setIsEmergencyMode] = useState(false);
+    const [isEmergencyMode, setIsEmergencyMode] = useState(pet.isEmergency);
     const [showToast, setShowToast] = useState(false);
+    const [isPending, startTransition] = useTransition();
 
-    const handleToggle = () => {
-        setIsEmergencyMode(!isEmergencyMode);
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 3000);
+    const handleToggle = async () => {
+        const nextMode = !isEmergencyMode;
+
+        // UIを即座に更新（楽観的UI）
+        setIsEmergencyMode(nextMode);
+
+        startTransition(async () => {
+            try {
+                await toggleEmergencyMode(pet.id, nextMode);
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 3000);
+            } catch (error) {
+                // エラー時は元の状態に戻す
+                setIsEmergencyMode(!nextMode);
+                alert('エラーが発生しました。もう一度お試しください。');
+            }
+        });
     };
 
     return (
@@ -39,7 +55,7 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
                 </div>
             )}
 
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mb-6 flex items-center justify-between px-2">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-900 mb-1">{pet.name}</h1>
                     <p className="text-gray-500 font-medium">管理ダッシュボード</p>
@@ -54,10 +70,10 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
             </div>
 
             {/* Emergency Mode Toggle Card */}
-            <div className={`rounded-2xl p-6 mb-6 shadow-sm border transition-all duration-500 ${isEmergencyMode
+            <div className={`rounded-2xl p-6 mb-6 shadow-sm border transition-all duration-500 mx-2 ${isEmergencyMode
                     ? 'bg-gradient-to-br from-red-500 to-orange-600 text-white border-red-400'
                     : 'bg-gradient-to-br from-teal-500 to-teal-600 text-white border-teal-400'
-                }`}>
+                } ${isPending ? 'opacity-80 pointer-events-none' : ''}`}>
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                         <div className={`w-12 h-12 flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm`}>
@@ -88,7 +104,7 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
             </div>
 
             {/* Pet Profile Card */}
-            <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm overflow-hidden relative">
+            <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm overflow-hidden relative mx-2">
                 <div className="flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 flex items-center justify-center bg-purple-100 rounded-lg">
                         <i className="ri-user-heart-line text-xl text-purple-600"></i>
@@ -118,7 +134,7 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
             </div>
 
             {/* QR Code Preview Card */}
-            <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
+            <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm mx-2">
                 <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-lg">
                         <i className="ri-qr-code-line text-xl text-blue-600"></i>
@@ -159,7 +175,7 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
             </div>
 
             {/* Quick Actions Card */}
-            <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
+            <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm mx-2">
                 <div className="flex items-center gap-3 mb-5">
                     <div className="w-10 h-10 flex items-center justify-center bg-orange-100 rounded-lg">
                         <i className="ri-flashlight-line text-xl text-orange-600"></i>
@@ -191,7 +207,7 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
             </div>
 
             {/* Danger Zone */}
-            <div className="mt-12 pt-8 border-t border-gray-100">
+            <div className="mt-12 pt-8 border-t border-gray-100 px-2">
                 <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 px-2">危険エリア</h4>
                 <div className="bg-red-50 rounded-2xl p-5 border border-red-100">
                     <div className="flex items-center gap-4 mb-4">
