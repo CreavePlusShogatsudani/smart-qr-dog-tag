@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function SettingsPage() {
   const [notifications, setNotifications] = useState({
@@ -216,7 +218,26 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <button className="w-full py-3 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition-colors mb-4 whitespace-nowrap cursor-pointer">
+      <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-lg">
+            <i className="ri-question-line text-xl text-gray-600"></i>
+          </div>
+          <h2 className="text-xl font-bold text-gray-900">サポート</h2>
+        </div>
+        <Link href="/help" className="flex items-center justify-between w-full py-3 px-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
+          <div className="flex items-center gap-3">
+            <i className="ri-book-open-line text-xl text-gray-600"></i>
+            <span className="font-medium text-gray-900">ヘルプ・使い方ガイド</span>
+          </div>
+          <i className="ri-arrow-right-s-line text-xl text-gray-400"></i>
+        </Link>
+      </div>
+
+      <button
+        onClick={() => signOut({ callbackUrl: '/' })}
+        className="w-full py-3 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition-colors mb-4 whitespace-nowrap cursor-pointer"
+      >
         ログアウト
       </button>
     </div>

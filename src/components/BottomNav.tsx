@@ -10,7 +10,7 @@ export default function BottomNav() {
     { href: '/admin/shop', label: 'ショップ', icon: 'ri-shopping-bag-line', activeIcon: 'ri-shopping-bag-fill' },
     { href: '/admin', label: '管理', icon: 'ri-dashboard-line', activeIcon: 'ri-dashboard-fill' },
     { href: '/admin/new', label: '登録', icon: 'ri-add-circle-line', activeIcon: 'ri-add-circle-fill' },
-    { href: '/help', label: 'ヘルプ', icon: 'ri-question-line', activeIcon: 'ri-question-fill' },
+    { href: '/settings', label: '設定', icon: 'ri-settings-3-line', activeIcon: 'ri-settings-3-fill' },
   ];
 
   return (
@@ -20,6 +20,9 @@ export default function BottomNav() {
           let isActive = pathname === item.href;
           if (item.href === '/admin') {
             isActive = pathname.startsWith('/admin') && !pathname.startsWith('/admin/shop') && !pathname.startsWith('/admin/new');
+          }
+          if (item.href === '/settings') {
+            isActive = pathname.startsWith('/settings');
           }
 
           return (

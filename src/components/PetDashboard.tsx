@@ -197,7 +197,7 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
                 </div>
 
                 <div className="space-y-3">
-                    <button className="flex items-center justify-between w-full py-4 px-5 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all active:scale-[0.99] border border-transparent hover:border-gray-200">
+                    <Link href="/settings" className="flex items-center justify-between w-full py-4 px-5 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all active:scale-[0.99] border border-transparent hover:border-gray-200">
                         <div className="flex items-center gap-4">
                             <div className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm">
                                 <i className="ri-notification-line text-lg text-gray-600"></i>
@@ -205,9 +205,9 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
                             <span className="font-bold text-gray-800">スキャン通知設定</span>
                         </div>
                         <i className="ri-arrow-right-s-line text-xl text-gray-300"></i>
-                    </button>
+                    </Link>
 
-                    <button className="flex items-center justify-between w-full py-4 px-5 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all active:scale-[0.99] border border-transparent hover:border-gray-200">
+                    <Link href="/help" className="flex items-center justify-between w-full py-4 px-5 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all active:scale-[0.99] border border-transparent hover:border-gray-200">
                         <div className="flex items-center gap-4">
                             <div className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm">
                                 <i className="ri-customer-service-2-line text-lg text-gray-600"></i>
@@ -215,7 +215,7 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
                             <span className="font-bold text-gray-800">ヘルプ＆サポート</span>
                         </div>
                         <i className="ri-arrow-right-s-line text-xl text-gray-300"></i>
-                    </button>
+                    </Link>
                 </div>
             </div>
 
