@@ -1,83 +1,121 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
-import { PlusCircle, QrCode } from 'lucide-react'
-import { redirect } from 'next/navigation'
-import { DeletePetButton } from '@/components/DeletePetButton'
-
+import { PlusCircle } from 'lucide-react'
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
+import { redirect } from 'next/navigation'
+import { DeletePetButton } from '@/components/DeletePetButton'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboard() {
     const session = await getServerSession(authOptions)
-    const userId = session?.user?.id
+    if (!session?.user) {
+        redirect('/login')
+    }
 
+    const userId = session.user.id
+
+    // ペット一覧を取得
     const pets = await prisma.pet.findMany({
-        where: userId ? { userId } : { id: 'no-match' },
+        where: { userId },
         orderBy: { createdAt: 'desc' }
     })
 
-    // スマートリダイレクト: ペットが1匹なら即座に詳細（管理画面）へ
+    // ペットが1匹だけの場合は自動的にその詳細（ダッシュボード）へリダイレクト
     if (pets.length === 1) {
         redirect(`/admin/${pets[0].id}`)
     }
 
     return (
-        <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <h2 className="text-2xl font-bold text-gray-900 tracking-tight">登録ペット一覧</h2>
-                <Link href="/admin/new" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-sm font-medium text-sm">
-                    <PlusCircle size={18} />
-                    <span>新規登録</span>
+        <div className="max-w-4xl mx-auto pb-20 px-4">
+            <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-2">My Pets</h1>
+                    <p className="text-gray-500 font-medium">登録されている家族の一覧</p>
+                </div>
+                <Link href="/admin/new">
+                    <button className="flex items-center gap-3 bg-teal-600 hover:bg-teal-700 text-white font-black px-8 py-4 rounded-[1.5rem] shadow-xl transition-all hover:-translate-y-1 active:scale-[0.98]">
+                        <PlusCircle size={22} />
+                        新しく仲間を加える
+                    </button>
                 </Link>
             </div>
 
             {pets.length === 0 ? (
-                <div className="bg-white rounded-xl shadow-sm p-12 text-center border border-gray-200">
-                    <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <QrCode className="h-8 w-8 text-blue-500" />
+                <div className="bg-white rounded-[2.5rem] p-12 md:p-20 text-center border-2 border-dashed border-gray-100 shadow-sm group">
+                    <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:bg-teal-50 transition-colors">
+                        <i className="ri-ghost-line text-5xl text-gray-300 group-hover:text-teal-400"></i>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">まだペットが登録されていません</h3>
-                    <p className="text-gray-500 mb-6 max-w-md mx-auto">最初のペット情報を登録して、専用のプロフィールURLとQRコードを作成しましょう。</p>
-                    <Link href="/admin/new" className="inline-flex items-center gap-2 text-white bg-gray-900 hover:bg-gray-800 px-6 py-2.5 rounded-lg font-medium transition-colors">
-                        <PlusCircle size={18} />
-                        登録を始める
+                    <h2 className="text-2xl font-black text-gray-800 mb-4">まだ登録されていません</h2>
+                    <p className="text-gray-500 mb-10 max-w-sm mx-auto leading-relaxed italic">
+                        QRタグを使って、あなたの大切な家族を守りましょう。
+                    </p>
+                    <Link href="/admin/new" className="inline-flex items-center gap-2 text-teal-600 font-black text-lg hover:underline underline-offset-8 decoration-2 decoration-teal-200">
+                        最初のペットを登録する <PlusCircle size={20} />
                     </Link>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {pets.map(pet => (
-                        <Link key={pet.id} href={`/admin/${pet.id}`} className="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md hover:border-blue-300 transition-all p-6 group block relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-1 h-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            <div className="flex items-start justify-between mb-4">
-                                <div>
-                                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{pet.name}</h3>
-                                    <p className="text-sm text-gray-500 mt-1 font-medium">飼い主: {pet.ownerName}</p>
-                                </div>
-                                <div className="flex flex-col items-end gap-2">
-                                    <div className="bg-blue-50 bg-opacity-50 p-2.5 rounded-xl text-blue-600 group-hover:bg-blue-100 transition-colors">
-                                        <QrCode size={22} />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {pets.map((pet) => (
+                        <div key={pet.id} className="group relative">
+                            <Link href={`/admin/${pet.id}`}>
+                                <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col items-center text-center">
+                                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-50 to-teal-100 flex items-center justify-center mb-6 border-2 border-white shadow-inner overflow-hidden">
+                                        <i className="ri-baidu-line text-4xl text-teal-600"></i>
                                     </div>
-                                    <DeletePetButton petId={pet.id} petName={pet.name} variant="ghost" />
+                                    <h3 className="text-2xl font-black text-gray-900 mb-2 leading-tight">{pet.name}</h3>
+                                    <p className="text-gray-400 text-sm font-medium mb-6 italic">{pet.features || 'プロフィール設定済み'}</p>
+
+                                    <div className="flex items-center gap-4 text-xs font-bold text-gray-400 mb-8">
+                                        <div className="flex items-center gap-1.5">
+                                            <i className="ri-user-smile-line text-teal-500"></i>
+                                            {pet.ownerName}様
+                                        </div>
+                                        <div className="w-1 h-1 bg-gray-200 rounded-full"></div>
+                                        <div className="flex items-center gap-1.5 font-mono tracking-tighter">
+                                            <i className="ri-qr-code-line text-teal-500"></i>
+                                            {pet.id.slice(0, 8)}...
+                                        </div>
+                                    </div>
+
+                                    <div className="w-full py-4 bg-gray-50 rounded-2xl text-teal-600 font-black text-sm group-hover:bg-teal-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                                        詳細・管理画面を開く
+                                    </div>
                                 </div>
+                            </Link>
+
+                            {/* 直接削除ボタン（カードの外、または絶対配置） */}
+                            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <DeletePetButton petId={pet.id} petName={pet.name} />
                             </div>
-                            <div className="text-sm text-gray-600 space-y-2">
-                                <p className="flex items-center gap-2">
-                                    <span className="w-16 inline-block text-gray-400">連絡先:</span>
-                                    <span className="font-medium truncate">{pet.phoneNumber}</span>
-                                </p>
-                                {pet.features && (
-                                    <p className="flex items-start gap-2 mt-2">
-                                        <span className="w-16 inline-block text-gray-400 mt-0.5">特徴:</span>
-                                        <span className="bg-gray-50 px-2 py-1 rounded text-gray-600 text-xs flex-1 line-clamp-2 leading-relaxed border border-gray-100">{pet.features}</span>
-                                    </p>
-                                )}
-                            </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             )}
+
+            {/* ショップへの誘導 */}
+            <div className="mt-20 relative rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-indigo-900 via-gray-900 to-black p-10 md:p-16 text-white shadow-2xl">
+                <div className="relative z-10 max-w-lg">
+                    <span className="inline-block bg-teal-500/20 text-teal-400 text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-lg mb-6 border border-teal-500/30">
+                        Official Store
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-black mb-6 leading-[1.2]">
+                        新しい家族、新しい装備。<br />
+                        <span className="text-teal-400 font-['Pacifico']">Items for special moments</span>
+                    </h2>
+                    <p className="text-gray-400 mb-10 leading-relaxed font-light italic">
+                        もっと安全に、もっとおしゃれに。PawTag公認の首輪やハーネスを手に入れましょう。
+                    </p>
+                    <Link href="/admin/shop">
+                        <button className="bg-white text-gray-950 font-black px-8 py-4 rounded-full shadow-xl hover:-translate-y-1 transition-all active:scale-[0.98] flex items-center gap-3 group">
+                            ショップを見る
+                            <i className="ri-arrow-right-line group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </Link>
+                </div>
+                <i className="ri-shopping-cart-line absolute -bottom-10 -right-10 text-[20rem] text-white/[0.03] -rotate-12 hidden md:block"></i>
+            </div>
         </div>
     )
 }
