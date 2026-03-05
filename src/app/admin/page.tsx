@@ -64,8 +64,11 @@ export default async function AdminDashboard() {
                                     <div className="w-24 h-24 rounded-full bg-gradient-to-br from-teal-50 to-teal-100 flex items-center justify-center mb-6 border-2 border-white shadow-inner overflow-hidden">
                                         <i className="ri-baidu-line text-4xl text-teal-600"></i>
                                     </div>
-                                    <h3 className="text-2xl font-black text-gray-900 mb-2 leading-tight">{pet.name}</h3>
-                                    <p className="text-gray-400 text-sm font-medium mb-6 italic">{pet.features || 'プロフィール設定済み'}</p>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <h3 className="text-2xl font-black text-gray-900 leading-tight">{pet.name}</h3>
+                                        {pet.breed && <span className="text-[10px] bg-teal-50 text-teal-600 px-2 py-0.5 rounded-full font-bold">{pet.breed}</span>}
+                                    </div>
+                                    <p className="text-gray-400 text-sm font-medium mb-6 italic line-clamp-1">{pet.features || 'プロフィール設定済み'}</p>
 
                                     <div className="flex items-center gap-4 text-xs font-bold text-gray-400 mb-8">
                                         <div className="flex items-center gap-1.5">

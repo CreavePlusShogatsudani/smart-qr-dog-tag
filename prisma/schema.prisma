@@ -11,17 +11,33 @@ datasource db {
 }
 
 model Pet {
-  id          String   @id @default(cuid())
-  name        String
-  features    String?
-  ownerName   String
-  phoneNumber String
-  email       String?
-  isEmergency Boolean  @default(false)
-  userId      String?
-  user        User?    @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String   @id @default(cuid())
+  name            String
+  breed           String?  // 犬種
+  age             String?  // 年齢
+  weight          String?  // 体重
+  color           String?  // 毛色
+  features        String?  // 紹介文
+  instagram       String?  // Instagramアカウント名
+  
+  // 医療情報
+  medicalHistory  String?  // 既往症・持病
+  medication      String?  // 服用中の薬
+  clinicName      String?  // かかりつけ動物病院
+  clinicPhone     String?  // 獣医師の電話番号
+  medicalNotes    String?  // 医療特記事項
+
+  // 飼い主情報
+  ownerName       String
+  address         String?  // 住所（エリア）
+  phoneNumber     String
+  email           String?
+  
+  isEmergency     Boolean  @default(false)
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model User {

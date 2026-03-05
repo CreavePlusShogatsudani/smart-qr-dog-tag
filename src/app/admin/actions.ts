@@ -18,7 +18,18 @@ export async function createPet(formData: FormData) {
     const ownerName = formData.get('ownerName') as string
     const phoneNumber = formData.get('phoneNumber') as string
     const email = formData.get('email') as string | null
+    const breed = formData.get('breed') as string | null
+    const age = formData.get('age') as string | null
+    const weight = formData.get('weight') as string | null
+    const color = formData.get('color') as string | null
     const features = formData.get('features') as string | null
+    const instagram = formData.get('instagram') as string | null
+    const medicalHistory = formData.get('medicalHistory') as string | null
+    const medication = formData.get('medication') as string | null
+    const clinicName = formData.get('clinicName') as string | null
+    const clinicPhone = formData.get('clinicPhone') as string | null
+    const medicalNotes = formData.get('medicalNotes') as string | null
+    const address = formData.get('address') as string | null
 
     if (!name || !ownerName || !phoneNumber) {
         throw new Error('必須項目が入力されていません')
@@ -30,8 +41,19 @@ export async function createPet(formData: FormData) {
             ownerName,
             phoneNumber,
             email,
+            breed,
+            age,
+            weight,
+            color,
             features,
-            userId, // ユーザー紐付け
+            instagram,
+            medicalHistory,
+            medication,
+            clinicName,
+            clinicPhone,
+            medicalNotes,
+            address,
+            userId,
         }
     })
 
@@ -57,7 +79,18 @@ export async function updatePet(id: string, formData: FormData) {
     const ownerName = formData.get('ownerName') as string
     const phoneNumber = formData.get('phoneNumber') as string
     const email = formData.get('email') as string | null
+    const breed = formData.get('breed') as string | null
+    const age = formData.get('age') as string | null
+    const weight = formData.get('weight') as string | null
+    const color = formData.get('color') as string | null
     const features = formData.get('features') as string | null
+    const instagram = formData.get('instagram') as string | null
+    const medicalHistory = formData.get('medicalHistory') as string | null
+    const medication = formData.get('medication') as string | null
+    const clinicName = formData.get('clinicName') as string | null
+    const clinicPhone = formData.get('clinicPhone') as string | null
+    const medicalNotes = formData.get('medicalNotes') as string | null
+    const address = formData.get('address') as string | null
 
     if (!name || !ownerName || !phoneNumber) {
         throw new Error('必須項目が入力されていません')
@@ -70,12 +103,24 @@ export async function updatePet(id: string, formData: FormData) {
             ownerName,
             phoneNumber,
             email,
+            breed,
+            age,
+            weight,
+            color,
             features,
+            instagram,
+            medicalHistory,
+            medication,
+            clinicName,
+            clinicPhone,
+            medicalNotes,
+            address,
         }
     })
 
     revalidatePath('/admin')
     revalidatePath(`/admin/${id}`)
+    revalidatePath(`/profile/${id}`)
     redirect(`/admin/${id}`)
 }
 

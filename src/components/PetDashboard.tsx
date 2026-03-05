@@ -9,6 +9,8 @@ import { toggleEmergencyMode } from '@/app/admin/actions';
 interface Pet {
     id: string;
     name: string;
+    breed: string | null;
+    age: string | null;
     features: string | null;
     ownerName: string;
     phoneNumber: string;
@@ -71,8 +73,8 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
 
             {/* Emergency Mode Toggle Card */}
             <div className={`rounded-2xl p-6 mb-6 shadow-sm border transition-all duration-500 mx-2 ${isEmergencyMode
-                    ? 'bg-gradient-to-br from-red-500 to-orange-600 text-white border-red-400'
-                    : 'bg-gradient-to-br from-teal-500 to-teal-600 text-white border-teal-400'
+                ? 'bg-gradient-to-br from-red-500 to-orange-600 text-white border-red-400'
+                : 'bg-gradient-to-br from-teal-500 to-teal-600 text-white border-teal-400'
                 } ${isPending ? 'opacity-80 pointer-events-none' : ''}`}>
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
@@ -119,18 +121,24 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
                         </div>
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-lg font-bold text-gray-900">{pet.name}</h3>
-                        <p className="text-gray-600 text-sm mb-1">{pet.features || '特徴未設定'}</p>
-                        <div className="flex flex-wrap gap-2 text-xs">
-                            <span className="bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">{pet.ownerName}様</span>
-                            <span className="bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">{pet.phoneNumber}</span>
+                        <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-lg font-bold text-gray-900">{pet.name}</h3>
+                            {pet.breed && <span className="text-[10px] bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full font-bold">{pet.breed}</span>}
+                        </div>
+                        <p className="text-gray-600 text-sm mb-2 line-clamp-1">{pet.features || '特徴未設定'}</p>
+                        <div className="flex flex-wrap gap-2 text-[10px] font-bold">
+                            <span className="bg-gray-50 text-gray-500 px-2 py-1 rounded-md border border-gray-100">{pet.ownerName}様</span>
+                            <span className="bg-gray-50 text-gray-500 px-2 py-1 rounded-md border border-gray-100">{pet.phoneNumber}</span>
+                            {pet.age && <span className="bg-gray-50 text-gray-500 px-2 py-1 rounded-md border border-gray-100">{pet.age}</span>}
                         </div>
                     </div>
                 </div>
 
-                <button className="w-full py-3.5 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-sm active:scale-[0.98]">
-                    プロフィールを編集する
-                </button>
+                <Link href={`/admin/${pet.id}/edit`}>
+                    <button className="w-full py-3.5 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-sm active:scale-[0.98]">
+                        プロフィールを編集する
+                    </button>
+                </Link>
             </div>
 
             {/* QR Code Preview Card */}
