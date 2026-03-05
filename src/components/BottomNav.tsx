@@ -7,7 +7,7 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/', label: 'ホーム', icon: 'ri-home-line', activeIcon: 'ri-home-fill' },
+    { href: '/admin/shop', label: 'ショップ', icon: 'ri-shopping-bag-line', activeIcon: 'ri-shopping-bag-fill' },
     { href: '/admin', label: '管理', icon: 'ri-dashboard-line', activeIcon: 'ri-dashboard-fill' },
     { href: '/admin/new', label: '登録', icon: 'ri-add-circle-line', activeIcon: 'ri-add-circle-fill' },
     { href: '/help', label: 'ヘルプ', icon: 'ri-question-line', activeIcon: 'ri-question-fill' },

@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { PlusCircle, QrCode } from 'lucide-react'
+import { redirect } from 'next/navigation'
 
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
@@ -12,9 +13,14 @@ export default async function AdminDashboard() {
     const userId = session?.user?.id
 
     const pets = await prisma.pet.findMany({
-        where: userId ? { userId } : { id: 'no-match' }, // 念のため取得制限
+        where: userId ? { userId } : { id: 'no-match' },
         orderBy: { createdAt: 'desc' }
     })
+
+    // スマートリダイレクト: ペットが1匹なら即座に詳細（管理画面）へ
+    if (pets.length === 1) {
+        redirect(`/admin/${pets[0].id}`)
+    }
 
     return (
         <div className="space-y-6">

@@ -20,7 +20,6 @@ export default function LandingPage() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [contactStatus, setContactStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  // 読み込み中は何も表示しない、またはスケルトンを表示（リダイレクトを待つ）
   if (status === 'loading' || status === 'authenticated') {
     return <div className="min-h-screen bg-[#f8f8f6] flex items-center justify-center font-['Pacifico'] text-teal-600 text-2xl animate-pulse">PawTag</div>;
   }

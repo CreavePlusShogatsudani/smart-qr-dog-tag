@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function Header() {
   const pathname = usePathname();
+  const { data: session } = useSession();
 
-  const isAppPath = pathname.startsWith('/admin') || pathname.startsWith('/profile') || pathname === '/login' || pathname === '/register';
-  const logoHref = isAppPath ? '/admin' : '/';
+  const logoHref = session ? '/admin' : '/';
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">

@@ -1,23 +1,34 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { ArrowLeft, ExternalLink, QrCode } from 'lucide-react'
 import { QRCodeDisplay } from '@/components/QRCodeDisplay'
 import { headers } from 'next/headers'
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminPetDetail({ params }: { params: Promise<{ id: string }> }) {
+    const session = await getServerSession(authOptions)
+    const userId = session?.user?.id
     const { id } = await params
+
+    // ペット情報取得
     const pet = await prisma.pet.findUnique({
         where: { id }
     })
 
-    if (!pet) {
+    if (!pet || (userId && pet.userId !== userId)) {
         notFound()
     }
 
-    // リクエストヘッダーからホスト名を動的に取得（Vercel/ローカル両対応）
+    // 他にペットがいるかチェック（一覧に戻るボタンの文言調整用）
+    const otherPetsCount = userId ? await prisma.pet.count({
+        where: { userId, id: { not: id } }
+    }) : 0
+
+    // リクエストヘッダーからホスト名を動的に取得
     const headersList = await headers()
     const host = headersList.get('host') || 'localhost:3000'
     const protocol = headersList.get('x-forwarded-proto') || 'http'
@@ -25,14 +36,23 @@ export default async function AdminPetDetail({ params }: { params: Promise<{ id:
     const publicProfileUrl = `${baseUrl}/profile/${pet.id}`
 
     return (
-        <div className="max-w-3xl mx-auto space-y-6">
-            <div className="flex items-center justify-between mb-8">
+        <div className="max-w-4xl mx-auto space-y-8 pb-12">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
                 <div className="flex items-center gap-4">
-                    <Link href="/admin" className="text-gray-500 hover:text-gray-800 transition-colors bg-white p-2 text-sm rounded-full border shadow-sm flex items-center justify-center">
-                        <ArrowLeft size={20} />
-                    </Link>
-                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight">{pet.name} の詳細管理</h2>
+                    <div className="bg-teal-600 p-3 rounded-2xl shadow-lg ring-4 ring-teal-50">
+                        <QrCode size={28} className="text-white" />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">{pet.name} のダッシュボード</h2>
+                        <p className="text-gray-500 text-sm font-medium mt-1">管理・編集センター</p>
+                    </div>
                 </div>
+
+                {otherPetsCount > 0 && (
+                    <Link href="/admin" className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-teal-600 bg-white border border-gray-200 px-5 py-2.5 rounded-xl shadow-sm transition-all hover:border-teal-200">
+                        他のペットに切り替え
+                    </Link>
+                )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
