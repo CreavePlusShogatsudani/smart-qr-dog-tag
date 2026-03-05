@@ -36,9 +36,10 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ message: "登録成功", user: { email: user.email } }, { status: 201 });
     } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
         console.error("Registration error:", error);
         return NextResponse.json(
-            { message: "サーバーエラーが発生しました" },
+            { message: "サーバーエラーが発生しました", detail: message },
             { status: 500 }
         );
     }
