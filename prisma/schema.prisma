@@ -20,7 +20,8 @@ model Pet {
   color           String?  // 毛色
   features        String?  // 紹介文
   instagram       String?  // Instagramアカウント名
-  
+  imageUrl        String?  // プロフィール画像URL
+
   // 医療情報
   medicalHistory  String?  // 既往症・持病
   medication      String?  // 服用中の薬

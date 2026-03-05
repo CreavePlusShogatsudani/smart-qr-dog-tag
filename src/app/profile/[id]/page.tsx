@@ -38,10 +38,14 @@ function NormalProfile({ pet }: { pet: any }) {
             <div className="bg-white rounded-[2.5rem] p-8 mb-8 border border-gray-100 shadow-sm">
                 <div className="flex items-center gap-6 mb-8">
                     <div className="relative">
-                        <div className="w-28 h-28 rounded-full bg-teal-50 flex items-center justify-center border-4 border-teal-100 p-1">
-                            <div className="w-full h-full rounded-full bg-teal-100 flex items-center justify-center overflow-hidden">
-                                <i className="ri-baidu-line text-5xl text-teal-600"></i>
-                            </div>
+                        <div className="w-28 h-28 rounded-full bg-teal-50 flex items-center justify-center border-4 border-teal-100 p-1 overflow-hidden">
+                            {pet.imageUrl ? (
+                                <img src={pet.imageUrl} alt={pet.name} className="w-full h-full rounded-full object-cover" />
+                            ) : (
+                                <div className="w-full h-full rounded-full bg-teal-100 flex items-center justify-center">
+                                    <i className="ri-baidu-line text-5xl text-teal-600"></i>
+                                </div>
+                            )}
                         </div>
                         {pet.instagram && (
                             <a href={`https://instagram.com/${pet.instagram}`} target="_blank" className="absolute -bottom-1 -right-1 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg border border-gray-100">
@@ -167,10 +171,14 @@ function EmergencyProfile({ pet }: { pet: any }) {
 
             <div className="bg-white rounded-[2.5rem] p-10 mb-8 border border-red-100 shadow-lg">
                 <div className="flex items-center gap-6 mb-10 border-b border-gray-100 pb-10">
-                    <div className="w-28 h-28 rounded-full bg-red-50 flex items-center justify-center border-4 border-red-100 p-1">
-                        <div className="w-full h-full rounded-full bg-red-100 flex items-center justify-center">
-                            <i className="ri-baidu-line text-5xl text-red-600"></i>
-                        </div>
+                    <div className="w-28 h-28 rounded-full bg-red-50 flex items-center justify-center border-4 border-red-100 p-1 overflow-hidden">
+                        {pet.imageUrl ? (
+                            <img src={pet.imageUrl} alt={pet.name} className="w-full h-full rounded-full object-cover" />
+                        ) : (
+                            <div className="w-full h-full rounded-full bg-red-100 flex items-center justify-center">
+                                <i className="ri-baidu-line text-5xl text-red-600"></i>
+                            </div>
+                        )}
                     </div>
                     <div>
                         <h3 className="text-4xl font-black text-gray-900 mb-2 leading-tight">{pet.name}</h3>

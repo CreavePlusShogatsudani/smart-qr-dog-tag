@@ -24,6 +24,7 @@ export async function createPet(formData: FormData) {
     const color = formData.get('color') as string | null
     const features = formData.get('features') as string | null
     const instagram = formData.get('instagram') as string | null
+    const imageUrl = formData.get('imageUrl') as string | null
     const medicalHistory = formData.get('medicalHistory') as string | null
     const medication = formData.get('medication') as string | null
     const clinicName = formData.get('clinicName') as string | null
@@ -47,6 +48,7 @@ export async function createPet(formData: FormData) {
             color,
             features,
             instagram,
+            imageUrl: imageUrl || null,
             medicalHistory,
             medication,
             clinicName,
@@ -85,6 +87,7 @@ export async function updatePet(id: string, formData: FormData) {
     const color = formData.get('color') as string | null
     const features = formData.get('features') as string | null
     const instagram = formData.get('instagram') as string | null
+    const imageUrl = formData.get('imageUrl') as string | null
     const medicalHistory = formData.get('medicalHistory') as string | null
     const medication = formData.get('medication') as string | null
     const clinicName = formData.get('clinicName') as string | null
@@ -109,6 +112,7 @@ export async function updatePet(id: string, formData: FormData) {
             color,
             features,
             instagram,
+            imageUrl: imageUrl || null,
             medicalHistory,
             medication,
             clinicName,

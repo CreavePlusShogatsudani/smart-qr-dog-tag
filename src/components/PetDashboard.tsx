@@ -16,6 +16,7 @@ interface Pet {
     phoneNumber: string;
     email: string | null;
     isEmergency: boolean;
+    imageUrl: string | null;
 }
 
 interface PetDashboardProps {
@@ -116,9 +117,13 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
 
                 <div className="flex items-center gap-5 mb-6">
                     <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden border-2 border-purple-100 p-1">
-                        <div className="w-full h-full rounded-full bg-gray-200 flex items-center justify-center">
-                            <i className="ri-image-line text-2xl text-gray-400"></i>
-                        </div>
+                        {pet.imageUrl ? (
+                            <img src={pet.imageUrl} alt={pet.name} className="w-full h-full rounded-full object-cover" />
+                        ) : (
+                            <div className="w-full h-full rounded-full bg-gray-200 flex items-center justify-center">
+                                <i className="ri-image-line text-2xl text-gray-400"></i>
+                            </div>
+                        )}
                     </div>
                     <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">

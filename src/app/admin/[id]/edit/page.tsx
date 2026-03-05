@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth"
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { SubmitButton } from '@/components/SubmitButton'
+import { ImageUpload } from '@/components/ImageUpload'
 import { updatePet } from '../../actions'
 
 export const dynamic = 'force-dynamic'
@@ -52,18 +53,7 @@ export default async function EditPetPage({ params }: { params: Promise<{ id: st
                         <h2 className="text-xl font-black text-gray-900">基本情報</h2>
                     </div>
 
-                    <div className="flex justify-center mb-10">
-                        <div className="relative group">
-                            <div className="w-32 h-32 rounded-full bg-gray-50 flex items-center justify-center border-4 border-purple-50 p-1 overflow-hidden">
-                                <div className="w-full h-full rounded-full bg-gray-100 flex items-center justify-center">
-                                    <i className="ri-image-line text-4xl text-gray-300"></i>
-                                </div>
-                            </div>
-                            <button type="button" className="absolute bottom-0 right-0 w-10 h-10 flex items-center justify-center bg-teal-600 text-white rounded-full hover:bg-teal-700 transition-all shadow-lg cursor-pointer transform hover:scale-110 active:scale-95">
-                                <i className="ri-camera-line text-xl"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <ImageUpload currentImageUrl={pet.imageUrl} petId={pet.id} />
 
                     <div className="space-y-6">
                         <div>
