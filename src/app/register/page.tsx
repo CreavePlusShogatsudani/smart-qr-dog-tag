@@ -29,7 +29,7 @@ export default function RegisterPage() {
                 router.push("/login?registered=true");
             } else {
                 const data = await res.json();
-                setError(data.message || "登録に失敗しました。");
+                setError(data.detail ? `${data.message}（詳細: ${data.detail}）` : (data.message || "登録に失敗しました。"));
                 setLoading(false);
             }
         } catch (err) {
