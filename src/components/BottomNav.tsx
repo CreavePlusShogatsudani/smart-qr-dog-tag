@@ -8,8 +8,8 @@ export default function BottomNav() {
 
   const navItems = [
     { href: '/', label: 'ホーム', icon: 'ri-home-line', activeIcon: 'ri-home-fill' },
-    { href: '/profile', label: 'プロフィール', icon: 'ri-user-line', activeIcon: 'ri-user-fill' },
-    { href: '/settings', label: '設定', icon: 'ri-settings-line', activeIcon: 'ri-settings-fill' },
+    { href: '/admin', label: '管理', icon: 'ri-dashboard-line', activeIcon: 'ri-dashboard-fill' },
+    { href: '/admin/new', label: '登録', icon: 'ri-add-circle-line', activeIcon: 'ri-add-circle-fill' },
     { href: '/help', label: 'ヘルプ', icon: 'ri-question-line', activeIcon: 'ri-question-fill' },
   ];
 
@@ -22,9 +22,8 @@ export default function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${
-                isActive ? 'text-teal-600' : 'text-gray-600'
-              }`}
+              className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${isActive ? 'text-teal-600' : 'text-gray-600'
+                }`}
             >
               <i className={`${isActive ? item.activeIcon : item.icon} text-2xl`}></i>
               <span className="text-xs font-medium">{item.label}</span>

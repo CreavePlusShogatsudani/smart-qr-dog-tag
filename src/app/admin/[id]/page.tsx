@@ -74,13 +74,16 @@ export default async function AdminPetDetail({ params }: { params: Promise<{ id:
 
                         <QRCodeDisplay url={publicProfileUrl} />
 
-                        <div className="mt-6 pt-6 border-t w-full text-left">
-                            <p className="text-sm text-gray-500 mb-4 leading-relaxed">
+                        <div className="mt-6 pt-6 border-t w-full text-left space-y-3">
+                            <p className="text-sm text-gray-500 mb-1 leading-relaxed">
                                 このQRコードを印刷して首輪などに付けてください。読み取ると公開プロフィールが表示されます。
                             </p>
                             <a href={publicProfileUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 font-medium bg-blue-50 px-4 py-2 rounded-lg transition-colors w-full justify-center">
                                 <ExternalLink size={16} /> 公開用ページを確認
                             </a>
+                            <Link href="/admin" className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 font-medium bg-gray-100 px-4 py-2 rounded-lg transition-colors w-full justify-center">
+                                <ArrowLeft size={16} /> 登録一覧に戻る
+                            </Link>
                         </div>
                     </div>
                 </div>

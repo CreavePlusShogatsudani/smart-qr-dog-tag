@@ -1,10 +1,11 @@
 import { createPet } from '../actions'
 import Link from 'next/link'
-import { ArrowLeft, Save } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
+import { SubmitButton } from '@/components/SubmitButton'
 
 export default function NewPetPage() {
     return (
-        <div className="max-w-2xl mx-auto space-y-6">
+        <div className="max-w-2xl mx-auto space-y-6 pb-12">
             <div className="flex items-center gap-4 mb-8">
                 <Link href="/admin" className="text-gray-500 hover:text-gray-800 transition-colors bg-white p-2 rounded-full border shadow-sm flex items-center justify-center">
                     <ArrowLeft size={20} />
@@ -45,10 +46,10 @@ export default function NewPetPage() {
                     </div>
 
                     <div className="pt-6 border-t mt-8">
-                        <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-6 rounded-lg shadow-sm transition-colors flex justify-center items-center gap-2 text-lg disabled:opacity-50">
-                            <Save size={20} />
-                            ペット情報を登録してQRコードを作成する
-                        </button>
+                        <SubmitButton
+                            label="ペット情報を登録してQRコードを作成する"
+                            loadingLabel="登録処理中..."
+                        />
                     </div>
                 </form>
             </div>
