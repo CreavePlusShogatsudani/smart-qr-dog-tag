@@ -115,20 +115,20 @@ export default function ShopPage() {
     return (
         <div className="max-w-6xl mx-auto space-y-12 pb-20 px-4">
             {/* ヒーローセクション */}
-            <div className="relative rounded-[2.5rem] overflow-hidden bg-gray-900 aspect-[21/9] md:aspect-[3/1] flex items-center shadow-2xl">
+            <div className="relative rounded-[2.5rem] overflow-hidden bg-gray-900 py-14 px-8 md:py-0 md:px-0 md:aspect-[3/1] flex items-center shadow-2xl">
                 <img
                     src="https://readdy.ai/api/search-image?query=Happy%20dog%20owner%20hugging%20golden%20retriever%20in%20beautiful%20Japanese%20park%20cherry%20blossoms%20warm%20golden%20sunset%20light%20emotional%20heartwarming%20scene%20professional%20photography%20cinematic%20quality%20wide%20shot&width=1600&height=600&seq=shop-hero"
                     alt="Shop Hero"
                     className="absolute inset-0 w-full h-full object-cover opacity-60"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/40 to-transparent"></div>
-                <div className="relative z-10 px-8 md:px-16 max-w-2xl">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight leading-[1.1]">
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/60 to-transparent"></div>
+                <div className="relative z-10 md:px-16 max-w-2xl">
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight leading-[1.1]">
                         愛犬にぴったりの<br />
                         <span className="text-teal-400 font-['Pacifico'] text-2xl md:text-4xl">Items</span>
                     </h1>
-                    <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed font-light">
-                        迷子札から首輪・ハーネスまで、愛犬の安全とおしゃれを両立するアイテムが揃っています。
+                    <p className="text-gray-300 text-sm md:text-lg leading-relaxed font-light">
+                        迷子札から首輪・ハーネスまで、<br className="md:hidden" />愛犬の安全とおしゃれを両立するアイテムが揃っています。
                     </p>
                 </div>
             </div>
@@ -152,7 +152,7 @@ export default function ShopPage() {
                                         alt={product.name}
                                         className="max-h-full object-contain group-hover:scale-110 transition-transform duration-700"
                                     />
-                                    <div className={`absolute top-5 left-5 ${product.badgeColor} text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg`}>
+                                    <div className={`absolute top-5 left-5 ${product.badgeColor} text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg`}>
                                         {product.badge}
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@ export default function ShopPage() {
                                     </p>
                                     <ul className="grid grid-cols-2 gap-2 mb-8">
                                         {product.features.map((feature) => (
-                                            <li key={feature} className="flex items-center gap-2 text-[10px] font-bold text-gray-400">
+                                            <li key={feature} className="flex items-center gap-2 text-xs font-bold text-gray-400">
                                                 <i className="ri-checkbox-circle-fill text-teal-400 text-sm"></i>
                                                 {feature}
                                             </li>
