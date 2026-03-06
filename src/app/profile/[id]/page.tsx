@@ -29,8 +29,8 @@ function NormalProfile({ pet }: { pet: any }) {
                     <div className="w-20 h-20 flex items-center justify-center bg-white/20 rounded-full mx-auto mb-4 backdrop-blur-md">
                         <i className="ri-user-heart-line text-4xl text-white"></i>
                     </div>
-                    <h1 className="text-3xl font-black mb-1 tracking-tight">こんにちは！</h1>
-                    <p className="text-teal-50 font-bold opacity-90">私の飼い主の友達になりましょう</p>
+                    <h1 className="text-3xl font-black mb-1 tracking-tight">QRタグをスキャンしてくれてありがとう！</h1>
+                    <p className="text-teal-50 font-bold opacity-90">飼い主の連絡先はこちらです</p>
                 </div>
                 <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             </div>
@@ -65,7 +65,7 @@ function NormalProfile({ pet }: { pet: any }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                         <div className="w-12 h-12 flex items-center justify-center bg-purple-100 rounded-xl shadow-sm">
-                            <i className="ri-cake-line text-2xl text-purple-600"></i>
+                            <i className="ri-user-line text-2xl text-purple-600"></i>
                         </div>
                         <div>
                             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Owner</p>
@@ -116,20 +116,14 @@ function NormalProfile({ pet }: { pet: any }) {
                 </div>
             </div>
 
-            <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-[2.5rem] p-10 border-2 border-indigo-100 shadow-sm relative overflow-hidden">
-                <div className="relative z-10 text-center">
-                    <div className="w-16 h-16 flex items-center justify-center bg-indigo-500 rounded-2xl shadow-lg mx-auto mb-6">
-                        <i className="ri-heart-line text-3xl text-white"></i>
-                    </div>
-                    <h3 className="text-2xl font-black text-gray-900 mb-2 italic tracking-tight">Spread Love</h3>
-                    <p className="text-gray-600 mb-8 font-bold leading-relaxed">
-                        PawTagを使って、あなたの大切な家族を<br />テクノロジーで守りましょう。
-                    </p>
-                    <Link href="/" className="flex items-center justify-center gap-2 w-full py-5 bg-gray-900 text-white rounded-2xl font-black hover:bg-black transition-all shadow-xl active:scale-[0.98]">
-                        <span>PawTagを詳しく知る</span>
-                        <i className="ri-arrow-right-line text-xl"></i>
-                    </Link>
-                </div>
+            <div className="bg-teal-50 rounded-[2.5rem] p-8 border border-teal-100 shadow-sm text-center">
+                <p className="text-sm text-gray-600 font-light leading-relaxed mb-4">
+                    このページはQRドッグタグサービス <span className="font-bold text-teal-700">PawTag</span> によって提供されています。
+                </p>
+                <Link href="/" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-teal-700 rounded-2xl font-bold text-sm border border-teal-200 hover:bg-teal-50 transition-all shadow-sm active:scale-[0.98]">
+                    PawTagについて
+                    <i className="ri-arrow-right-line"></i>
+                </Link>
             </div>
 
             <div className="mt-12 py-8 text-center border-t border-gray-100">
@@ -149,7 +143,7 @@ function EmergencyProfile({ pet }: { pet: any }) {
                         <i className="ri-alarm-warning-line text-5xl text-white"></i>
                     </div>
                     <h1 className="text-4xl font-black mb-2 tracking-tight">緊急：迷子です</h1>
-                    <p className="text-red-50 font-black text-lg">保護ありがとうございます。至急連絡を乞う</p>
+                    <p className="text-red-50 font-black text-lg">保護ありがとうございます。至急、飼い主にご連絡ください</p>
                 </div>
                 <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
                 <i className="ri-shield-cross-line absolute -bottom-10 -right-10 text-[14rem] text-white/10 -rotate-12 pointer-events-none"></i>
