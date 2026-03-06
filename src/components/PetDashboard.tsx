@@ -30,6 +30,18 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
     const [showToast, setShowToast] = useState(false);
     const [isPending, startTransition] = useTransition();
 
+    const downloadQR = () => {
+        const canvas = document.getElementById('qr-canvas') as HTMLCanvasElement;
+        if (!canvas) return;
+        const pngUrl = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+        const a = document.createElement('a');
+        a.href = pngUrl;
+        a.download = `${pet.name}-qr.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    };
+
     const handleToggle = async () => {
         const nextMode = !isEmergencyMode;
 
@@ -128,7 +140,7 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
                     <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                             <h3 className="text-lg font-bold text-gray-900">{pet.name}</h3>
-                            {pet.breed && <span className="text-[10px] bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full font-bold">{pet.breed}</span>}
+                            {pet.breed && <span className="text-xs bg-purple-50 text-purple-600 px-2 py-0.5 rounded-full font-bold">{pet.breed}</span>}
                         </div>
                         <p className="text-gray-600 text-sm mb-2 line-clamp-1">{pet.features || '特徴未設定'}</p>
                         <div className="flex flex-wrap gap-2 text-[10px] font-bold">
@@ -179,10 +191,10 @@ export function PetDashboard({ pet, publicProfileUrl, otherPetsCount }: PetDashb
                         </div>
                     </Link>
 
-                    <button className="bg-gray-50 rounded-2xl p-4 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer group text-center">
+                    <button onClick={downloadQR} className="bg-gray-50 rounded-2xl p-4 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer group text-center active:scale-[0.98]">
                         <i className="ri-download-cloud-2-line text-2xl text-gray-400 group-hover:text-blue-600 mb-2 block"></i>
                         <p className="font-bold text-gray-900 text-sm">QRを保存する</p>
-                        <p className="text-[10px] text-gray-500 mt-1">印刷・共有用</p>
+                        <p className="text-xs text-gray-500 mt-1">印刷・共有用</p>
                     </button>
                 </div>
             </div>

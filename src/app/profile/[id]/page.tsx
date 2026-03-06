@@ -56,8 +56,8 @@ function NormalProfile({ pet }: { pet: any }) {
                     <div>
                         <h2 className="text-4xl font-black text-gray-900 mb-1">{pet.name}</h2>
                         <div className="flex flex-wrap gap-2 mt-1">
-                            {pet.breed && <span className="bg-teal-50 text-teal-700 text-[10px] font-black px-2.5 py-1 rounded-full">{pet.breed}</span>}
-                            {pet.age && <span className="bg-purple-50 text-purple-700 text-[10px] font-black px-2.5 py-1 rounded-full">{pet.age}</span>}
+                            {pet.breed && <span className="bg-teal-50 text-teal-700 text-xs font-black px-2.5 py-1 rounded-full">{pet.breed}</span>}
+                            {pet.age && <span className="bg-purple-50 text-purple-700 text-xs font-black px-2.5 py-1 rounded-full">{pet.age}</span>}
                         </div>
                     </div>
                 </div>
@@ -102,13 +102,13 @@ function NormalProfile({ pet }: { pet: any }) {
                     <div className="grid grid-cols-2 gap-4 pt-4">
                         {pet.weight && (
                             <div className="bg-gray-50 p-4 rounded-2xl">
-                                <p className="text-[10px] font-black text-gray-400 uppercase mb-1">Weight</p>
+                                <p className="text-xs font-black text-gray-400 uppercase mb-1">Weight</p>
                                 <p className="font-black text-gray-800">{pet.weight}</p>
                             </div>
                         )}
                         {pet.color && (
                             <div className="bg-gray-50 p-4 rounded-2xl">
-                                <p className="text-[10px] font-black text-gray-400 uppercase mb-1">Color</p>
+                                <p className="text-xs font-black text-gray-400 uppercase mb-1">Color</p>
                                 <p className="font-black text-gray-800">{pet.color}</p>
                             </div>
                         )}
@@ -184,7 +184,7 @@ function EmergencyProfile({ pet }: { pet: any }) {
                         <h3 className="text-4xl font-black text-gray-900 mb-2 leading-tight">{pet.name}</h3>
                         <div className="flex flex-wrap gap-2">
                             <span className="text-red-700 font-black px-3 py-1 bg-red-50 rounded-full text-xs border border-red-100 shadow-sm">緊急連絡希望</span>
-                            {pet.breed && <span className="bg-gray-100 text-gray-600 text-[10px] font-black px-2.5 py-1 rounded-full">{pet.breed}</span>}
+                            {pet.breed && <span className="bg-gray-100 text-gray-600 text-xs font-black px-2.5 py-1 rounded-full">{pet.breed}</span>}
                         </div>
                     </div>
                 </div>
@@ -243,19 +243,19 @@ function EmergencyProfile({ pet }: { pet: any }) {
                         <div className="space-y-4">
                             {pet.medicalHistory && (
                                 <div className="p-6 bg-red-50/50 rounded-2xl border border-red-100">
-                                    <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-2">既往症・持病</p>
+                                    <p className="text-xs font-black text-red-500 uppercase tracking-widest mb-2">既往症・持病</p>
                                     <p className="text-gray-900 font-bold leading-relaxed">{pet.medicalHistory}</p>
                                 </div>
                             )}
                             {pet.medication && (
                                 <div className="p-6 bg-red-50/50 rounded-2xl border border-red-100">
-                                    <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-2">服用中の薬</p>
+                                    <p className="text-xs font-black text-red-500 uppercase tracking-widest mb-2">服用中の薬</p>
                                     <p className="text-gray-900 font-bold leading-relaxed">{pet.medication}</p>
                                 </div>
                             )}
                             {pet.medicalNotes && (
                                 <div className="p-6 bg-red-50/50 rounded-2xl border border-red-100">
-                                    <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-2">特記事項</p>
+                                    <p className="text-xs font-black text-red-500 uppercase tracking-widest mb-2">特記事項</p>
                                     <p className="text-gray-900 font-bold leading-relaxed whitespace-pre-wrap">{pet.medicalNotes}</p>
                                 </div>
                             )}
@@ -264,7 +264,7 @@ function EmergencyProfile({ pet }: { pet: any }) {
 
                     {(pet.clinicName || pet.clinicPhone) && (
                         <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100">
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">かかりつけの動物病院</p>
+                            <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-3">かかりつけの動物病院</p>
                             <p className="text-xl font-black text-gray-900 mb-1">{pet.clinicName || '未登録'}</p>
                             {pet.clinicPhone && (
                                 <a href={`tel:${pet.clinicPhone}`} className="text-blue-600 font-bold flex items-center gap-2 hover:underline">

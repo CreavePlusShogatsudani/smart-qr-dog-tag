@@ -15,7 +15,7 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
-      <div className="flex items-center justify-around px-2 py-2">
+      <div className="flex items-center justify-around px-2 py-3">
         {navItems.map((item) => {
           let isActive = pathname === item.href;
           if (item.href === '/admin') {
@@ -29,7 +29,7 @@ export default function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${isActive ? 'text-teal-600' : 'text-gray-600'
+              className={`flex flex-col items-center gap-1 px-5 py-2 rounded-xl transition-colors min-w-[60px] ${isActive ? 'text-teal-600' : 'text-gray-600'
                 }`}
             >
               <i className={`${isActive ? item.activeIcon : item.icon} text-2xl`}></i>

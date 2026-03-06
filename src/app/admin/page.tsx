@@ -66,7 +66,7 @@ export default async function AdminDashboard() {
                                     </div>
                                     <div className="flex items-center gap-2 mb-2">
                                         <h3 className="text-2xl font-black text-gray-900 leading-tight">{pet.name}</h3>
-                                        {pet.breed && <span className="text-[10px] bg-teal-50 text-teal-600 px-2 py-0.5 rounded-full font-bold">{pet.breed}</span>}
+                                        {pet.breed && <span className="text-xs bg-teal-50 text-teal-600 px-2 py-0.5 rounded-full font-bold">{pet.breed}</span>}
                                     </div>
                                     <p className="text-gray-400 text-sm font-medium mb-6 italic line-clamp-1">{pet.features || 'プロフィール設定済み'}</p>
 
@@ -88,8 +88,8 @@ export default async function AdminDashboard() {
                                 </div>
                             </Link>
 
-                            {/* 直接削除ボタン（カードの外、または絶対配置） */}
-                            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            {/* 削除ボタン（モバイルでも常時表示） */}
+                            <div className="absolute top-6 right-6">
                                 <DeletePetButton petId={pet.id} petName={pet.name} />
                             </div>
                         </div>
