@@ -56,7 +56,7 @@ export default function LandingPage() {
         <div className="max-w-screen-xl mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center justify-between">
           <div className="font-['Pacifico'] text-xl md:text-2xl text-teal-600">PawTag</div>
           <nav className="hidden md:flex items-center gap-8">
-            {[['使い方', '#steps'], ['機能', '#features'], ['FAQ', '#faq']].map(([label, href]) => (
+            {[['使い方', '#steps'], ['機能', '#features'], ['料金', '#pricing'], ['FAQ', '#faq']].map(([label, href]) => (
               <a key={label} href={href} className="text-sm text-gray-500 hover:text-teal-600 transition-colors">
                 {label}
               </a>
@@ -82,7 +82,7 @@ export default function LandingPage() {
         </div>
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 flex flex-col gap-4">
-            {[['使い方', '#steps'], ['機能', '#features'], ['FAQ', '#faq']].map(([label, href]) => (
+            {[['使い方', '#steps'], ['機能', '#features'], ['料金', '#pricing'], ['FAQ', '#faq']].map(([label, href]) => (
               <a
                 key={label}
                 href={href}
@@ -102,10 +102,8 @@ export default function LandingPage() {
       {/* ── HERO ── */}
       <section className="pt-14 md:pt-16">
         <div className="relative min-h-[90svh] flex items-center overflow-hidden bg-gradient-to-br from-white via-teal-50/40 to-teal-100/60">
-          {/* Decorative blobs */}
           <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-teal-100 rounded-full opacity-50 blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -left-16 w-72 h-72 bg-teal-200 rounded-full opacity-30 blur-2xl pointer-events-none" />
-          <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-amber-100 rounded-full opacity-40 blur-2xl pointer-events-none" />
 
           <div className="relative z-10 max-w-screen-xl mx-auto px-5 md:px-8 w-full py-20 md:py-28">
             <div className="max-w-2xl">
@@ -127,8 +125,8 @@ export default function LandingPage() {
               </h1>
 
               <p className="text-gray-600 text-base md:text-lg font-light leading-[1.9] mb-10 max-w-lg">
-                QRコードをスキャンするだけで、愛犬のプロフィールと緊急連絡先がすぐに表示されます。
-                もう迷子にさせない、新しい形の迷子札です。
+                首輪のタグにQRコードを印刷するだけ。発見者がスキャンすれば、愛犬の情報と飼い主の連絡先が即座に表示されます。
+                従来の迷子札では伝えられなかった情報を、クラウドで管理できます。
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -152,6 +150,74 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── PROBLEM ── */}
+      <section className="py-20 md:py-28 px-4 md:px-8 bg-gray-50">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">The Problem</p>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight mb-4">
+              従来の迷子札には<br className="md:hidden" />限界があります
+            </h2>
+            <p className="text-gray-500 font-light text-sm md:text-base max-w-md mx-auto leading-relaxed">
+              金属タグに名前と電話番号だけ。それだけでは、もしもの時に十分ではありません。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-14">
+            {/* 従来の迷子札 */}
+            <div className="bg-white rounded-3xl p-8 border-2 border-gray-200">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
+                  <i className="ri-price-tag-3-line text-gray-400 text-xl"></i>
+                </div>
+                <h3 className="text-lg font-black text-gray-500">従来の迷子札</h3>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  '名前と電話番号しか刻めない',
+                  '情報を変更するには作り直し',
+                  '連絡先が1つしか登録できない',
+                  '医療情報・アレルギーを伝えられない',
+                  '発見者との連絡が取れたか確認できない',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-500">
+                    <i className="ri-close-line text-red-400 text-base mt-0.5 flex-shrink-0"></i>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* PawTag */}
+            <div className="bg-white rounded-3xl p-8 border-2 border-teal-400 relative">
+              <div className="absolute -top-3 left-8">
+                <span className="bg-teal-600 text-white text-xs font-black px-4 py-1 rounded-full">PawTag</span>
+              </div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center">
+                  <i className="ri-qr-code-line text-teal-600 text-xl"></i>
+                </div>
+                <h3 className="text-lg font-black text-teal-700">PawTag（このサービス）</h3>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  '写真・犬種・特徴・医療情報を登録',
+                  'スマホからいつでも情報を更新',
+                  '複数の連絡先を登録できる',
+                  '緊急時はモード切替で連絡先を強調表示',
+                  'QRスキャン時に通知が届く（開発中）',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                    <i className="ri-check-line text-teal-500 text-base mt-0.5 flex-shrink-0"></i>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── HOW IT WORKS ── */}
       <section id="steps" className="py-20 md:py-28 px-4 md:px-8 bg-white">
         <div className="max-w-screen-xl mx-auto">
@@ -165,7 +231,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 max-w-4xl mx-auto">
             {[
               {
                 num: '01',
@@ -181,18 +247,18 @@ export default function LandingPage() {
                 color: 'bg-amber-100',
                 iconColor: 'text-amber-600',
                 title: '愛犬の情報を登録',
-                desc: '名前・犬種・特徴・緊急連絡先を入力します。写真も登録できます。',
+                desc: '名前・犬種・特徴・緊急連絡先を入力。写真・医療情報も登録できます。',
               },
               {
                 num: '03',
                 icon: 'ri-qr-code-line',
                 color: 'bg-blue-100',
                 iconColor: 'text-blue-600',
-                title: 'QRタグを装着する',
-                desc: 'QRコードをタグに印刷して首輪につけるだけ。発見者がスキャンすると情報が表示されます。',
+                title: 'QRタグを首輪につける',
+                desc: 'QRコードをタグに印刷して首輪に装着。発見者がスキャンすれば情報が表示されます。',
               },
             ].map((step, i) => (
-              <div key={i} className="flex flex-col items-center text-center md:items-start md:text-left">
+              <div key={i} className="flex flex-col items-center text-center">
                 <div className={`relative w-20 h-20 ${step.color} rounded-3xl flex items-center justify-center mb-6 flex-shrink-0`}>
                   <i className={`${step.icon} ${step.iconColor} text-3xl`} />
                   <span className="absolute -top-2 -right-2 w-7 h-7 bg-gray-900 text-white text-xs font-black rounded-full flex items-center justify-center">
@@ -227,35 +293,35 @@ export default function LandingPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 max-w-3xl mx-auto">
             {[
               {
                 icon: 'ri-qr-code-line',
                 color: 'bg-teal-100',
                 iconColor: 'text-teal-600',
                 title: 'スキャンですぐわかる',
-                desc: '発見者がQRコードをスキャンするだけで、愛犬のプロフィールと連絡先が即座に表示されます。',
+                desc: '発見者がカメラでQRコードを読み取るだけ。アプリのインストール不要で、愛犬のプロフィールと連絡先が即座に表示されます。',
               },
               {
                 icon: 'ri-alarm-warning-line',
                 color: 'bg-red-100',
                 iconColor: 'text-red-600',
-                title: '緊急モード対応',
-                desc: '迷子になったらアプリで緊急モードをON。発見者の画面に連絡先が大きく強調表示されます。',
+                title: '緊急モード',
+                desc: '迷子になったらアプリで緊急モードをON。発見者の画面が切り替わり、飼い主への連絡先が大きく強調表示されます。',
               },
               {
-                icon: 'ri-lock-password-line',
-                color: 'bg-blue-100',
-                iconColor: 'text-blue-600',
-                title: '安全な情報管理',
-                desc: '飼い主の個人情報は暗号化して保護。発見者には必要な情報だけが表示されます。',
+                icon: 'ri-file-list-3-line',
+                color: 'bg-amber-100',
+                iconColor: 'text-amber-600',
+                title: '豊富なプロフィール情報',
+                desc: '名前・犬種・年齢・特徴・写真に加えて、持病・服薬中の薬・アレルギー・かかりつけ医の情報も登録できます。',
               },
               {
                 icon: 'ri-smartphone-line',
                 color: 'bg-purple-100',
                 iconColor: 'text-purple-600',
-                title: 'スマホで簡単管理',
-                desc: '登録・編集・QRコードのダウンロードまで、ブラウザからすべて完結します。',
+                title: 'いつでも情報を更新',
+                desc: 'スマホから登録・編集・QRコードのダウンロードまで完結。引越しや電話番号変更があっても、タグを作り直す必要がありません。',
               },
             ].map((feature, i) => (
               <div
@@ -274,37 +340,65 @@ export default function LandingPage() {
       </section>
 
       {/* ── PRICING ── */}
-      <section className="py-20 md:py-28 px-4 md:px-8 bg-teal-600">
-        <div className="max-w-screen-xl mx-auto text-center">
-          <p className="text-xs font-bold tracking-[0.2em] text-teal-200 uppercase mb-4">Pricing</p>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-5 tracking-tight">
-            アプリは<span className="text-teal-200">完全無料</span>
-          </h2>
-          <p className="text-teal-100 font-light text-sm md:text-base max-w-md mx-auto leading-relaxed mb-10">
-            アカウント登録・QRコード作成・情報管理はすべて無料。
-            QRタグ（物理商品）のみ別途ご購入いただきます。
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/register"
-              className="inline-flex items-center gap-2 bg-white text-teal-700 px-8 py-4 rounded-full font-bold text-base hover:bg-teal-50 transition-all shadow-lg hover:-translate-y-0.5 active:scale-[0.98]"
-            >
-              <i className="ri-heart-line" />
-              無料で始める
-            </Link>
-            <Link
-              href="/admin/shop"
-              className="inline-flex items-center gap-2 bg-teal-700/70 text-white px-8 py-4 rounded-full font-bold text-base hover:bg-teal-800 transition-all border border-teal-400/50 active:scale-[0.98]"
-            >
-              <i className="ri-shopping-bag-line" />
-              QRタグを購入する
-            </Link>
+      <section id="pricing" className="py-20 md:py-28 px-4 md:px-8 bg-white">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-xs font-bold tracking-[0.2em] text-teal-600 uppercase mb-4">Pricing</p>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight mb-4">
+              シンプルな料金体系
+            </h2>
+            <p className="text-gray-500 font-light text-sm md:text-base max-w-md mx-auto leading-relaxed">
+              アプリは完全無料。必要なのはQRを印刷するための物理タグだけです。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {/* アプリ無料 */}
+            <div className="bg-teal-600 rounded-3xl p-8 text-white">
+              <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mb-5">
+                <i className="ri-smartphone-line text-white text-2xl"></i>
+              </div>
+              <p className="text-teal-200 text-xs font-bold tracking-widest uppercase mb-2">アプリ利用料</p>
+              <div className="flex items-end gap-1 mb-3">
+                <span className="text-5xl font-black">¥0</span>
+                <span className="text-teal-200 text-sm font-light mb-2">完全無料</span>
+              </div>
+              <ul className="space-y-2 text-sm">
+                {['アカウント登録', 'QRコード作成・管理', 'プロフィール登録・編集', '緊急モード切替', '複数ペットの登録'].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-teal-100">
+                    <i className="ri-check-line text-teal-300 flex-shrink-0"></i>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* QRタグ */}
+            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-200">
+              <div className="w-12 h-12 bg-gray-200 rounded-2xl flex items-center justify-center mb-5">
+                <i className="ri-qr-code-line text-gray-600 text-2xl"></i>
+              </div>
+              <p className="text-gray-400 text-xs font-bold tracking-widest uppercase mb-2">QRタグ（物理商品）</p>
+              <div className="flex items-end gap-1 mb-3">
+                <span className="text-5xl font-black text-gray-900">¥1,280〜</span>
+              </div>
+              <p className="text-gray-500 text-sm font-light leading-relaxed mb-5">
+                ステンレス製・シリコン製など複数の素材・カラーから選べます。印刷済みのQRタグを首輪に取り付けるだけ。
+              </p>
+              <Link
+                href="/admin/shop"
+                className="flex items-center justify-center gap-2 w-full py-3.5 bg-gray-900 text-white rounded-xl font-bold text-sm hover:bg-black transition-all active:scale-[0.98]"
+              >
+                <i className="ri-shopping-bag-line"></i>
+                タグをショップで見る
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── FAQ ── */}
-      <section id="faq" className="py-20 md:py-28 px-4 md:px-8 bg-white">
+      <section id="faq" className="py-20 md:py-28 px-4 md:px-8 bg-gray-50">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-14 md:mb-20">
             <p className="text-xs font-bold tracking-[0.2em] text-teal-600 uppercase mb-4">FAQ</p>
@@ -318,7 +412,7 @@ export default function LandingPage() {
                 key={i}
                 className={`rounded-2xl border transition-all overflow-hidden ${
                   expandedFaq === i
-                    ? 'border-teal-200 bg-teal-50/30'
+                    ? 'border-teal-200 bg-white'
                     : 'border-gray-200 bg-white hover:border-gray-300'
                 }`}
               >
@@ -380,15 +474,10 @@ export default function LandingPage() {
             <p className="text-xs font-light text-gray-600">愛犬を守る、スマートQRドッグタグ</p>
           </div>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
-            {[
-              { label: '使い方', href: '#steps' },
-              { label: '機能', href: '#features' },
-              { label: 'FAQ', href: '#faq' },
-            ].map((item) => (
-              <a key={item.label} href={item.href} className="hover:text-teal-400 transition-colors">
-                {item.label}
-              </a>
-            ))}
+            <a href="#steps" className="hover:text-teal-400 transition-colors">使い方</a>
+            <a href="#features" className="hover:text-teal-400 transition-colors">機能</a>
+            <a href="#pricing" className="hover:text-teal-400 transition-colors">料金</a>
+            <a href="#faq" className="hover:text-teal-400 transition-colors">FAQ</a>
             <Link href="/admin/shop" className="hover:text-teal-400 transition-colors">ショップ</Link>
             <Link href="/login" className="hover:text-teal-400 transition-colors">ログイン</Link>
           </div>
