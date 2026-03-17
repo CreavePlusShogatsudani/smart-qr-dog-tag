@@ -54,10 +54,6 @@ export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
             />
           </div>
           
-          {/* クオリティの高いオーバーアイコン */}
-          <div className="absolute -bottom-2 -right-2 bg-white w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg border border-gray-50 transform rotate-12">
-            <i className="ri-heart-3-fill text-[#e8836a] text-xl"></i>
-          </div>
         </div>
 
         {/* 強化されたタイポグラフィ */}
