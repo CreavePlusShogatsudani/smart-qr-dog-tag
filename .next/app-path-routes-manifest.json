@@ -1,0 +1,16 @@
+{
+  "/api/auth/register/route": "/api/auth/register",
+  "/_not-found/page": "/_not-found",
+  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
+  "/help/page": "/help",
+  "/login/page": "/login",
+  "/qr-emergency/page": "/qr-emergency",
+  "/qr-normal/page": "/qr-normal",
+  "/profile/page": "/profile",
+  "/dashboard/page": "/dashboard",
+  "/settings/page": "/settings",
+  "/store/page": "/store",
+  "/register/page": "/register",
+  "/(LP)/page": "/",
+  "/store/[id]/page": "/store/[id]"
+}

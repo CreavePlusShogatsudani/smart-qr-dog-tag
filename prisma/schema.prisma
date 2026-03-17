@@ -1,0 +1,92 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                String   @id @default(cuid())
+  name              String?
+  email             String   @unique
+  password          String
+  line_user_id      String?  @unique
+  address           String?  // プロフィール編集用：自宅住所
+  phone             String?  // プロフィール編集用：電話番号
+  sos_message       String?
+  sos_contact_name  String?
+  sos_contact_phone String?
+  notify_qr_scans          Boolean  @default(true) // 設定用：QRスキャン通知
+  notify_emergency_alerts  Boolean  @default(true) // 設定用：緊急アラート
+  notify_location_updates  Boolean  @default(true) // 設定用：位置情報更新
+  notify_messages          Boolean  @default(true) // 設定用：メッセージ受信
+  emergency_auto_notify    Boolean  @default(true) // 設定用：緊急モード自動通知
+  emergency_share_location Boolean  @default(false)// 設定用：緊急モード位置情報共有
+
+  pets              Pet[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Pet {
+  id             String          @id @default(cuid())
+  owner_id       String
+  name           String
+  species        Species         // DOG or CAT
+  breed          String?
+  age            Int?            // 年齢（数値）
+  age_text       String?         // 画面表示用の年齢テキスト（例："3歳2ヶ月"）
+  weight         String?         // 体重表現
+  color          String?         // 毛色
+  description    String?         // 紹介文
+  instagram_id   String?         // InstagramのID（@なし）
+  image_url      String?         // ペットの画像URL
+  is_lost        Boolean         @default(false)
+  owner          User            @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+  vaccineRecords VaccineRecord[]
+  medicalRecords MedicalRecord[]
+  tags           Tag[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+enum Species {
+  DOG
+  CAT
+}
+
+model VaccineRecord {
+  id             String   @id @default(cuid())
+  pet_id         String
+  rabies_date    DateTime?
+  mixed_date     DateTime?
+  certificateUrl String?  // 画像アップロード・保存用のURLカラム
+  pet            Pet      @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model MedicalRecord {
+  id                String   @id @default(cuid())
+  pet_id            String
+  chronic_diseases  String?
+  medications       String?
+  vet_clinic_name   String?
+  vet_clinic_phone  String?
+  special_notes     String?  // 緊急時の特記事項用
+  pet               Pet      @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  pet_id    String?
+  tag_hash  String   @unique @default(uuid())
+  pet       Pet?     @relation(fields: [pet_id], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
