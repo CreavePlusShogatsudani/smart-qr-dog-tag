@@ -26,9 +26,12 @@ export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
           }`}
         >
           <img
-            src={petData?.image_url || "https://readdy.ai/api/search-image?query=A%20cute%20golden%20retriever%20puppy%20face%20close-up%20portrait%2C%20fluffy%20fur%2C%20big%20brown%20eyes%2C%20happy%20expression%2C%20soft%20white%20background%2C%20professional%20pet%20photography%2C%20adorable%2C%20high%20resolution%2C%20square%20crop&width=200&height=200&seq=pet-avatar-circle-01&orientation=squarish"}
+            src={petData?.image_url || "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=400&h=240"}
             alt={petData?.name || "Pet"}
             className="w-full h-full object-cover object-top"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=400&h=240";
+            }}
           />
         </div>
 

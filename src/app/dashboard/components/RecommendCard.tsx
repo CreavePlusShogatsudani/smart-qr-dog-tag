@@ -15,21 +15,21 @@ export default function RecommendCard({ petData }: RecommendCardProps) {
 
   const items = [
     {
-      img: 'https://readdy.ai/api/search-image?query=A%20golden%20retriever%20dog%20gently%20walking%20on%20a%20soft%20grassy%20path%20in%20warm%20afternoon%20sunlight%2C%20peaceful%20and%20healthy%20lifestyle%2C%20shallow%20depth%20of%20field%2C%20warm%20tones%2C%20professional%20pet%20photography%2C%20no%20text&width=400&height=240&seq=concierge-joint-01&orientation=landscape',
+      img: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=400&h=240',
       category: '健康アドバイス',
       title: '健やかな毎日のための関節ケア',
       desc: `${petName}の元気な歩みを、今からしっかりサポート。`,
       pr: true,
     },
     {
-      img: 'https://readdy.ai/api/search-image?query=A%20happy%20golden%20retriever%20dog%20eating%20from%20a%20clean%20ceramic%20bowl%2C%20natural%20light%20kitchen%20setting%2C%20healthy%20meal%2C%20warm%20cozy%20atmosphere%2C%20professional%20lifestyle%20pet%20photography%2C%20no%20text&width=400&height=240&seq=concierge-food-02&orientation=landscape',
+      img: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&q=80&w=400&h=240',
       category: '栄養ガイド',
       title: '最適な食事バランスとは？',
       desc: `${petBreed}に合った理想的な栄養素を専門家が解説。`,
       pr: false,
     },
     {
-      img: 'https://readdy.ai/api/search-image?query=A%20veterinarian%20gently%20examining%20a%20golden%20retriever%20dog%20in%20a%20bright%20clean%20clinic%2C%20caring%20and%20professional%20atmosphere%2C%20soft%20natural%20light%2C%20warm%20tones%2C%20no%20text&width=400&height=240&seq=concierge-vet-03&orientation=landscape',
+      img: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=400&h=240',
       category: '定期検診',
       title: '年1回の健康診断チェックリスト',
       desc: '健康な時間を長く過ごすための、見落としがちな検査項目。',
