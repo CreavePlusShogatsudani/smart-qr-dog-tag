@@ -29,6 +29,14 @@
         "nxtPid": "nxtPid"
       },
       "namedRegex": "^/store/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/t/[tag_hash]",
+      "regex": "^/t/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPtag_hash": "nxtPtag_hash"
+      },
+      "namedRegex": "^/t/(?<nxtPtag_hash>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
@@ -67,18 +75,6 @@
       "regex": "^/profile(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/profile(?:/)?$"
-    },
-    {
-      "page": "/qr-emergency",
-      "regex": "^/qr\\-emergency(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/qr\\-emergency(?:/)?$"
-    },
-    {
-      "page": "/qr-normal",
-      "regex": "^/qr\\-normal(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/qr\\-normal(?:/)?$"
     },
     {
       "page": "/register",

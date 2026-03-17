@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css');
+
 :root {
   --color-teal-50: #fdf8f8;
   --color-teal-100: #fbf0f0;
@@ -11,7 +17,3 @@
   --color-teal-900: #874e4e;
   --color-teal-950: #703e3e;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

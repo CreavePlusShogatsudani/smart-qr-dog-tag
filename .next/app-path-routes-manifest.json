@@ -1,16 +1,15 @@
 {
-  "/api/auth/register/route": "/api/auth/register",
   "/_not-found/page": "/_not-found",
   "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
-  "/help/page": "/help",
-  "/login/page": "/login",
-  "/qr-emergency/page": "/qr-emergency",
-  "/qr-normal/page": "/qr-normal",
-  "/profile/page": "/profile",
+  "/api/auth/register/route": "/api/auth/register",
   "/dashboard/page": "/dashboard",
+  "/(LP)/page": "/",
+  "/help/page": "/help",
+  "/profile/page": "/profile",
   "/settings/page": "/settings",
   "/store/page": "/store",
+  "/login/page": "/login",
+  "/t/[tag_hash]/page": "/t/[tag_hash]",
   "/register/page": "/register",
-  "/(LP)/page": "/",
   "/store/[id]/page": "/store/[id]"
 }

@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST='{"app/settings/page.tsx -> next-auth/react":{"id":2108,"files":["static/chunks/108-1fa1d9892d33d32c.js"]},"components/BottomNav.tsx -> next-auth/react":{"id":2108,"files":[]}}';
+self.__REACT_LOADABLE_MANIFEST='{"app/settings/SettingsClient.tsx -> next-auth/react":{"id":2108,"files":["static/chunks/108-dc10d4a5550a5071.js"]}}';
