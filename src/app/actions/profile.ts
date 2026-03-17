@@ -20,9 +20,14 @@ export async function uploadImage(file: File, path: string) {
 
   if (error) {
     // バケットが存在しない可能性を考慮して自動作成を試みる（初回のみ）
-    if (error.message.includes('bucket not found')) {
-       await supabaseAdmin.storage.createBucket('pets', { public: true });
-       return uploadImage(file, path);
+    if (error.message.toLowerCase().includes('bucket not found')) {
+       try {
+         await supabaseAdmin.storage.createBucket('pets', { public: true });
+         return uploadImage(file, path);
+       } catch (createError) {
+         console.error('Failed to create bucket:', createError);
+         throw error;
+       }
     }
     throw error;
   }
