@@ -65,9 +65,6 @@ export default async function TagPage({
               src={(pet as any).image_url || "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=800&h=800"}
               alt={pet.name}
               className="w-full h-full object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=800&h=800";
-              }}
             />
           </div>
           
