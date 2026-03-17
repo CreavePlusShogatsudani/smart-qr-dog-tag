@@ -15,13 +15,13 @@ export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
         className={`absolute inset-0 transition-all duration-700 ${
           isEmergencyMode 
             ? 'bg-gradient-to-b from-[#4d1010] to-[#2d1a14]' 
-            : 'bg-gradient-to-b from-[#2d1a14] via-[#3d2a24] to-[#fdf8f8]'
+            : 'bg-gradient-to-b from-[#fbf0f0] via-[#edc2c2]/30 to-[#fdf8f8]'
         }`}
       />
       
       {/* 背景の装飾的な要素 */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#e8836a]/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-      <div className="absolute bottom-20 left-0 w-32 h-32 bg-[#f9d5c8]/5 rounded-full blur-2xl -ml-10"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#edc2c2]/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
+      <div className="absolute bottom-20 left-0 w-32 h-32 bg-[#e8836a]/10 rounded-full blur-2xl -ml-10"></div>
 
       <div className="relative flex flex-col items-center pt-12 pb-10 px-6">
         {/* 緊急バナー - より洗練されたデザイン */}
@@ -40,8 +40,8 @@ export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
           <div className="absolute -inset-1.5 bg-gradient-to-tr from-[#e8836a] to-[#f9d5c8] rounded-[40px] opacity-30 blur-sm group-hover:opacity-50 transition-opacity"></div>
           
           <div
-            className={`relative w-44 h-44 rounded-[36px] border-[3px] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-all duration-700 transform hover:scale-105 ${
-              isEmergencyMode ? 'border-red-500 rotate-1' : 'border-[#f9d5c8]/50 -rotate-1'
+            className={`relative w-44 h-44 rounded-[36px] border-[3px] overflow-hidden shadow-[0_20px_40px_-10px_rgba(77,42,32,0.2)] transition-all duration-700 transform hover:scale-105 ${
+              isEmergencyMode ? 'border-red-500 rotate-1' : 'border-white rotate-[-1deg]'
             }`}
           >
             <img
@@ -55,21 +55,21 @@ export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
           </div>
           
           {/* クオリティの高いオーバーアイコン */}
-          <div className="absolute -bottom-2 -right-2 bg-white w-10 h-10 rounded-2xl flex items-center justify-center shadow-xl border border-gray-100 transform rotate-12">
+          <div className="absolute -bottom-2 -right-2 bg-white w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg border border-gray-50 transform rotate-12">
             <i className="ri-heart-3-fill text-[#e8836a] text-xl"></i>
           </div>
         </div>
 
         {/* 強化されたタイポグラフィ */}
         <div className="mt-8 text-center space-y-1">
-          <h2 className="text-3xl font-black text-white tracking-tight drop-shadow-md">
+          <h2 className="text-3xl font-black text-[#4d2a20] tracking-tight">
             {petData?.name || "未登録"}
           </h2>
           <div className="flex items-center justify-center gap-2">
-            <span className="text-[10px] font-bold text-[#f9d5c8] tracking-[0.2em] uppercase bg-[#f9d5c8]/10 px-3 py-1 rounded-full border border-[#f9d5c8]/20">
+            <span className="text-[10px] font-bold text-[#a16565] tracking-[0.2em] uppercase bg-white/60 px-3 py-1 rounded-full border border-[#f5e0e0]">
               {petData?.breed || "犬種未登録"}
             </span>
-            <span className="text-[10px] font-medium text-white/60 tracking-widest">
+            <span className="text-[10px] font-medium text-[#874e4e]/60 tracking-widest">
               / {petData?.age_text || "年齢未登録"}
             </span>
           </div>
@@ -77,12 +77,12 @@ export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
 
         <div className="mt-8 flex items-center gap-4">
           <Link href="/profile" className="group">
-            <div className="flex items-center gap-2 px-8 py-2.5 rounded-full bg-white/10 border border-white/20 text-xs font-bold text-white transition-all hover:bg-white hover:text-[#2d1a14] shadow-lg backdrop-blur-md">
+            <div className="flex items-center gap-2 px-8 py-2.5 rounded-full bg-white/80 border border-[#f5e0e0] text-xs font-bold text-[#4d2a20] transition-all hover:bg-white hover:scale-105 shadow-md backdrop-blur-md">
               <i className="ri-edit-2-line text-sm opacity-70 group-hover:opacity-100"></i>
               プロフィール編集
             </div>
           </Link>
-          <div className="w-10 h-10 rounded-full bg-white transition-all hover:bg-gray-100 flex items-center justify-center shadow-lg border border-gray-200 cursor-pointer text-[#2d1a14]">
+          <div className="w-10 h-10 rounded-full bg-white/80 border border-[#f5e0e0] transition-all hover:bg-white flex items-center justify-center shadow-md cursor-pointer text-[#4d2a20]">
             <i className="ri-share-forward-line text-lg"></i>
           </div>
         </div>
