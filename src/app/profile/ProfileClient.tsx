@@ -42,55 +42,36 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* 飼い主情報 */}
-      <div className="bg-white rounded-[24px] p-5 shadow-lg" style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.07)' }}>
-          <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <i className="ri-parent-line text-teal-500"></i>
-              飼い主情報
-          </h2>
-          <div className="space-y-4">
-              <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">飼い主の名前</label>
-                  <input name="name" type="text" defaultValue={initialData?.name || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
-              </div>
-              <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">メールアドレス（変更不可）</label>
-                  <input type="email" disabled defaultValue={initialData?.email || ''} className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-500 focus:outline-none" />
-              </div>
-              <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">電話番号</label>
-                  <input name="phone" type="tel" defaultValue={initialData?.phone || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
-              </div>
-              <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">自宅住所</label>
-                  <input name="address" type="text" defaultValue={initialData?.address || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
-              </div>
+      {/* 1. ペット情報 (通常表示) */}
+      <div className="bg-white rounded-[24px] p-5 shadow-lg border-t-4 border-teal-400" style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.05)' }}>
+          <div className="flex items-center justify-between mb-4">
+              <h2 className="font-bold text-gray-900 flex items-center gap-2">
+                  <i className="ri-baidu-line text-teal-500 text-lg"></i>
+                  ペットの基本情報
+              </h2>
+              <span className="bg-teal-50 text-teal-600 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">通常表示</span>
           </div>
-      </div>
-
-      {/* ペット情報 */}
-      <div className="bg-white rounded-[24px] p-5 shadow-lg" style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.07)' }}>
-          <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <i className="ri-baidu-line text-teal-500"></i>
-              ペットの基本情報
-          </h2>
+          <p className="text-[11px] text-gray-400 mb-6 leading-relaxed">
+              タグをスキャンした際に、誰にでも表示されるペットのプロフィールです。
+          </p>
+          
           <div className="space-y-4">
               <input type="hidden" name="petId" value={pet?.id || ''} />
               <input type="hidden" name="currentImageUrl" value={pet?.image_url || ''} />
               
               <div className="flex flex-col items-center mb-6">
-                <div className="w-32 h-32 rounded-full border-4 border-teal-50 overflow-hidden shadow-inner bg-gray-100 relative mb-3">
+                <div className="w-32 h-32 rounded-full border-4 border-teal-50 overflow-hidden shadow-inner bg-gray-100 relative mb-3 group">
                   <img 
                     src={previewUrl || pet?.image_url || "https://readdy.ai/api/search-image?query=pet%20placeholder&width=200&height=200"} 
                     alt="Preview" 
                     className="w-full h-full object-cover"
                   />
-                  <label className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-bold">
+                  <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-bold">
                     写真を変更
                     <input type="file" name="petImage" accept="image/*" className="hidden" onChange={handleImageChange} />
                   </label>
                 </div>
-                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">画像をクリックして変更</p>
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest cursor-pointer hover:text-teal-500" onClick={() => (document.querySelector('input[name="petImage"]') as any)?.click()}>画像をタップして変更</p>
               </div>
 
               <div>
@@ -118,39 +99,78 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
                   </div>
               </div>
               <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">紹介文</label>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">紹介文・性格</label>
                   <textarea name="petDescription" defaultValue={pet?.description || ''} rows={3} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300 resize-none"></textarea>
               </div>
           </div>
       </div>
 
-      {/* 医療情報 */}
-      <div className="bg-white rounded-[24px] p-5 shadow-lg" style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.07)' }}>
-          <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <i className="ri-heart-pulse-line text-teal-500"></i>
-              医療・持病情報
-          </h2>
+      {/* 2. 飼い主情報 (緊急時のみ表示) */}
+      <div className="bg-white rounded-[24px] p-5 shadow-lg border-t-4 border-red-400" style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.05)' }}>
+          <div className="flex items-center justify-between mb-4">
+              <h2 className="font-bold text-gray-900 flex items-center gap-2">
+                  <i className="ri-phone-fill text-red-500 text-lg"></i>
+                  飼い主・緊急連絡先
+              </h2>
+              <span className="bg-red-50 text-red-600 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">緊急時のみ表示</span>
+          </div>
+          <p className="text-[11px] text-gray-500 mb-6 leading-relaxed">
+              <span className="text-red-600 font-bold">⚠️ 注意：</span> 
+              電話番号とお名前は、<span className="font-bold underline">迷子モード発動中</span>にのみ公開ページに表示されます。通常時は非公開です。
+          </p>
+          <div className="space-y-4">
+              <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">飼い主の名前（緊急連絡先名）</label>
+                  <input name="name" type="text" defaultValue={initialData?.name || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-red-200" />
+              </div>
+              <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">緊急連絡先電話番号</label>
+                  <input name="phone" type="tel" defaultValue={initialData?.phone || ''} placeholder="090-0000-0000" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-red-200" />
+              </div>
+              <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">自宅住所 <span className="text-gray-400 font-normal">（※公開されません）</span></label>
+                  <input name="address" type="text" defaultValue={initialData?.address || ''} className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-500 focus:outline-none" title="住所はシステム管理用で公開されません" />
+              </div>
+              <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">メールアドレス（変更不可）</label>
+                  <input type="email" disabled defaultValue={initialData?.email || ''} className="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-400 focus:outline-none" />
+              </div>
+          </div>
+      </div>
+
+      {/* 3. 医療・安全性情報 (常時表示) */}
+      <div className="bg-white rounded-[24px] p-5 shadow-lg border-t-4 border-orange-400" style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.05)' }}>
+          <div className="flex items-center justify-between mb-4">
+              <h2 className="font-bold text-gray-900 flex items-center gap-2">
+                  <i className="ri-heart-pulse-fill text-orange-500 text-lg"></i>
+                  命に関わる重要情報
+              </h2>
+              <span className="bg-orange-50 text-orange-600 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">常時表示可能</span>
+          </div>
+          <p className="text-[11px] text-gray-500 mb-6 leading-relaxed">
+              迷子として発見された際、<span className="text-orange-600 font-bold">安全に保護してもらうために必要な情報</span>です。
+          </p>
           <div className="space-y-4">
               <input type="hidden" name="medicalId" value={medical?.id || ''} />
               <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1 text-orange-700">⚠️ 緊急時の注意事項（接し方・アレルギーなど）</label>
+                  <textarea name="specialNotes" defaultValue={medical?.special_notes || ''} rows={3} placeholder="例: かみ癖があります、大きな音が苦手です、重篤な卵アレルギーがあります" className="w-full bg-orange-50 border border-orange-200 rounded-xl px-4 py-3 text-sm text-orange-900 focus:outline-none focus:border-orange-400 resize-none font-bold"></textarea>
+              </div>
+              <div>
                   <label className="block text-xs font-bold text-gray-700 mb-1">持病・既往症</label>
-                  <input name="chronicDiseases" type="text" defaultValue={medical?.chronic_diseases || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
+                  <input name="chronicDiseases" type="text" defaultValue={medical?.chronic_diseases || ''} placeholder="例: 心疾患、てんかん" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
               </div>
               <div>
                   <label className="block text-xs font-bold text-gray-700 mb-1">服用中の薬</label>
                   <input name="medications" type="text" defaultValue={medical?.medications || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
               </div>
-              <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">かかりつけ病院</label>
+              <div className="pt-2 border-t border-gray-100">
+                  <label className="block text-xs font-bold text-gray-700 mb-1">かかりつけ病院名</label>
                   <input name="vetClinicName" type="text" defaultValue={medical?.vet_clinic_name || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
               </div>
               <div>
                   <label className="block text-xs font-bold text-gray-700 mb-1">病院の電話番号</label>
                   <input name="vetClinicPhone" type="tel" defaultValue={medical?.vet_clinic_phone || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
-              </div>
-              <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1 text-teal-600">⚠️ 緊急時の注意事項</label>
-                  <textarea name="specialNotes" defaultValue={medical?.special_notes || ''} rows={3} className="w-full bg-teal-50 border border-teal-200 rounded-xl px-4 py-3 text-sm text-teal-800 focus:outline-none focus:border-teal-400 resize-none"></textarea>
               </div>
           </div>
       </div>
