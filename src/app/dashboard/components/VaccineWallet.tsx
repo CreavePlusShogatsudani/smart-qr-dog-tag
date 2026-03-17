@@ -19,6 +19,9 @@ export default function VaccineWallet({ petId, vaccineRecords = [] }: VaccineWal
   // 混合ワクチン（直近1つ）
   const mixedRecord = vaccineRecords.find(r => r.mixed_date);
 
+  const [mixedDate, setMixedDate] = useState(mixedRecord?.mixed_date ? new Date(mixedRecord.mixed_date).toISOString().split('T')[0] : '');
+  const [rabiesDate, setRabiesDate] = useState(rabiesRecord?.rabies_date ? new Date(rabiesRecord.rabies_date).toISOString().split('T')[0] : '');
+
   const displayVaccines = [
     { 
       id: rabiesRecord?.id,
@@ -26,7 +29,9 @@ export default function VaccineWallet({ petId, vaccineRecords = [] }: VaccineWal
       date: rabiesRecord?.rabies_date ? new Date(rabiesRecord.rabies_date).toLocaleDateString() : '未登録', 
       url: rabiesRecord?.certificateUrl,
       type: 'rabies' as const,
-      color: 'bg-white text-teal-600' 
+      color: 'bg-white text-teal-600',
+      selectedDate: rabiesDate,
+      setSelectedDate: setRabiesDate
     },
     { 
       id: mixedRecord?.id,
@@ -34,7 +39,9 @@ export default function VaccineWallet({ petId, vaccineRecords = [] }: VaccineWal
       date: mixedRecord?.mixed_date ? new Date(mixedRecord.mixed_date).toLocaleDateString() : '未登録', 
       url: mixedRecord?.certificateUrl,
       type: 'mixed' as const,
-      color: 'bg-white text-teal-600' 
+      color: 'bg-white text-teal-600',
+      selectedDate: mixedDate,
+      setSelectedDate: setMixedDate
     },
   ];
 
@@ -42,12 +49,18 @@ export default function VaccineWallet({ petId, vaccineRecords = [] }: VaccineWal
     const file = e.target.files?.[0];
     if (!file || !activeType) return;
 
+    const selectedDate = activeType === 'rabies' ? rabiesDate : mixedDate;
+    if (!selectedDate) {
+      alert('接種日を選択してください');
+      return;
+    }
+
     setIsUploading(true);
     try {
       const formData = new FormData();
       formData.append('petId', petId);
       formData.append('type', activeType);
-      formData.append('date', new Date().toISOString().split('T')[0]); // 本日をデフォルトに
+      formData.append('date', selectedDate);
       formData.append('certificate', file);
       
       const currentRecord = activeType === 'rabies' ? rabiesRecord : mixedRecord;
@@ -119,22 +132,38 @@ export default function VaccineWallet({ petId, vaccineRecords = [] }: VaccineWal
       </div>
 
       {expanded && (
-        <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="mt-4 space-y-4">
           {displayVaccines.map((v) => (
-            <div 
-              key={v.type} 
-              onClick={() => triggerUpload(v.type)}
-              className="border-2 border-dashed border-teal-600/30 rounded-2xl h-24 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-teal-600 transition-colors bg-white/10"
-            >
-              {isUploading && activeType === v.type ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-2 border-teal-800 border-t-transparent"></div>
-              ) : (
-                <>
-                  <i className="ri-upload-cloud-line text-2xl text-teal-700"></i>
-                  <p className="text-[10px] text-teal-800 font-bold">{v.name}</p>
-                  <p className="text-[8px] text-teal-700 opacity-70">証明書を追加</p>
-                </>
-              )}
+            <div key={v.type} className="bg-white/10 p-4 rounded-2xl border border-teal-600/20">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-bold text-teal-950">{v.name}</span>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-teal-900/60 ml-1">接種日を選択</label>
+                  <input 
+                    type="date" 
+                    value={v.selectedDate}
+                    onChange={(e) => v.setSelectedDate(e.target.value)}
+                    className="w-full bg-white/80 rounded-xl px-3 py-2 text-sm text-teal-950 focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  />
+                </div>
+
+                <div 
+                  onClick={() => triggerUpload(v.type)}
+                  className="border-2 border-dashed border-teal-600/30 rounded-xl py-4 flex flex-col items-center justify-center gap-1 cursor-pointer hover:border-teal-600 transition-colors bg-white/5"
+                >
+                  {isUploading && activeType === v.type ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-teal-800 border-t-transparent"></div>
+                  ) : (
+                    <>
+                      <i className="ri-upload-cloud-line text-xl text-teal-700"></i>
+                      <p className="text-[10px] text-teal-800 font-bold">証明書をアップロード</p>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -144,7 +173,7 @@ export default function VaccineWallet({ petId, vaccineRecords = [] }: VaccineWal
         onClick={() => setExpanded(!expanded)}
         className="mt-4 w-full py-2.5 rounded-2xl text-sm font-semibold text-teal-900 bg-white/80 hover:bg-white transition-colors cursor-pointer whitespace-nowrap"
       >
-        {expanded ? '閉じる' : '証明書を管理する'}
+        {expanded ? '管理を閉じる' : '接種日・証明書を編集'}
       </button>
     </div>
   );
