@@ -34,7 +34,15 @@ export default async function TagPage({
   }
 
   const pet = tag.pet;
-  const isLost = pet.is_lost || previewMode;
+  const previewParam = sParams.preview;
+  
+  // URLパラメータで状態がプレビュー指定されていればそれを優先、なければDBの is_lost を参照
+  const isLost = previewParam === 'lost' 
+    ? true 
+    : previewParam === 'normal' 
+      ? false 
+      : pet.is_lost;
+
   const owner = pet.owner;
   const medical = pet.medicalRecords[0];
   const rabies = pet.vaccineRecords.find(r => r.rabies_date);

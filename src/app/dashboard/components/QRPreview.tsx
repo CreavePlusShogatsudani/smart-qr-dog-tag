@@ -18,7 +18,7 @@ export default function QRPreview({ tagHash }: QRPreviewProps) {
         <h3 className="font-bold text-teal-950 text-base">公開ページのプレビュー</h3>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <Link href={`/t/${tagHash}`}>
+        <Link href={`/t/${tagHash}?preview=normal`}>
           <div className="bg-white/90 rounded-2xl p-4 border border-teal-300 hover:border-teal-400 transition-all cursor-pointer h-full">
             <div className="w-full aspect-square bg-teal-50 rounded-xl mb-3 flex items-center justify-center shadow-sm">
               <i className="ri-layout-grid-line text-4xl text-teal-600"></i>
