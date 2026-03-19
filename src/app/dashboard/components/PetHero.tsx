@@ -9,41 +9,41 @@ interface PetHeroProps {
 
 export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
   return (
-    <div className="relative w-full overflow-hidden">
-      {/* プレミアムグラデーション背景 */}
+    <div className={`relative w-full overflow-hidden transition-all duration-700 ${isEmergencyMode ? 'rounded-b-[40px] shadow-md mb-6' : ''}`}>
+      {/* プレミアムグラデーション背景 / または緊急時のソリッドな赤背景 */}
       <div 
         className={`absolute inset-0 transition-all duration-700 ${
           isEmergencyMode 
-            ? 'bg-gradient-to-br from-rose-500 via-[#e05050] to-[#c03030]' 
+            ? 'bg-red-600' 
             : 'bg-gradient-to-b from-[#fbf0f0] via-[#edc2c2]/30 to-[#fdf8f8]'
         }`}
       />
       
       {/* 背景の装飾的な要素 */}
-      <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl -mr-20 -mt-20 ${isEmergencyMode ? 'bg-white/20' : 'bg-[#edc2c2]/20'}`}></div>
-      <div className={`absolute bottom-20 left-0 w-32 h-32 rounded-full blur-2xl -ml-10 ${isEmergencyMode ? 'bg-orange-300/20' : 'bg-[#e8836a]/10'}`}></div>
+      <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl -mr-20 -mt-20 ${isEmergencyMode ? 'bg-white/10' : 'bg-[#edc2c2]/20'}`}></div>
+      <div className={`absolute bottom-20 left-0 w-32 h-32 rounded-full blur-2xl -ml-10 ${isEmergencyMode ? 'bg-black/10' : 'bg-[#e8836a]/10'}`}></div>
 
-      <div className="relative flex flex-col items-center pt-12 pb-10 px-6">
-        {/* 緊急バナー - 上品かつ目立つ洗練されたデザイン */}
+      <div className="relative flex flex-col items-center pt-12 pb-12 px-6">
+        {/* 緊急バナー - シンプルで視認性の高いデザイン */}
         {isEmergencyMode && (
-          <div className="mb-8 scale-105 animate-pulse cursor-default">
-            <div className="bg-white/95 text-rose-600 font-extrabold text-xs px-7 py-3 rounded-full shadow-[0_8px_30px_rgba(225,29,72,0.4)] flex items-center gap-2 border-[1.5px] border-rose-100 tracking-[0.15em] uppercase">
-              <i className="ri-alarm-warning-fill text-xl text-rose-500"></i>
+          <div className="mb-8 animate-pulse cursor-default">
+            <div className="bg-white text-red-600 font-extrabold text-xs px-7 py-3 rounded-full shadow-lg flex items-center gap-2 tracking-[0.15em] uppercase">
+              <i className="ri-alarm-warning-fill text-xl text-red-500"></i>
               SOS: 緊急モード作動中
             </div>
           </div>
         )}
 
-        {/* モダンな角丸長方形（SQ形状）のペット写真 */}
+        {/* モダンな角丸長方形（SQ形状）のペット写真（傾きなし） */}
         <div className="relative group">
           {/* 装飾用フレーム */}
           <div className="absolute -inset-1.5 bg-gradient-to-tr from-[#e8836a] to-[#f9d5c8] rounded-[40px] opacity-30 blur-sm group-hover:opacity-50 transition-opacity"></div>
           
           <div
-            className={`relative w-44 h-44 rounded-[36px] border-[4px] overflow-hidden shadow-[0_20px_40px_-5px_rgba(0,0,0,0.15)] transition-all duration-700 ${
+            className={`relative w-44 h-44 rounded-[36px] border-[4px] overflow-hidden transition-all duration-500 transform hover:scale-105 ${
               isEmergencyMode 
-                ? 'border-white/90 transform hover:scale-105 rotate-1 shadow-[0_20px_50px_-5px_rgba(225,29,72,0.4)]' 
-                : 'border-white transform hover:scale-105 rotate-[-1deg]'
+                ? 'border-white/90 shadow-[0_20px_50px_-5px_rgba(220,38,38,0.5)]' 
+                : 'border-white shadow-[0_20px_40px_-5px_rgba(0,0,0,0.15)]'
             }`}
           >
             <img
