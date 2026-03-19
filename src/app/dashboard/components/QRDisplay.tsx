@@ -14,29 +14,25 @@ export default function QRDisplay({ tagHash }: QRDisplayProps) {
   const qrUrl = `https://smart-qr-dog-tag.vercel.app/t/${tagHash}`;
   const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(qrUrl)}&margin=20`;
 
-  const handleDownloadQR = async () => {
+  const handleDownloadQR = () => {
     setIsDownloading(true);
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error("Network response was not ok");
-      
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `LIEN_QR_TAG_${tagHash.slice(0, 8)}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-      
-      alert("QRコードのダウンロードが完了しました！\\n印刷してご利用ください。");
-    } catch (error) {
-      console.error("QRコードのダウンロードに失敗しました", error);
-      alert("ダウンロードに失敗しました。時間をおいて再度お試しください。");
-    } finally {
+    
+    // ダウンロードを開始するため、自前のAPI Routeへ遷移させる（同一起源）
+    // Content-Disposition により画面遷移せず直接ファイル保存ダイアログが開かれます
+    const downloadApiUrl = `/api/download-qr?tagHash=${tagHash}&data=${encodeURIComponent(qrUrl)}`;
+    
+    // aタグを生成してクリックさせる（同一起源なら確実）
+    const link = document.createElement('a');
+    link.href = downloadApiUrl;
+    link.download = `LIEN_QR_TAG_${tagHash.slice(0, 8)}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // すぐにボタンの状態を戻す
+    setTimeout(() => {
       setIsDownloading(false);
-    }
+    }, 1000);
   };
 
   return (
