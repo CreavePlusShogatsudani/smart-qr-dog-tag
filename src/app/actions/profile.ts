@@ -255,3 +255,29 @@ export async function toggleLostMode(petId: string, isLost: boolean) {
   revalidatePath('/dashboard');
   return { success: true };
 }
+
+export async function deletePet(petId: string) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) throw new Error("Unauthorized");
+
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+  if (!user) throw new Error("User not found");
+
+  const pet = await prisma.pet.findUnique({
+    where: { id: petId }
+  });
+
+  if (!pet || pet.owner_id !== user.id) {
+    throw new Error("Target pet not found or unauthorized");
+  }
+
+  await prisma.pet.delete({
+    where: { id: petId }
+  });
+
+  revalidatePath('/profile');
+  revalidatePath('/dashboard');
+  return { success: true };
+}

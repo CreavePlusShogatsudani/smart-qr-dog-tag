@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { saveProfile } from '@/app/actions/profile';
+import { useState, useMemo } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { saveProfile, deletePet } from '@/app/actions/profile';
 
 type ProfileClientProps = {
   initialData: any;
@@ -12,7 +13,21 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
   const [message, setMessage] = useState('');
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const pet = initialData?.pets?.[0] || {};
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  const isNew = searchParams.get('new') === 'true';
+  const targetPetId = searchParams.get('pet');
+  
+  const pets = initialData?.pets || [];
+  
+  const activePet = useMemo(() => {
+    if (isNew) return null;
+    if (targetPetId) return pets.find((p: any) => p.id === targetPetId) || pets[0];
+    return pets[0];
+  }, [isNew, targetPetId, pets]);
+
+  const pet = activePet || {};
   const medical = pet?.medicalRecords?.[0] || {};
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,12 +50,65 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
     } catch (err) {
       console.error(err);
       setMessage('エラーが発生しました');
-    } finally {
+      } finally {
       setIsSaving(false);
     }
   };
 
+  const handleDelete = async () => {
+    if (!pet.id) return;
+    if (window.confirm(`${pet.name || 'このペット'} の情報を完全に削除しますか？この操作は取り消せません。`)) {
+      try {
+        await deletePet(pet.id);
+        alert('削除しました');
+        router.push('/dashboard');
+        router.refresh(); // 強制更新
+      } catch (err) {
+        console.error(err);
+        alert('削除に失敗しました');
+      }
+    }
+  };
+
   return (
+    <div className="space-y-6">
+      {/* ペット切り替えタブ */}
+      <div className="bg-white rounded-[24px] p-4 shadow-sm border border-gray-100 flex items-center gap-3 overflow-x-auto hide-scrollbar snap-x">
+        {pets.map((p: any) => (
+          <button
+            key={p.id}
+            type="button"
+            onClick={() => router.push(`/profile?pet=${p.id}`)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all shadow-sm snap-start shrink-0 ${
+              !isNew && pet.id === p.id 
+                ? 'bg-teal-600 text-white font-bold ring-2 ring-teal-600 ring-offset-2 ring-offset-white' 
+                : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+            }`}
+          >
+            {p.image_url ? (
+              <img src={p.image_url} alt={p.name} className="w-6 h-6 rounded-full object-cover border border-white/20" />
+            ) : (
+              <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
+                <i className={`ri-${p.species === 'CAT' ? 'cat' : 'gitlab'}-fill text-xs text-gray-400`}></i>
+              </div>
+            )}
+            <span className="text-sm">{p.name || '名前なし'}</span>
+          </button>
+        ))}
+        <button
+          type="button"
+          onClick={() => router.push('/profile?new=true')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all shadow-sm snap-start shrink-0 ${
+            isNew 
+              ? 'bg-orange-500 text-white font-bold ring-2 ring-orange-500 ring-offset-2 ring-offset-white' 
+              : 'bg-white text-gray-400 border border-dashed border-gray-300 hover:text-orange-500 hover:border-orange-500 hover:bg-orange-50'
+          }`}
+        >
+          <i className="ri-add-line text-lg"></i>
+          <span className="text-sm">新しく追加</span>
+        </button>
+      </div>
+
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* 1. ペット情報 (通常表示) */}
       <div className="bg-white rounded-[24px] p-5 shadow-lg border-t-4 border-teal-400" style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.05)' }}>
@@ -205,10 +273,28 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
 
       <div className="pb-4">
           <button type="submit" disabled={isSaving} className="w-full py-4 rounded-2xl text-sm font-bold text-white bg-teal-500 hover:bg-teal-600 transition shadow-md disabled:bg-gray-400">
-              {isSaving ? '保存中...' : '情報を保存する'}
+              {isSaving ? '保存中...' : (isNew ? '新しく登録する' : '情報を保存する')}
           </button>
           {message && <p className="text-center text-sm font-bold mt-3 text-teal-600">{message}</p>}
       </div>
+
+      {/* ペットの削除ボタン */}
+      {!isNew && pet.id && (
+        <div className="pt-8 pb-12 border-t border-gray-200 mt-8">
+          <button 
+            type="button" 
+            onClick={handleDelete}
+            className="w-full py-3 rounded-xl border-2 border-red-100 text-red-500 text-sm font-bold hover:bg-red-50 transition cursor-pointer flex items-center justify-center gap-2"
+          >
+            <i className="ri-delete-bin-line"></i>
+            このペット（{pet.name || '名前なし'}）の情報を完全に削除する
+          </button>
+          <p className="text-center text-xs text-gray-400 mt-3 px-4">
+            ※紐づく医療記録や持病記録、専用のQRコードタグ情報もすべて削除されます。<br/>一度削除すると元に戻せません。
+          </p>
+        </div>
+      )}
     </form>
+    </div>
   );
 }

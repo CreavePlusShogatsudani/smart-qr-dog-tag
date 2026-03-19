@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import EmergencyToggle from './components/EmergencyToggle';
 import PetHero from './components/PetHero';
 import VaccineWallet from './components/VaccineWallet';
@@ -17,10 +17,19 @@ interface DashboardClientProps {
 }
 
 export default function DashboardClient({ initialProfile }: DashboardClientProps) {
-  const pet = initialProfile?.pets?.[0]; // ひとまず最初のペットを表示
-  const [isEmergencyMode, setIsEmergencyMode] = useState(pet?.is_lost || false);
+  const pets = initialProfile?.pets || [];
+  const [activePetId, setActivePetId] = useState<string | undefined>(pets[0]?.id);
+  
+  const pet = useMemo(() => pets.find((p: any) => p.id === activePetId) || pets[0], [pets, activePetId]);
+  
+  const [isEmergencyMode, setIsEmergencyMode] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
+
+  // activePetIdが変わった時にemergencyModeのStateを同期
+  useMemo(() => {
+    setIsEmergencyMode(pet?.is_lost || false);
+  }, [pet?.is_lost]);
 
   const handleToggle = async () => {
     if (!pet) return;
@@ -66,6 +75,40 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
         </div>
       ) : (
         <>
+          {/* ペット切り替えスイッチャー */}
+          {pets.length > 0 && (
+            <div className="sticky top-0 z-40 bg-[#fdf8f8]/90 backdrop-blur-md border-b border-gray-200/50 py-3">
+              <div className="flex items-center gap-3 overflow-x-auto px-4 snap-x hide-scrollbar">
+                {pets.map((p: any) => (
+                  <button
+                    key={p.id}
+                    onClick={() => setActivePetId(p.id)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all shadow-sm snap-start shrink-0 ${
+                      activePetId === p.id 
+                        ? 'bg-teal-600 text-white font-bold ring-2 ring-teal-600 ring-offset-2 ring-offset-[#fdf8f8]' 
+                        : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
+                    }`}
+                  >
+                    {p.image_url ? (
+                      <img src={p.image_url} alt={p.name} className="w-6 h-6 rounded-full object-cover border border-white/20" />
+                    ) : (
+                      <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
+                        <i className={`ri-${p.species === 'CAT' ? 'cat' : 'gitlab'}-fill text-xs text-gray-400`}></i>
+                      </div>
+                    )}
+                    <span className="text-sm">{p.name || '名前なし'}</span>
+                  </button>
+                ))}
+                <a 
+                  href="/profile?new=true"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-dashed border-gray-300 text-gray-400 hover:text-teal-500 hover:border-teal-500 hover:bg-teal-50 transition-colors shrink-0 snap-start"
+                >
+                  <i className="ri-add-line text-lg"></i>
+                </a>
+              </div>
+            </div>
+          )}
+
           <PetHero isEmergencyMode={isEmergencyMode} petData={pet} />
 
       <div className="max-w-lg mx-auto px-4 pb-28 space-y-6 relative z-10">
