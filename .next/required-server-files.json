@@ -2,7 +2,6 @@
   "version": 1,
   "config": {
     "env": {},
-    "webpack": null,
     "eslint": {
       "ignoreDuringBuilds": false
     },
@@ -195,6 +194,9 @@
       "dynamicIO": false,
       "inlineCss": false,
       "useCache": false,
+      "serverActions": {
+        "bodySizeLimit": "10mb"
+      },
       "optimizePackageImports": [
         "lucide-react",
         "date-fns",

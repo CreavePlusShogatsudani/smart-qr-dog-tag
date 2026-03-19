@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST='{"app/settings/SettingsClient.tsx -> next-auth/react":{"id":2108,"files":["static/chunks/108-dc10d4a5550a5071.js"]}}';
+self.__REACT_LOADABLE_MANIFEST="{}";
