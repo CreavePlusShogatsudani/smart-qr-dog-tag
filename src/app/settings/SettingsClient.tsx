@@ -77,34 +77,36 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
         <button
           onClick={async (e) => {
             e.preventDefault();
-            if (window.confirm("本当にログアウトしますか？")) {
-                try {
-                  // 1. まずNextAuthのログアウトAPIを正常に実行させる
-                  await signOut({ redirect: false });
+                  // 1. 最新のCSRFトークンを取得 (キャッシュ起因の不整合を完全回避)
+                  const csrfRes = await fetch('/api/auth/csrf');
+                  const { csrfToken } = await csrfRes.json();
+                  
+                  // 2. ブラウザ標準のfetchで確実にログアウトPOSTを送信
+                  await fetch('/api/auth/signout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ csrfToken, callbackUrl: '/' }),
+                  });
 
-                  // 2. その後に不要なキャッシュやServiceWorkerを破棄する
+                  // 3. PWAキャッシュや古いSWを破棄する
                   if ('serviceWorker' in navigator) {
                     const registrations = await navigator.serviceWorker.getRegistrations();
-                    for (const reg of registrations) {
-                      await reg.unregister();
-                    }
+                    for (const reg of registrations) await reg.unregister();
                   }
                   if ('caches' in window) {
                     const keys = await caches.keys();
-                    for (const key of keys) {
-                      await caches.delete(key);
-                    }
+                    for (const key of keys) await caches.delete(key);
                   }
 
-                  // 3. ローカル/セッションストレージのクリア
                   window.localStorage.clear();
                   window.sessionStorage.clear();
 
-                  // 4. 強制リロードでトップへ戻る
-                  window.location.replace('/');
+                  // 4. 強制リロードで完全に状態をリセットしてトップへ
+                  window.location.href = '/';
                 } catch (error) {
                   console.error("Logout error:", error);
-                  window.location.replace('/');
+                  // 万が一失敗した場合はNextAuth標準のログアウト画面へフォールバック
+                  window.location.href = '/api/auth/signout?callbackUrl=/';
                 }
             }
           }}
