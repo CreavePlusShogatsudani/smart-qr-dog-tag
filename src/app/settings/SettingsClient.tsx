@@ -79,15 +79,16 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
             e.preventDefault();
             if (window.confirm("本当にログアウトしますか？")) {
                 try {
-                  // 1. Service Worker の登録解除 (PWAキャッシュ起因のログアウト阻害を防止)
+                  // 1. まずNextAuthのログアウトAPIを正常に実行させる
+                  await signOut({ redirect: false });
+
+                  // 2. その後に不要なキャッシュやServiceWorkerを破棄する
                   if ('serviceWorker' in navigator) {
                     const registrations = await navigator.serviceWorker.getRegistrations();
                     for (const reg of registrations) {
                       await reg.unregister();
                     }
                   }
-                  
-                  // 2. ブラウザのキャッシュストレージをクリア
                   if ('caches' in window) {
                     const keys = await caches.keys();
                     for (const key of keys) {
@@ -99,10 +100,7 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
                   window.localStorage.clear();
                   window.sessionStorage.clear();
 
-                  // 4. NextAuth のログアウト処理を実行 (redirect: falseで実行してからハードリダイレクトする)
-                  await signOut({ redirect: false });
-                  
-                  // App Routerのクライアントキャッシュを完全に破棄するため強制リロードでトップへ戻る
+                  // 4. 強制リロードでトップへ戻る
                   window.location.replace('/');
                 } catch (error) {
                   console.error("Logout error:", error);
