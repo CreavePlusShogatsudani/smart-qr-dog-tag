@@ -150,6 +150,18 @@ export async function saveProfile(formData: FormData) {
     });
   }
 
+  // ペットに紐づくQRタグ（Tag）が存在しない場合は自動発行する
+  if (currentPetId) {
+    const existingTag = await prisma.tag.findFirst({
+      where: { pet_id: currentPetId }
+    });
+    if (!existingTag) {
+      await prisma.tag.create({
+        data: { pet_id: currentPetId }
+      });
+    }
+  }
+
   // MedicalRecordの更新または作成
   if (currentPetId && (chronicDiseases || medications || vetClinicName || vetClinicPhone || vetClinicAddress || specialNotes)) {
     if (medicalId) {

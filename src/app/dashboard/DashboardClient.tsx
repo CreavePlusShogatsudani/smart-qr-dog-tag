@@ -45,7 +45,28 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
         </div>
       )}
 
-      <PetHero isEmergencyMode={isEmergencyMode} petData={pet} />
+      {/* ペット未登録（新規アカウント）向けの案内表示 */}
+      {!pet ? (
+        <div className="max-w-lg mx-auto px-4 pt-32 pb-28 space-y-6 text-center">
+          <div className="bg-white rounded-[24px] p-8 shadow-lg">
+            <div className="w-16 h-16 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i className="ri-guide-line text-2xl text-teal-600"></i>
+            </div>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">ようこそ！</h2>
+            <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+              まずはプロフィール画面から、<br />
+              愛犬・愛猫の情報を登録してください。<br />
+              登録完了後、このダッシュボードに<br />
+              専用のQRコードや各機能が表示されます。
+            </p>
+            <a href="/profile" className="inline-flex w-full justify-center items-center py-3.5 rounded-2xl font-bold text-white shadow-md transition-all cursor-pointer hover:shadow-lg hover:opacity-90 bg-teal-500">
+              プロフィールを設定する
+            </a>
+          </div>
+        </div>
+      ) : (
+        <>
+          <PetHero isEmergencyMode={isEmergencyMode} petData={pet} />
 
       <div className="max-w-lg mx-auto px-4 pb-28 space-y-6 relative z-10">
         <EmergencyToggle isEmergencyMode={isEmergencyMode} onToggle={handleToggle} />
@@ -57,6 +78,8 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
         <QRDisplay tagHash={pet?.tags?.[0]?.tag_hash} />
         <RecommendCard petData={pet} />
       </div>
+        </>
+      )}
     </div>
   );
 }
