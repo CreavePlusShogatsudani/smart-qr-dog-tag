@@ -128,12 +128,16 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
               <input type="hidden" name="currentImageUrl" value={pet?.image_url || ''} />
               
               <div className="flex flex-col items-center mb-6">
-                <div className="w-32 h-32 rounded-full border-4 border-teal-50 overflow-hidden shadow-inner bg-gray-100 relative mb-3 group">
-                  <img 
-                    src={previewUrl || pet?.image_url || "https://readdy.ai/api/search-image?query=pet%20placeholder&width=200&height=200"} 
-                    alt="Preview" 
-                    className="w-full h-full object-cover"
-                  />
+                <div className="w-32 h-32 rounded-full border-4 border-teal-50 overflow-hidden shadow-inner bg-gray-100 flex items-center justify-center relative mb-3 group">
+                  {previewUrl || pet?.image_url ? (
+                    <img 
+                      src={previewUrl || pet.image_url} 
+                      alt="ペットの写真" 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <i className="ri-camera-lens-line text-4xl text-gray-300"></i>
+                  )}
                   <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-bold">
                     写真を変更
                     <input type="file" name="petImage" accept="image/*" className="hidden" onChange={handleImageChange} />
