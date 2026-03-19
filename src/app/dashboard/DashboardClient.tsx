@@ -52,7 +52,7 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
         <VaccineWallet petId={pet?.id} vaccineRecords={pet?.vaccineRecords || []} />
         <MedicalRecords medicalRecords={pet?.medicalRecords || []} />
         <OwnerSOS ownerData={initialProfile} tagHash={pet?.tags?.[0]?.tag_hash} />
-        <QuickActions />
+        <QuickActions tagHash={pet?.tags?.[0]?.tag_hash} />
         <RecommendCard petData={pet} />
       </div>
     </div>
