@@ -93,11 +93,6 @@ export default async function TagPage({
           </div>
         )}
 
-        {/* === 位置情報送信ボタン（緊急時のみ） === */}
-        {isLost && (
-          <LocationButton />
-        )}
-
         {/* === メインプロフィールカード === */}
         <div className="bg-white rounded-[36px] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] overflow-hidden border border-[#f5e0e0] mb-6">
           <div className="p-6 pb-0 flex flex-col items-center">
@@ -182,19 +177,34 @@ export default async function TagPage({
                         <p className="text-sm font-bold text-[#4d2a20] leading-relaxed">{medical.special_notes}</p>
                       </div>
                     )}
+                    {(medical.vet_clinic_name || medical.vet_clinic_phone) && (
+                      <div className="pt-2 mt-2 border-t border-[#f5e0e0]">
+                        <p className="text-[10px] text-teal-600 font-black uppercase mb-2 flex items-center gap-1">
+                          <i className="ri-hospital-fill"></i> かかりつけ病院
+                        </p>
+                        {medical.vet_clinic_name && (
+                          <p className="text-sm font-bold text-[#4d2a20] mb-1">{medical.vet_clinic_name}</p>
+                        )}
+                        {medical.vet_clinic_phone && (
+                          <a href={`tel:${medical.vet_clinic_phone}`} className="text-sm font-bold text-teal-600 hover:opacity-70 flex items-center gap-1.5">
+                            <i className="ri-phone-fill"></i> {medical.vet_clinic_phone}
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
             </div>
 
-            {/* 飼い主への連絡先（迷子時のみ） */}
+            {/* 飼い主への連絡先・アクションエリア（迷子時のみ） */}
             {isLost && (
               <div className="mt-8 bg-white border-2 border-red-500 p-7 rounded-[32px] text-left shadow-sm">
                 <h3 className="text-red-700 font-black text-sm mb-5 flex items-center gap-2">
                   <i className="ri-phone-fill text-xl bg-red-100 p-1.5 rounded-full"></i>
-                  飼い主への連絡先
+                  発見時の連絡先・アクション
                 </h3>
-                <div className="space-y-5">
+                <div className="space-y-5 mb-8">
                   <div>
                     <p className="text-[10px] text-red-500 font-extrabold uppercase mb-1">お名前</p>
                     <p className="text-lg font-black text-gray-900">{owner.name}</p>
@@ -206,9 +216,15 @@ export default async function TagPage({
                     </a>
                   </div>
                 </div>
-                <a href={`tel:${owner.phone}`} className="mt-8 w-full py-5 bg-red-600 text-white rounded-[20px] font-black text-base text-center block shadow-[0_8px_20px_rgba(220,38,38,0.3)] hover:shadow-[0_8px_30px_rgba(220,38,38,0.5)] transform hover:-translate-y-1 transition-all">
-                  今すぐ電話機能を開く
-                </a>
+
+                <div className="space-y-4">
+                  <a href={`tel:${owner.phone}`} className="w-full py-4 bg-red-600 text-white rounded-[20px] font-black text-base text-center flex items-center justify-center gap-2 shadow-[0_8px_20px_rgba(220,38,38,0.3)] hover:shadow-[0_8px_30px_rgba(220,38,38,0.5)] transform hover:-translate-y-1 transition-all">
+                    <i className="ri-phone-line text-xl"></i>
+                    今すぐ電話機能を開く
+                  </a>
+                  
+                  <LocationButton />
+                </div>
               </div>
             )}
           </div>
