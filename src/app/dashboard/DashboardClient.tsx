@@ -9,6 +9,7 @@ import OwnerSOS from './components/OwnerSOS';
 import QRPreview from './components/QRPreview';
 import RecommendCard from './components/RecommendCard';
 import QuickActions from './components/QuickActions';
+import QRDisplay from './components/QRDisplay';
 import { toggleLostMode } from '@/app/actions/profile';
 
 interface DashboardClientProps {
@@ -53,6 +54,7 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
         <MedicalRecords medicalRecords={pet?.medicalRecords || []} />
         <OwnerSOS ownerData={initialProfile} tagHash={pet?.tags?.[0]?.tag_hash} />
         <QuickActions tagHash={pet?.tags?.[0]?.tag_hash} />
+        <QRDisplay tagHash={pet?.tags?.[0]?.tag_hash} />
         <RecommendCard petData={pet} />
       </div>
     </div>
