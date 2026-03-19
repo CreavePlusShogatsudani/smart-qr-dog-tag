@@ -30,6 +30,8 @@ export default function QuickActions({ tagHash }: QuickActionsProps) {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+      
+      alert("QRコードのダウンロードが完了しました！\n印刷してご利用ください。");
     } catch (error) {
       console.error("QRコードのダウンロードに失敗しました", error);
       alert("ダウンロードに失敗しました。時間をおいて再度お試しください。");
