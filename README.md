@@ -1,30 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart QR Dog Tag - スマート迷子札管理システム
 
-## Getting Started
+このプロジェクトは、QRコード付きの迷子札と連携し、ペットの安全と保護をサポートするためのWebアプリケーションです。
 
-First, run the development server:
+## 🌟 主な機能
 
+- **多頭飼い対応ダッシュボード**: 複数のペットをタブで簡単に切り替え、それぞれの情報を管理できます。
+- **デジタル迷子札機能**: QRコードをスキャンすることで、ペットのプロフィールを瞬時に表示します。
+- **緊急（迷子）モード**: ワンタップで緊急モードを発動。発見者に対してのみ、飼い主の連絡先やSOSメッセージを公開します。
+- **命を守る医療情報**: アレルギーや持病、かかりつけ医の情報を常時表示し、迅速な保護をサポート。
+- **ワクチン・証明書管理**: ワクチン接種記録と証明書画像をデジタルウォレットとして保存。
+- **QRコード生成・保存**: 各ペット専用のQRコードを画面上で確認・ダウンロード可能。
+- **PWA対応**: スマートフォンのホーム画面に追加して、アプリのように利用できます。
+
+## 🛠️ 技術スタック
+
+- **Frontend**: Next.js 15 (App Router), TailwindCSS
+- **Backend/DB**: Prisma, Supabase (PostgreSQL / Storage)
+- **Auth**: NextAuth.js
+- **Infra**: Vercel
+
+## 🚀 セットアップ
+
+### 1. 依存関係のインストール
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. 環境変数の設定
+`.env.local` を作成し、必要な環境変数を設定してください。詳細は `SPECIFICATIONS.md` を参照。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. データベースのセットアップ
+```bash
+npx prisma generate
+npx prisma db push
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. 開発サーバーの起動
+```bash
+npm run dev
+```
 
-## Learn More
+## 📖 詳細な仕様
 
-To learn more about Next.js, take a look at the following resources:
+システムの詳細な挙動やインフラ構成については、[SPECIFICATIONS.md](./SPECIFICATIONS.md) を参照してください。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!

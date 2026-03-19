@@ -198,6 +198,13 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
                   <label className="block text-xs font-bold text-gray-700 mb-1">紹介文・性格</label>
                   <textarea name="petDescription" defaultValue={pet?.description || ''} rows={3} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300 resize-none"></textarea>
               </div>
+              <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1">
+                    <i className="ri-instagram-line text-pink-500"></i>
+                    Instagram ID (@なし)
+                  </label>
+                  <input name="petInstagram" type="text" defaultValue={pet?.instagram_id || ''} placeholder="example_pet" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
+              </div>
           </div>
       </div>
 
@@ -219,8 +226,19 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
                   <label className="block text-xs font-bold text-gray-700 mb-1">発見者へのメッセージ（SOSメッセージ）</label>
                   <textarea name="sosMessage" defaultValue={initialData?.sos_message || ''} rows={3} placeholder="例: 見つけていただき本当にありがとうございます。とても臆病な子なので、可能であれば優しく保護し、すぐにお電話ください。" className="w-full bg-red-50/30 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-red-300 resize-none"></textarea>
               </div>
+              <div className="grid grid-cols-2 gap-3">
+                  <div>
+                      <label className="block text-xs font-bold text-gray-700 mb-1">SOS連絡先名</label>
+                      <input name="sosContactName" type="text" defaultValue={initialData?.sos_contact_name || ''} placeholder="例: 飼い主 佐藤" className="w-full bg-red-50/30 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-red-200" />
+                  </div>
+                  <div>
+                      <label className="block text-xs font-bold text-gray-700 mb-1">SOS電話番号</label>
+                      <input name="sosContactPhone" type="tel" defaultValue={initialData?.sos_contact_phone || ''} placeholder="090-xxxx-xxxx" className="w-full bg-red-50/30 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-red-200" />
+                  </div>
+              </div>
               <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">飼い主の名前（緊急連絡先名）</label>
+                  <label className="block text-xs font-bold text-gray-700 mb-1 pb-1 border-b border-gray-100 mb-2 mt-4 text-gray-400">基本の飼い主情報（管理用）</label>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">飼い主の名前</label>
                   <input name="name" type="text" defaultValue={initialData?.name || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-red-200" />
               </div>
               <div>
