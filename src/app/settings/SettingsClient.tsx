@@ -77,6 +77,8 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
         <button
           onClick={async (e) => {
             e.preventDefault();
+            if (window.confirm("本当にログアウトしますか？")) {
+                try {
                   // 1. 最新のCSRFトークンを取得 (キャッシュ起因の不整合を完全回避)
                   const csrfRes = await fetch('/api/auth/csrf');
                   const { csrfToken } = await csrfRes.json();
