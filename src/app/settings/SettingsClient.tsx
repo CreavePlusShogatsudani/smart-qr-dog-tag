@@ -99,12 +99,14 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
                   window.localStorage.clear();
                   window.sessionStorage.clear();
 
-                  // 4. NextAuth のログアウト処理を実行
-                  await signOut({ callbackUrl: '/', redirect: true });
+                  // 4. NextAuth のログアウト処理を実行 (redirect: falseで実行してからハードリダイレクトする)
+                  await signOut({ redirect: false });
+                  
+                  // App Routerのクライアントキャッシュを完全に破棄するため強制リロードでトップへ戻る
+                  window.location.replace('/');
                 } catch (error) {
                   console.error("Logout error:", error);
-                  // 万が一エラーが起きても強制的にトップへ戻す
-                  window.location.href = '/';
+                  window.location.replace('/');
                 }
             }
           }}
