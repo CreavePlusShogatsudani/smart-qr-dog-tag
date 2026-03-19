@@ -75,6 +75,7 @@ export async function saveProfile(formData: FormData) {
   const name = formData.get('name') as string;
   const address = formData.get('address') as string;
   const phone = formData.get('phone') as string;
+  const sosMessage = formData.get('sosMessage') as string;
 
   // Pet info
   const petId = formData.get('petId') as string;
@@ -106,7 +107,7 @@ export async function saveProfile(formData: FormData) {
   // ユーザー情報の更新
   await prisma.user.update({
     where: { id: user.id },
-    data: { name, address, phone }
+    data: { name, address, phone, sos_message: sosMessage }
   });
 
   // ペット情報の更新（存在する場合のみ）

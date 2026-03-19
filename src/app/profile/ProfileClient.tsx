@@ -116,9 +116,13 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
           </div>
           <p className="text-[11px] text-gray-500 mb-6 leading-relaxed">
               <span className="text-red-600 font-bold">⚠️ 注意：</span> 
-              電話番号とお名前は、<span className="font-bold underline">迷子モード発動中</span>にのみ公開ページに表示されます。通常時は非公開です。
+              電話番号とお名前・SOSメッセージは、<span className="font-bold underline">迷子モード発動中</span>にのみ公開ページに表示されます。通常時は非公開です。
           </p>
           <div className="space-y-4">
+              <div>
+                  <label className="block text-xs font-bold text-gray-700 mb-1">発見者へのメッセージ（SOSメッセージ）</label>
+                  <textarea name="sosMessage" defaultValue={initialData?.sos_message || ''} rows={3} placeholder="例: 見つけていただき本当にありがとうございます。とても臆病な子なので、可能であれば優しく保護し、すぐにお電話ください。" className="w-full bg-red-50/30 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-red-300 resize-none"></textarea>
+              </div>
               <div>
                   <label className="block text-xs font-bold text-gray-700 mb-1">飼い主の名前（緊急連絡先名）</label>
                   <input name="name" type="text" defaultValue={initialData?.name || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-red-200" />
