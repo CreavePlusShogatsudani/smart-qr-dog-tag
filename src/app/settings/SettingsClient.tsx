@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { saveSettings } from '@/app/actions/settings';
+import { signOut } from 'next-auth/react';
 
 type SettingsClientProps = {
   initialSettings: {
@@ -76,10 +77,10 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
         <button
           onClick={() => {
             if (window.confirm("本当にログアウトしますか？")) {
-                import('next-auth/react').then(({ signOut }) => signOut({ callbackUrl: '/' }));
+                signOut({ callbackUrl: '/' });
             }
           }}
-          className="w-full flex justify-center items-center gap-2 py-3 rounded-2xl text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 transition"
+          className="w-full flex justify-center items-center gap-2 py-3 rounded-2xl text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 transition cursor-pointer"
         >
           <i className="ri-logout-box-r-line text-lg"></i>
           ログアウト
