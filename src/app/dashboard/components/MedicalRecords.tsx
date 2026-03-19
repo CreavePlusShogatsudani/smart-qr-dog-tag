@@ -14,6 +14,7 @@ export default function MedicalRecords({ medicalRecords = [] }: MedicalRecordsPr
     { icon: 'ri-stethoscope-line', color: 'bg-white text-teal-600', label: '持病・既往症', value: record?.chronic_diseases || 'なし' },
     { icon: 'ri-capsule-line', color: 'bg-white text-teal-600', label: '常用している薬', value: record?.medications || 'なし' },
     { icon: 'ri-hospital-line', color: 'bg-white text-teal-600', label: 'かかりつけ病院', value: record?.vet_clinic_name ? `${record.vet_clinic_name} ／ ${record.vet_clinic_phone || '-'}` : '未登録' },
+    { icon: 'ri-map-pin-2-line', color: 'bg-white text-teal-600', label: '病院の住所', value: record?.vet_clinic_address || '未登録' },
   ];
 
   return (

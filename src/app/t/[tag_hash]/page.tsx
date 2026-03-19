@@ -110,7 +110,17 @@ export default async function TagPage({
           <div className="p-8 text-center pt-6">
             <h2 className="text-4xl font-black text-[#4d2a20] mb-3 tracking-tight">{pet.name}</h2>
             
-            <div className="flex items-center justify-center gap-2 mb-8">
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+              {pet?.gender === 'male' && (
+                <span className="text-[10px] font-bold text-blue-600 tracking-[0.1em] uppercase bg-[#f0f4ff] px-3 py-1.5 rounded-full border border-blue-100 flex items-center gap-1">
+                  <i className="ri-men-line text-sm"></i> 男の子
+                </span>
+              )}
+              {pet?.gender === 'female' && (
+                <span className="text-[10px] font-bold text-pink-600 tracking-[0.1em] uppercase bg-[#fff0f4] px-3 py-1.5 rounded-full border border-pink-100 flex items-center gap-1">
+                  <i className="ri-women-line text-sm"></i> 女の子
+                </span>
+              )}
               <span className="text-[10px] font-bold text-[#a16565] tracking-[0.2em] uppercase bg-[#fdf8f8] px-4 py-1.5 rounded-full border border-[#f5e0e0]">
                 {pet.breed || "犬種未登録"}
               </span>
@@ -177,7 +187,7 @@ export default async function TagPage({
                         <p className="text-sm font-bold text-[#4d2a20] leading-relaxed">{medical.special_notes}</p>
                       </div>
                     )}
-                    {(medical.vet_clinic_name || medical.vet_clinic_phone) && (
+                    {(medical.vet_clinic_name || medical.vet_clinic_phone || medical.vet_clinic_address) && (
                       <div className="pt-2 mt-2 border-t border-[#f5e0e0]">
                         <p className="text-[10px] text-teal-600 font-black uppercase mb-2 flex items-center gap-1">
                           <i className="ri-hospital-fill"></i> かかりつけ病院
@@ -186,9 +196,15 @@ export default async function TagPage({
                           <p className="text-sm font-bold text-[#4d2a20] mb-1">{medical.vet_clinic_name}</p>
                         )}
                         {medical.vet_clinic_phone && (
-                          <a href={`tel:${medical.vet_clinic_phone}`} className="text-sm font-bold text-teal-600 hover:opacity-70 flex items-center gap-1.5">
+                          <a href={`tel:${medical.vet_clinic_phone}`} className="text-sm font-bold text-teal-600 hover:opacity-70 flex items-center gap-1.5 mb-1.5">
                             <i className="ri-phone-fill"></i> {medical.vet_clinic_phone}
                           </a>
+                        )}
+                        {medical.vet_clinic_address && (
+                          <p className="text-xs font-bold text-[#874e4e] flex items-start gap-1.5">
+                            <i className="ri-map-pin-fill mt-0.5 shrink-0"></i> 
+                            <span className="leading-tight">{medical.vet_clinic_address}</span>
+                          </p>
                         )}
                       </div>
                     )}

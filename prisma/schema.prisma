@@ -40,6 +40,7 @@ model Pet {
   age_text       String?         // 画面表示用の年齢テキスト（例："3歳2ヶ月"）
   weight         String?         // 体重表現
   color          String?         // 毛色
+  gender         String?         // オス・メスなどの性別情報（例: "male", "female"）
   description    String?         // 紹介文
   instagram_id   String?         // InstagramのID（@なし）
   image_url      String?         // ペットの画像URL
@@ -69,16 +70,17 @@ model VaccineRecord {
 }
 
 model MedicalRecord {
-  id                String   @id @default(cuid())
-  pet_id            String
-  chronic_diseases  String?
-  medications       String?
-  vet_clinic_name   String?
-  vet_clinic_phone  String?
-  special_notes     String?  // 緊急時の特記事項用
-  pet               Pet      @relation(fields: [pet_id], references: [id], onDelete: Cascade)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  pet_id             String
+  chronic_diseases   String?
+  medications        String?
+  vet_clinic_name    String?
+  vet_clinic_phone   String?
+  vet_clinic_address String?
+  special_notes      String?  // 緊急時の特記事項用
+  pet                Pet      @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }
 
 model Tag {

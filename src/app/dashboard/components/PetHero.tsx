@@ -63,7 +63,17 @@ export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
           <h2 className="text-3xl font-black text-[#4d2a20] tracking-tight">
             {petData?.name || "未登録"}
           </h2>
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {petData?.gender === 'male' && (
+              <span className="text-[10px] font-bold text-blue-600 tracking-[0.1em] uppercase bg-blue-50/80 px-2.5 py-1 rounded-full border border-blue-200 flex items-center gap-1 shadow-sm">
+                <i className="ri-men-line"></i> 男の子
+              </span>
+            )}
+            {petData?.gender === 'female' && (
+              <span className="text-[10px] font-bold text-pink-600 tracking-[0.1em] uppercase bg-pink-50/80 px-2.5 py-1 rounded-full border border-pink-200 flex items-center gap-1 shadow-sm">
+                <i className="ri-women-line"></i> 女の子
+              </span>
+            )}
             <span className="text-[10px] font-bold text-[#a16565] tracking-[0.2em] uppercase bg-white/60 px-3 py-1 rounded-full border border-[#f5e0e0]">
               {petData?.breed || "犬種未登録"}
             </span>

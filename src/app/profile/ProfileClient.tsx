@@ -74,6 +74,30 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest cursor-pointer hover:text-teal-500" onClick={() => (document.querySelector('input[name="petImage"]') as any)?.click()}>画像をタップして変更</p>
               </div>
 
+              <div className="mb-4">
+                  <label className="block text-xs font-bold text-gray-700 mb-2">性別</label>
+                  <div className="flex gap-3">
+                    <label className="flex-1 cursor-pointer">
+                      <input type="radio" name="gender" value="male" defaultChecked={pet?.gender === 'male'} className="peer sr-only" />
+                      <div className="text-center py-2.5 rounded-xl border border-gray-200 peer-checked:border-blue-400 peer-checked:bg-blue-50 text-gray-400 peer-checked:text-blue-600 font-bold text-sm transition-all flex items-center justify-center gap-1">
+                        <i className="ri-men-line text-base"></i>男の子
+                      </div>
+                    </label>
+                    <label className="flex-1 cursor-pointer">
+                      <input type="radio" name="gender" value="female" defaultChecked={pet?.gender === 'female'} className="peer sr-only" />
+                      <div className="text-center py-2.5 rounded-xl border border-gray-200 peer-checked:border-pink-400 peer-checked:bg-pink-50 text-gray-400 peer-checked:text-pink-600 font-bold text-sm transition-all flex items-center justify-center gap-1">
+                        <i className="ri-women-line text-base"></i>女の子
+                      </div>
+                    </label>
+                    <label className="flex-1 cursor-pointer">
+                      <input type="radio" name="gender" value="" defaultChecked={!pet?.gender} className="peer sr-only" />
+                      <div className="text-center py-2.5 rounded-xl border border-gray-200 peer-checked:border-gray-400 peer-checked:bg-gray-100 text-gray-400 peer-checked:text-gray-700 font-bold text-sm transition-all">
+                        未設定
+                      </div>
+                    </label>
+                  </div>
+              </div>
+
               <div>
                   <label className="block text-xs font-bold text-gray-700 mb-1">名前</label>
                   <input name="petName" type="text" defaultValue={pet?.name || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />

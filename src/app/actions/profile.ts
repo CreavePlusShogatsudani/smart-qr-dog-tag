@@ -80,6 +80,7 @@ export async function saveProfile(formData: FormData) {
   // Pet info
   const petId = formData.get('petId') as string;
   const petName = formData.get('petName') as string;
+  const petGender = formData.get('gender') as string;
   const petBreed = formData.get('petBreed') as string;
   const petAgeText = formData.get('petAgeText') as string;
   const petWeight = formData.get('petWeight') as string;
@@ -96,6 +97,7 @@ export async function saveProfile(formData: FormData) {
   const medications = formData.get('medications') as string;
   const vetClinicName = formData.get('vetClinicName') as string;
   const vetClinicPhone = formData.get('vetClinicPhone') as string;
+  const vetClinicAddress = formData.get('vetClinicAddress') as string;
   const specialNotes = formData.get('specialNotes') as string;
 
   // 画像のアップロード
@@ -119,6 +121,7 @@ export async function saveProfile(formData: FormData) {
         owner_id: user.id,
         name: petName,
         species: 'DOG',
+        gender: petGender,
         breed: petBreed,
         age_text: petAgeText,
         weight: petWeight,
@@ -135,6 +138,7 @@ export async function saveProfile(formData: FormData) {
       where: { id: currentPetId },
       data: {
         name: petName,
+        gender: petGender,
         breed: petBreed,
         age_text: petAgeText,
         weight: petWeight,
@@ -146,20 +150,9 @@ export async function saveProfile(formData: FormData) {
     });
   }
 
-  // 医療情報の更新（ペットが存在する場合のみ）
-  if (currentPetId) {
-    if (!medicalId && (chronicDiseases || medications || vetClinicName || vetClinicPhone || specialNotes)) {
-      await prisma.medicalRecord.create({
-        data: {
-          pet_id: currentPetId,
-          chronic_diseases: chronicDiseases,
-          medications: medications,
-          vet_clinic_name: vetClinicName,
-          vet_clinic_phone: vetClinicPhone,
-          special_notes: specialNotes,
-        }
-      });
-    } else if (medicalId) {
+  // MedicalRecordの更新または作成
+  if (currentPetId && (chronicDiseases || medications || vetClinicName || vetClinicPhone || vetClinicAddress || specialNotes)) {
+    if (medicalId) {
       await prisma.medicalRecord.update({
         where: { id: medicalId },
         data: {
@@ -167,7 +160,20 @@ export async function saveProfile(formData: FormData) {
           medications: medications,
           vet_clinic_name: vetClinicName,
           vet_clinic_phone: vetClinicPhone,
-          special_notes: specialNotes,
+          vet_clinic_address: vetClinicAddress,
+          special_notes: specialNotes
+        }
+      });
+    } else {
+      await prisma.medicalRecord.create({
+        data: {
+          pet_id: currentPetId,
+          chronic_diseases: chronicDiseases,
+          medications: medications,
+          vet_clinic_name: vetClinicName,
+          vet_clinic_phone: vetClinicPhone,
+          vet_clinic_address: vetClinicAddress,
+          special_notes: specialNotes
         }
       });
     }
