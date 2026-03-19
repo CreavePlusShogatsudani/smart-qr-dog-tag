@@ -14,25 +14,41 @@ export default function QRDisplay({ tagHash }: QRDisplayProps) {
   const qrUrl = `https://smart-qr-dog-tag.vercel.app/t/${tagHash}`;
   const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(qrUrl)}&margin=20`;
 
-  const handleDownloadQR = () => {
+  const handleDownloadQR = async () => {
+    if (isDownloading) return;
     setIsDownloading(true);
     
-    // ダウンロードを開始するため、自前のAPI Routeへ遷移させる（同一起源）
-    // Content-Disposition により画面遷移せず直接ファイル保存ダイアログが開かれます
-    const downloadApiUrl = `/api/download-qr?tagHash=${tagHash}&data=${encodeURIComponent(qrUrl)}`;
-    
-    // aタグを生成してクリックさせる（同一起源なら確実）
-    const link = document.createElement('a');
-    link.href = downloadApiUrl;
-    link.download = `LIEN_QR_TAG_${tagHash.slice(0, 8)}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // すぐにボタンの状態を戻す
-    setTimeout(() => {
+    try {
+      const downloadApiUrl = `/api/download-qr?tagHash=${tagHash}&data=${encodeURIComponent(qrUrl)}`;
+      
+      // 1. APIからバイナリデータ（Blob）として直接取得する
+      const response = await fetch(downloadApiUrl);
+      if (!response.ok) {
+        throw new Error('画像の生成または取得に失敗しました');
+      }
+      
+      const blob = await response.blob();
+      
+      // 2. ブラウザ内でBlob用のURLを生成
+      const objectUrl = window.URL.createObjectURL(blob);
+      
+      // 3. ダウンロード用のaタグを生成して強制クリック
+      const link = document.createElement('a');
+      link.href = objectUrl;
+      link.download = `LIEN_QR_TAG_${tagHash.slice(0, 8)}.png`; // 拡張子を明示的に指定
+      document.body.appendChild(link);
+      link.click();
+      
+      // 4. クリーンアップ
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(objectUrl);
+      
+    } catch (error) {
+      console.error('QR download error:', error);
+      alert('申し訳ありません。QRコードのダウンロードに失敗しました。時間をおいて再度お試しください。');
+    } finally {
       setIsDownloading(false);
-    }, 1000);
+    }
   };
 
   return (
