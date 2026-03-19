@@ -49,28 +49,30 @@ export default async function TagPage({
   const mixed = pet.vaccineRecords.find(r => r.mixed_date);
 
   return (
-    <div className={`min-h-screen pb-12 transition-all duration-700 ${isLost ? 'bg-[#fff5f5]' : 'bg-[#fdf8f8]'}`}>
+    <div className="min-h-screen pb-12 bg-[#fdf8f8]">
       {/* 緊急/通常 トップナビゲーションバナー */}
       {isLost ? (
-        <div className="bg-gradient-to-br from-rose-500 via-[#e05050] to-[#c03030] text-white px-6 py-10 text-center shadow-xl relative overflow-hidden">
+        <div className="bg-red-600 text-white px-6 py-10 text-center shadow-md relative overflow-hidden rounded-b-[40px] mb-6">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
           <div className="relative z-10">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <i className="ri-alarm-warning-fill text-3xl animate-pulse text-rose-100"></i>
-              <h1 className="text-2xl font-black tracking-widest uppercase text-white shadow-sm">Emergency</h1>
+            <div className="mb-4 cursor-default inline-block">
+              <div className="bg-white text-red-600 font-extrabold text-xs px-7 py-3 rounded-full shadow-lg flex items-center gap-2 tracking-[0.15em] uppercase mx-auto w-max">
+                <i className="ri-alarm-warning-fill text-xl text-red-500"></i>
+                SOS: 緊急モード作動中
+              </div>
             </div>
-            <p className="text-sm font-bold opacity-95 leading-relaxed">
+            <p className="text-sm font-bold opacity-95 leading-relaxed text-white/90">
               この子は現在、迷子として保護を求めています。<br/>発見された方は、直ちに飼い主へご連絡ください。
             </p>
           </div>
         </div>
       ) : (
-        <div className="bg-gradient-to-r from-teal-500 to-teal-400 text-white px-6 py-10 text-center shadow-md relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+        <div className="bg-gradient-to-b from-[#fbf0f0] via-[#edc2c2]/30 to-[#fdf8f8] text-[#4d2a20] px-6 py-10 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl -mr-20 -mt-20"></div>
           <div className="relative z-10 flex flex-col items-center">
-            <i className="ri-shield-user-fill text-4xl text-teal-100 mb-2 shadow-sm"></i>
-            <h1 className="text-xl font-black tracking-widest uppercase shadow-sm">LIEN Digital Tag</h1>
-            <p className="text-[10px] mt-1 opacity-90 font-bold tracking-widest">大切な家族を見守るスマートドッグタグ</p>
+            <i className="ri-shield-user-fill text-4xl text-[#a16565] mb-2 drop-shadow-sm"></i>
+            <h1 className="text-xl font-black tracking-widest uppercase">LIEN Digital Tag</h1>
+            <p className="text-[10px] mt-1 opacity-80 font-bold tracking-widest text-[#874e4e]">大切な家族を見守るスマートドッグタグ</p>
           </div>
         </div>
       )}
@@ -79,9 +81,9 @@ export default async function TagPage({
         
         {/* === SOSメッセージ（緊急時のみ） === */}
         {isLost && owner.sos_message && (
-          <div className="bg-white rounded-[24px] shadow-[0_10px_40px_-10px_rgba(225,29,72,0.3)] p-6 mb-6 border-l-[6px] border-rose-500 relative overflow-hidden">
-            <i className="ri-message-3-fill absolute -bottom-4 -right-2 text-6xl text-rose-50 opacity-60"></i>
-            <h3 className="text-rose-600 font-extrabold text-sm flex items-center gap-2 mb-3">
+          <div className="bg-white rounded-[24px] shadow-sm p-6 mb-6 border-l-[4px] border-red-500 relative overflow-hidden">
+            <i className="ri-message-3-fill absolute -bottom-4 -right-2 text-6xl text-red-50 opacity-60"></i>
+            <h3 className="text-red-600 font-extrabold text-sm flex items-center gap-2 mb-3">
               <i className="ri-chat-heart-fill text-xl"></i>
               飼い主からのメッセージ
             </h3>
@@ -144,8 +146,8 @@ export default async function TagPage({
 
             {/* ワクチン・医療情報（常に表示・迷子時はより強調） */}
             <div className="space-y-4 text-left">
-              <div className={`${isLost ? 'bg-blue-50/50 border-blue-100' : 'bg-[#fdf8f8] border-[#f5e0e0]'} border rounded-[24px] p-6`}>
-                <h3 className="text-teal-700 font-black text-[11px] mb-4 flex items-center gap-2 uppercase tracking-widest">
+              <div className="bg-[#fdf8f8] border border-[#f5e0e0] rounded-[24px] p-6">
+                <h3 className="text-[#a16565] font-black text-[11px] mb-4 flex items-center gap-2 uppercase tracking-widest">
                   <i className="ri-shield-check-fill text-lg"></i>
                   ワクチン接種状況
                 </h3>
@@ -162,8 +164,8 @@ export default async function TagPage({
               </div>
 
               {medical && (
-                <div className={`${isLost ? 'bg-orange-50/80 border-orange-200' : 'bg-orange-50/40 border-orange-100'} border rounded-[24px] p-6`}>
-                  <h3 className="text-orange-700 font-black text-[11px] mb-4 flex items-center gap-2 uppercase tracking-widest">
+                <div className="bg-[#fdf8f8] border border-[#f5e0e0] rounded-[24px] p-6">
+                  <h3 className="text-[#a16565] font-black text-[11px] mb-4 flex items-center gap-2 uppercase tracking-widest">
                     <i className="ri-heart-pulse-fill text-lg"></i>
                     医療・特記事項
                   </h3>
@@ -187,7 +189,7 @@ export default async function TagPage({
 
             {/* 飼い主への連絡先（迷子時のみ） */}
             {isLost && (
-              <div className="mt-8 bg-gradient-to-br from-red-50 to-rose-50 border-2 border-red-200 p-7 rounded-[32px] text-left shadow-sm">
+              <div className="mt-8 bg-white border-2 border-red-500 p-7 rounded-[32px] text-left shadow-sm">
                 <h3 className="text-red-700 font-black text-sm mb-5 flex items-center gap-2">
                   <i className="ri-phone-fill text-xl bg-red-100 p-1.5 rounded-full"></i>
                   飼い主への連絡先
@@ -204,7 +206,7 @@ export default async function TagPage({
                     </a>
                   </div>
                 </div>
-                <a href={`tel:${owner.phone}`} className="mt-8 w-full py-5 bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-[20px] font-black text-base text-center block shadow-[0_10px_30px_rgba(225,29,72,0.4)] hover:shadow-[0_10px_40px_rgba(225,29,72,0.6)] transform hover:-translate-y-1 transition-all">
+                <a href={`tel:${owner.phone}`} className="mt-8 w-full py-5 bg-red-600 text-white rounded-[20px] font-black text-base text-center block shadow-[0_8px_20px_rgba(220,38,38,0.3)] hover:shadow-[0_8px_30px_rgba(220,38,38,0.5)] transform hover:-translate-y-1 transition-all">
                   今すぐ電話機能を開く
                 </a>
               </div>

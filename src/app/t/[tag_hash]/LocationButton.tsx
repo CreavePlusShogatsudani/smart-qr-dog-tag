@@ -11,7 +11,7 @@ export default function LocationButton() {
     <div className="mb-6 animate-fade-in-up">
       <button 
         onClick={handleClick}
-        className="w-full flex items-center justify-center gap-2 py-4 rounded-[20px] text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-[0_8px_30px_rgba(37,99,235,0.3)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.5)] transform hover:-translate-y-1"
+        className="w-full flex items-center justify-center gap-2 py-4 rounded-[20px] text-sm font-bold text-white bg-red-600 hover:bg-red-700 transition-all shadow-[0_8px_30px_rgba(220,38,38,0.3)] hover:shadow-[0_8px_30px_rgba(220,38,38,0.5)] transform hover:-translate-y-1"
       >
         <i className="ri-map-pin-2-fill text-xl animate-bounce"></i>
         現在地を飼い主に送信する（匿名）
