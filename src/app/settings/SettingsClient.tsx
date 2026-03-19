@@ -75,9 +75,37 @@ export default function SettingsClient({ initialSettings }: SettingsClientProps)
 
       <div className="pt-4 mt-4 border-t border-gray-100">
         <button
-          onClick={() => {
+          onClick={async (e) => {
+            e.preventDefault();
             if (window.confirm("本当にログアウトしますか？")) {
-                signOut({ callbackUrl: '/' });
+                try {
+                  // 1. Service Worker の登録解除 (PWAキャッシュ起因のログアウト阻害を防止)
+                  if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    for (const reg of registrations) {
+                      await reg.unregister();
+                    }
+                  }
+                  
+                  // 2. ブラウザのキャッシュストレージをクリア
+                  if ('caches' in window) {
+                    const keys = await caches.keys();
+                    for (const key of keys) {
+                      await caches.delete(key);
+                    }
+                  }
+
+                  // 3. ローカル/セッションストレージのクリア
+                  window.localStorage.clear();
+                  window.sessionStorage.clear();
+
+                  // 4. NextAuth のログアウト処理を実行
+                  await signOut({ callbackUrl: '/', redirect: true });
+                } catch (error) {
+                  console.error("Logout error:", error);
+                  // 万が一エラーが起きても強制的にトップへ戻す
+                  window.location.href = '/';
+                }
             }
           }}
           className="w-full flex justify-center items-center gap-2 py-3 rounded-2xl text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 transition cursor-pointer"
