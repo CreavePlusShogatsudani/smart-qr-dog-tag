@@ -24,6 +24,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata = {
+  title: "LIEN Digital Tag",
+  description: "大切な家族を見守るスマートドッグタグ",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "LIEN Tag",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport = {
+  themeColor: "#edc2c2",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
