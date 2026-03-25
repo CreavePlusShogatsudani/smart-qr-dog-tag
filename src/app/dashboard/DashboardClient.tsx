@@ -47,7 +47,7 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
   };
 
   return (
-    <div className="min-h-screen" style={{ background: '#fdf8f8' }}>
+    <div className="min-h-screen transition-colors duration-500" style={{ background: isEmergencyMode ? '#ef4444' : '#fdf8f8' }}>
       {showToast && (
         <div className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-2xl shadow-xl text-white font-bold text-sm transition-all ${isEmergencyMode ? 'bg-red-500' : 'bg-teal-500'}`}>
           {toastMsg}

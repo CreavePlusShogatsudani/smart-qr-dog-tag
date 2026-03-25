@@ -49,7 +49,7 @@ export default async function TagPage({
   const mixed = pet.vaccineRecords.find(r => r.mixed_date);
 
   return (
-    <div className="min-h-screen pb-12 bg-[#fdf8f8]">
+    <div className={`min-h-screen pb-12 transition-colors duration-500 ${isLost ? 'bg-[#ef4444]' : 'bg-[#fdf8f8]'}`}>
       {/* 緊急/通常 トップナビゲーションバナー */}
       {isLost ? (
         <div className="bg-red-600 text-white px-6 py-10 text-center shadow-md relative overflow-hidden rounded-b-[40px] mb-6">
