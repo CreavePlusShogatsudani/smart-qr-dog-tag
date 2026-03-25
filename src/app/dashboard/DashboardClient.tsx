@@ -78,12 +78,12 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
           {/* ペット切り替えスイッチャー */}
           {pets.length > 0 && (
             <div className="sticky top-0 z-40 bg-[#fdf8f8]/90 backdrop-blur-md border-b border-gray-200/50 py-3">
-              <div className="flex items-center gap-3 overflow-x-auto px-4 snap-x hide-scrollbar">
+              <div className="flex flex-wrap items-center gap-3 px-4">
                 {pets.map((p: any) => (
                   <button
                     key={p.id}
                     onClick={() => setActivePetId(p.id)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all shadow-sm snap-start shrink-0 ${
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all shadow-sm ${
                       activePetId === p.id 
                         ? 'bg-teal-600 text-white font-bold ring-2 ring-teal-600 ring-offset-2 ring-offset-[#fdf8f8]' 
                         : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
@@ -101,7 +101,7 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
                 ))}
                 <a 
                   href="/profile?new=true"
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-dashed border-gray-300 text-gray-400 hover:text-teal-500 hover:border-teal-500 hover:bg-teal-50 transition-colors shrink-0 snap-start"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-dashed border-gray-300 text-gray-400 hover:text-teal-500 hover:border-teal-500 hover:bg-teal-50 transition-colors"
                 >
                   <i className="ri-add-line text-lg"></i>
                 </a>
