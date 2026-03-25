@@ -38,6 +38,7 @@ model Pet {
   breed          String?
   age            Int?            // 年齢（数値）
   age_text       String?         // 画面表示用の年齢テキスト（例："3歳2ヶ月"）
+  birthday       String?         // 誕生日（例："2020-05-15" または任意フォーマット）
   weight         String?         // 体重表現
   color          String?         // 毛色
   gender         String?         // オス・メスなどの性別情報（例: "male", "female"）

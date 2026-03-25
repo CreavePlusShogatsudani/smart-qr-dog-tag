@@ -174,14 +174,28 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
                   <label className="block text-xs font-bold text-gray-700 mb-1">名前</label>
                   <input name="petName" type="text" defaultValue={pet?.name || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="mb-3">
+                  <label className="block text-xs font-bold text-gray-700 mb-1">犬種/種類</label>
+                  <input name="petBreed" type="text" defaultValue={pet?.breed || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
+              </div>
+              <div className="grid grid-cols-2 gap-3 mb-3">
                   <div>
-                      <label className="block text-xs font-bold text-gray-700 mb-1">犬種/種類</label>
-                      <input name="petBreed" type="text" defaultValue={pet?.breed || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
+                      <label className="block text-xs font-bold text-gray-700 mb-1">誕生日</label>
+                      <input name="petBirthday" type="text" defaultValue={pet?.birthday || ''} placeholder="例: 2020年5月15日" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
                   </div>
-                  <div>
+                  <div className="relative">
                       <label className="block text-xs font-bold text-gray-700 mb-1">年齢</label>
-                      <input name="petAgeText" type="text" defaultValue={pet?.age_text || ''} placeholder="例: 3歳" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300" />
+                      <div className="relative">
+                        <select name="petAgeText" defaultValue={pet?.age_text || ''} className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-teal-300 appearance-none">
+                          <option value="">未設定</option>
+                          {[...Array(31)].map((_, i) => (
+                            <option key={i} value={`${i}歳`}>{i}</option>
+                          ))}
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 text-sm font-bold flex items-center gap-1">
+                          歳 <i className="ri-arrow-down-s-line"></i>
+                        </div>
+                      </div>
                   </div>
               </div>
               <div className="grid grid-cols-2 gap-3">

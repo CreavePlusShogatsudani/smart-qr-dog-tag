@@ -85,6 +85,7 @@ export async function saveProfile(formData: FormData) {
   const petGender = formData.get('gender') as string;
   const petBreed = formData.get('petBreed') as string;
   const petAgeText = formData.get('petAgeText') as string;
+  const petBirthday = formData.get('petBirthday') as string;
   const petWeight = formData.get('petWeight') as string;
   const petColor = formData.get('petColor') as string;
   const petDescription = formData.get('petDescription') as string;
@@ -150,6 +151,7 @@ export async function saveProfile(formData: FormData) {
         gender: petGender,
         breed: petBreed,
         age_text: petAgeText,
+        birthday: petBirthday,
         weight: petWeight,
         color: petColor,
         description: petDescription,

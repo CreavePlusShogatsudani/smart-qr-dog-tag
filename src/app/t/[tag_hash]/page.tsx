@@ -125,7 +125,7 @@ export default async function TagPage({
                 {pet.breed || "犬種未登録"}
               </span>
               <span className="text-xs font-bold text-[#874e4e]/70 tracking-widest">
-                / {pet.age_text || "年齢未登録"}
+                / 🎂 {pet.birthday || "-"} / {pet.age_text || "年齢未登録"}
               </span>
             </div>
 
