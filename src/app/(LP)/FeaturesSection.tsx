@@ -7,53 +7,53 @@ const features = [
     icon: 'ri-flashlight-line',
     title: 'スキャン即・飼い主に連絡',
     description: '発見者はアプリも登録も不要。QRをスキャンするだけで飼い主の連絡先が表示され、30秒以内に連絡が届きます。',
-    detail: '従来の迷子札では電話番号が読めない・消えているケースが多発。LIENなら常に最新情報にアクセスでき、発見者の負担もゼロです。',
-    image: 'https://readdy.ai/api/search-image?query=person%20scanning%20QR%20code%20on%20a%20dog%20collar%20with%20smartphone%2C%20close%20up%20shot%2C%20soft%20natural%20light%2C%20clean%20white%20background%2C%20modern%20lifestyle%20photography%2C%20high%20quality%2C%20detailed%2C%20realistic&width=800&height=500&seq=feat01&orientation=landscape'
+    detail: '従来の迷子札では電話番号が読めないケースも。LIENなら常に最新情報にアクセスでき、発見者の負担もゼロです。',
+    image: 'https://readdy.ai/api/search-image?query=person%20scanning%20QR%20code%20on%20a%20pet%20collar%20with%20smartphone%2C%20dog%20and%20cat%20friendly%2C%20modern%20lifestyle%20photography%2C%20high%20quality&width=800&height=500&seq=feat01&orientation=landscape'
   },
   {
     id: 1,
     number: '02',
     icon: 'ri-alarm-warning-line',
     title: '緊急モードで最優先表示',
-    description: '迷子になった際、緊急モードをONにすると発見者の画面に大きく表示され、すぐに連絡してもらえます。',
-    detail: '緊急モード利用時の再会成功率は98%。迷子になってから平均30秒で飼い主に通知が届きます。',
-    image: 'https://readdy.ai/api/search-image?query=smartphone%20screen%20showing%20emergency%20alert%20notification%20for%20lost%20dog%2C%20bright%20red%20urgent%20display%2C%20clean%20minimal%20UI%20design%2C%20soft%20studio%20lighting%2C%20white%20background%2C%20realistic%20product%20photography&width=800&height=500&seq=feat02&orientation=landscape'
+    description: '迷子になった際、緊急モードをONにすると発見者の画面に大きくSOSが表示され、スムーズな保護に繋がります。',
+    detail: '緊急モード利用時は飼い主の連絡先が公開され、平均30秒で通知が届く仕組みになっています。',
+    image: 'https://readdy.ai/api/search-image?query=smartphone%20screen%20showing%20emergency%20SOS%20alert%20for%20lost%20pet%2C%20bright%20red%20urgent%20display%2C%20clean%20minimal%20UI%20design&width=800&height=500&seq=feat02&orientation=landscape'
   },
   {
     id: 2,
     number: '03',
-    icon: 'ri-refresh-line',
-    title: '引越し・番号変更も即対応',
-    description: '引越しや電話番号変更があっても、アプリから情報を更新するだけ。首輪を買い替える必要はありません。',
-    detail: 'QRコードは変わらず、登録情報だけを更新できるので、一度購入すれば長く使い続けられます。',
-    image: 'https://readdy.ai/api/search-image?query=person%20updating%20pet%20profile%20information%20on%20smartphone%20app%2C%20modern%20mobile%20UI%2C%20clean%20desk%20background%2C%20soft%20warm%20lighting%2C%20lifestyle%20photography%2C%20high%20quality%20realistic&width=800&height=500&seq=feat03&orientation=landscape'
+    icon: 'ri-user-star-line',
+    title: '無制限のマルチペット管理',
+    description: '1つのアカウントで犬・猫・その他ペットを何匹でも管理可能。複数頭飼いでも瞬時に情報を切り替えられます。',
+    detail: 'ダッシュボードのスイッチ一つで、各ペット専用のQRコードや医療データにアクセスできます。',
+    image: 'https://readdy.ai/api/search-image?query=two%20happy%20dogs%20and%20a%20cat%20sitting%20together%2C%20pet%20family%2C%20soft%20warm%20lighting%2C%20lifestyle%20photography&width=800&height=500&seq=feat03&orientation=landscape'
   },
   {
     id: 3,
     number: '04',
     icon: 'ri-shield-keyhole-line',
-    title: '個人情報は完全非公開',
-    description: 'QRコードをスキャンしても、個人情報は表示されません。発見者が連絡ボタンを押して初めて通知が届きます。',
-    detail: 'プライバシーを守りながら、確実に連絡が取れる仕組みです。',
-    image: 'https://readdy.ai/api/search-image?query=digital%20privacy%20shield%20icon%20glowing%20on%20dark%20background%2C%20data%20protection%20concept%2C%20rose%20pink%20light%2C%20abstract%20technology%20visualization%2C%20clean%20minimal%20design%2C%20high%20quality%20render&width=800&height=500&seq=feat04&orientation=landscape'
+    title: '3段階の情報公開レベル',
+    description: '状況に応じて公開情報を3段階（通常・医療・緊急）で制御。普段は個人情報をしっかり守ります。',
+    detail: '基本情報のほか、命に関わる医療情報は常時公開、飼い主の連絡先は緊急時のみ公開する安全設計です。',
+    image: 'https://readdy.ai/api/search-image?query=digital%20security%20shield%20icon%20protecting%20pet%20data%20privacy%2C%20abstract%20technology%20visualization%2C%20clean%20minimal%20design&width=800&height=500&seq=feat04&orientation=landscape'
   },
   {
     id: 4,
     number: '05',
-    icon: 'ri-global-line',
-    title: '外国人が拾っても大丈夫',
-    description: '多言語対応で、外国人観光客が発見しても安心。自動で言語を切り替えて表示します。',
-    detail: '日本語、英語、中国語、韓国語など主要言語に対応しています。',
-    image: 'https://readdy.ai/api/search-image?query=multilingual%20app%20interface%20showing%20Japanese%20English%20Chinese%20Korean%20language%20options%20on%20smartphone%2C%20globe%20icon%2C%20clean%20white%20background%2C%20modern%20flat%20design%2C%20soft%20studio%20lighting%2C%20realistic&width=800&height=500&seq=feat05&orientation=landscape'
+    icon: 'ri-heart-pulse-line',
+    title: '命を守る医療情報・ワクチン管理',
+    description: 'アレルギーや持病、ワクチン接種記録をデジタルで保管。発見者に適切な処置を促し、二次被害を防ぎます。',
+    detail: 'かかりつけ医の情報も登録可能。保護された後の「もしも」の医療処置もスムーズに行えます。',
+    image: 'https://readdy.ai/api/search-image?query=pet%20medical%20record%20on%20smartphone%20app%2C%20vaccination%20certificate%20digital%2C%20clean%20UI%2C%20lifestyle%20photography&width=800&height=500&seq=feat05&orientation=landscape'
   },
   {
     id: 5,
     number: '06',
-    icon: 'ri-gift-2-line',
-    title: 'QRコード作成は永久無料',
-    description: 'QRコードの作成・管理・情報更新はすべて無料。商品購入時のみ費用がかかります。',
-    detail: '月額料金や更新料は一切不要。安心してご利用いただけます。',
-    image: 'https://readdy.ai/api/search-image?query=free%20QR%20code%20generation%20concept%2C%20gift%20box%20with%20QR%20code%20pattern%2C%20soft%20pink%20ribbon%2C%20clean%20white%20background%2C%20soft%20natural%20lighting%2C%20product%20photography%20style%2C%20high%20quality%20realistic&width=800&height=500&seq=feat06&orientation=landscape'
+    icon: 'ri-smartphone-line',
+    title: 'スマホの「ホーム画面」に常備',
+    description: 'PWA対応で、アプリのようにホーム画面へ追加可能。ブラウザを開かずに3秒で愛犬・愛猫の情報にアクセスできます。',
+    detail: '通信環境が不安定な時でもキャッシュを利用して高速表示。震災などの緊急時にも強いデジタル迷子札です。',
+    image: 'https://readdy.ai/api/search-image?query=smartphone%20home%20screen%20with%20LIEN%20app%20icon%2C%20hand%20holding%20phone%2C%20clean%20sunny%20park%20background%2C%20lifestyle%20photography&width=800&height=500&seq=feat06&orientation=landscape'
   }
 ];
 
@@ -64,7 +64,7 @@ export default function FeaturesSection() {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6" style={{backgroundColor:'#fde8e0'}}>
             <i className="ri-star-smile-line text-xs" style={{color:'#e8836a'}}></i>
-            <p className="text-xs tracking-[0.2em] font-medium" style={{color:'#e8836a'}}>Features</p>
+            <p className="text-xs tracking-[0.2em] font-medium" style={{color:'#e8836a'}}>選ばれる理由</p>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{color:'#3d2218'}}>
             他のドッグタグと<br />

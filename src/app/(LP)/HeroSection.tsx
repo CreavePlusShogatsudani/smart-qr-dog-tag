@@ -10,16 +10,16 @@ export default function HeroSection() {
         <div className="max-w-xl">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8" style={{backgroundColor:'rgba(249,213,200,0.2)', border:'1px solid rgba(249,213,200,0.4)'}}>
             <i className="ri-heart-fill text-xs" style={{color:'#f9d5c8'}}></i>
-            <p className="text-xs tracking-[0.2em] font-medium" style={{color:'#f9d5c8'}}>Smart QR Pet Tag</p>
+            <p className="text-xs tracking-[0.2em] font-medium" style={{color:'#f9d5c8'}}>次世代の迷子札</p>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.3] md:leading-[1.2] mb-6 md:mb-8" style={{letterSpacing:'-0.01em'}}>
-            もし迷子になっても、<br className="hidden md:block" />
+            もし迷子になっても、<br />
             <span style={{color:'#f9d5c8'}}>30秒で</span>飼い主に届く。
           </h1>
           <div className="w-16 h-1 rounded-full mb-6 md:mb-8" style={{backgroundColor:'#f9d5c8'}}></div>
-          <p className="text-sm md:text-base leading-[2.0] md:leading-[2.2] mb-10 md:mb-12 max-w-sm md:max-w-md" style={{color:'rgba(255,255,255,0.75)'}}>
-            首輪に印字されたQRコードをスキャンするだけ。<br className="hidden md:block" />
-            アプリ不要・登録不要で、発見者がすぐに連絡できます。<br className="hidden md:block" />
+          <p className="text-sm md:text-base leading-[2.0] md:leading-[2.2] mb-10 md:mb-12 max-w-sm md:max-w-md break-keep" style={{color:'rgba(255,255,255,0.75)'}}>
+            首輪に印字されたQRコードをスキャンするだけ。<br />
+            愛犬・愛猫のプロフィールと緊急連絡先がすぐにわかります。<br />
             QRコードの作成・管理は<span style={{color:'rgba(255,255,255,0.95)'}}>完全無料</span>。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mb-16">

@@ -21,25 +21,42 @@ export default function QRDisplay({ tagHash }: QRDisplayProps) {
     try {
       const downloadApiUrl = `/api/download-qr?tagHash=${tagHash}&data=${encodeURIComponent(qrUrl)}`;
       
-      // 1. APIからバイナリデータ（Blob）として直接取得する
       const response = await fetch(downloadApiUrl);
       if (!response.ok) {
         throw new Error('画像の生成または取得に失敗しました');
       }
       
       const blob = await response.blob();
+      const fileName = `LIEN_QR_TAG_${tagHash.slice(0, 8)}.png`;
+
+      // PWA・スマートフォン向け: Web Share APIでファイルの共有/保存を行う
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], fileName, { type: blob.type || 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: '専用QRコード',
+            });
+            // 共有成功（または画像保存成功）で終了
+            return;
+          } catch (shareError: any) {
+            // ユーザーがアクションをキャンセルした場合は何もせずに終了
+            if (shareError.name === 'AbortError') return;
+            console.error('Share API error:', shareError);
+            // 共有に失敗した場合のみ、下部の従来のダウンロードフローへ進む（フォールバック）
+          }
+        }
+      }
       
-      // 2. ブラウザ内でBlob用のURLを生成
+      // ブラウザ標準のダウンロード（主にPC用、またはShare API非対応端末用）
       const objectUrl = window.URL.createObjectURL(blob);
-      
-      // 3. ダウンロード用のaタグを生成して強制クリック
       const link = document.createElement('a');
       link.href = objectUrl;
-      link.download = `LIEN_QR_TAG_${tagHash.slice(0, 8)}.png`; // 拡張子を明示的に指定
+      link.download = fileName;
       document.body.appendChild(link);
       link.click();
       
-      // 4. クリーンアップ
       document.body.removeChild(link);
       window.URL.revokeObjectURL(objectUrl);
       

@@ -7,7 +7,7 @@ export default function HowItWorksSection() {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6" style={{backgroundColor:'#fde8e0'}}>
             <i className="ri-map-pin-line text-xs" style={{color:'#e8836a'}}></i>
-            <p className="text-xs tracking-[0.2em] font-medium" style={{color:'#e8836a'}}>How It Works</p>
+            <p className="text-xs tracking-[0.2em] font-medium" style={{color:'#e8836a'}}>ご利用の流れ</p>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-5 leading-tight" style={{color:'#3d2218'}}>
             3ステップで<br />
@@ -22,8 +22,8 @@ export default function HowItWorksSection() {
               step: '01',
               label: 'STEP 01',
               title: '無料で情報登録',
-              desc: 'アプリで愛犬・愛猫の名前・写真・連絡先などを登録。QRコードが自動生成されます。完全無料、登録は30秒で完了します。',
-              img: 'https://readdy.ai/api/search-image?query=person%20using%20smartphone%20app%20to%20register%20pet%20profile%2C%20entering%20dog%20name%20and%20photo%2C%20modern%20mobile%20interface%2C%20clean%20bright%20desk%20environment%2C%20soft%20natural%20window%20light%2C%20lifestyle%20photography%2C%20high%20quality%20realistic&width=800&height=600&seq=step01&orientation=landscape',
+              desc: '愛犬・愛猫の名前・写真・医療情報などを登録。1つのアカウントで何匹でも登録でき、QRコードが自動生成されます。',
+              img: 'https://readdy.ai/api/search-image?query=person%20using%20smartphone%20app%20to%20register%20multiple%20pet%20profiles%2C%20modern%20mobile%20interface%2C%20clean%20bright%20desk%20environment%2C%20lifestyle%20photography&width=800&height=600&seq=step01&orientation=landscape',
             },
             {
               step: '02',

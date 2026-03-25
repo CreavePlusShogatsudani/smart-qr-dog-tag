@@ -40,7 +40,7 @@ export default function ProductsSection() {
       img: 'https://readdy.ai/api/search-image?query=small%20glowing%20LED%20keychain%20tag%20for%20dog%2C%20dark%20background%20with%20soft%20colorful%20glow%2C%20product%20photography%2C%20safety%20accessory%2C%20minimal%20composition&width=700&height=500&seq=prod-ledkey-v3&orientation=landscape',
     },
     {
-      name: '愛犬そっくり3Dアクセサリー',
+      name: '愛犬・愛猫そっくり3Dアクセサリー',
       price: '¥12,800〜',
       badge: '世界に1つだけ',
       features: ['写真から3Dモデル作成', '食品グレード樹脂使用', 'QRコード内蔵タイプ'],
@@ -54,7 +54,7 @@ export default function ProductsSection() {
 
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-24 gap-8">
           <div>
-            <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-5">Products</p>
+            <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-5">商品一覧</p>
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 leading-tight">
               QRコード印字<br />
               <span className="font-semibold">商品ラインナップ</span>

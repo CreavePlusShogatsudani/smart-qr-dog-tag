@@ -9,7 +9,7 @@ export default function CTASection() {
         <div className="max-w-lg ml-auto">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8" style={{backgroundColor:'rgba(249,213,200,0.2)', border:'1px solid rgba(249,213,200,0.4)'}}>
             <i className="ri-heart-fill text-xs" style={{color:'#f9d5c8'}}></i>
-            <p className="text-xs tracking-[0.2em] font-medium" style={{color:'#f9d5c8'}}>Start for Free</p>
+            <p className="text-xs tracking-[0.2em] font-medium" style={{color:'#f9d5c8'}}>無料で始める</p>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
             愛犬・愛猫の安全を、<br />
