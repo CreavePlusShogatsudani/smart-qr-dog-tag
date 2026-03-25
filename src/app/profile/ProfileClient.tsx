@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { saveProfile, deletePet } from '@/app/actions/profile';
+import ImageCropper from './components/ImageCropper';
 
 type ProfileClientProps = {
   initialData: any;
@@ -12,6 +13,8 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState('');
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [cropModalSrc, setCropModalSrc] = useState<string | null>(null);
+  const [croppedBlob, setCroppedBlob] = useState<Blob | null>(null);
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -34,8 +37,19 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
+      setCropModalSrc(url);
+      e.target.value = ''; // リセットして同じ画像でも再度開けるようにする
     }
+  };
+
+  const handleCropComplete = (blob: Blob, url: string) => {
+    setCroppedBlob(blob);
+    setPreviewUrl(url);
+    setCropModalSrc(null);
+  };
+
+  const handleCropCancel = () => {
+    setCropModalSrc(null);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,6 +59,9 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
 
     try {
       const formData = new FormData(e.currentTarget);
+      if (croppedBlob) {
+        formData.set('petImage', croppedBlob, 'profile_cropped.jpg');
+      }
       await saveProfile(formData);
       setMessage('保存しました');
     } catch (err) {
@@ -331,6 +348,16 @@ export default function ProfileClient({ initialData }: ProfileClientProps) {
         </div>
       )}
     </form>
+
+    {/* 画像クロップモーダル（画面の最前面に表示） */}
+    {cropModalSrc && (
+      <ImageCropper
+        imageSrc={cropModalSrc}
+        onCropComplete={handleCropComplete}
+        onCancel={handleCropCancel}
+        aspectRatio={1}
+      />
+    )}
     </div>
   );
 }

@@ -20,7 +20,8 @@
     "next": "15.3.6",
     "next-auth": "^4.24.13",
     "react": "^19.1.2",
-    "react-dom": "^19.1.2"
+    "react-dom": "^19.1.2",
+    "react-easy-crop": "^5.5.7"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
