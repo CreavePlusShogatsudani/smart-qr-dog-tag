@@ -77,8 +77,8 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
         <>
           {/* ペット切り替えスイッチャー */}
           {pets.length > 0 && (
-            <div className="sticky top-0 z-40 bg-[#fdf8f8]/90 backdrop-blur-md border-b border-gray-200/50 py-3">
-              <div className="flex flex-wrap items-center gap-3 px-4">
+            <div className="sticky top-0 z-40 bg-[#fdf8f8]/90 backdrop-blur-md border-b border-gray-200/50 py-4">
+              <div className="flex flex-wrap items-center gap-3 gap-y-4 px-4">
                 {pets.map((p: any) => (
                   <button
                     key={p.id}

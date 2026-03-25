@@ -29,7 +29,7 @@ export default function PetHero({ isEmergencyMode, petData }: PetHeroProps) {
         )}
       </div>
 
-      <div className="relative min-h-[380px] flex flex-col justify-end pt-16 pb-8 px-6 text-white z-10 w-full">
+      <div className="relative min-h-[480px] flex flex-col justify-end pt-16 pb-8 px-6 text-white z-10 w-full max-h-[70vh]">
         {/* 緊急バナー */}
         {isEmergencyMode && (
           <div className="absolute top-6 left-1/2 -translate-x-1/2 w-max animate-pulse cursor-default">
