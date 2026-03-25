@@ -1,4 +1,5 @@
 'use client';
+import { motion } from 'framer-motion';
 import React from 'react';
 
 export default function ProductsSection() {
@@ -54,22 +55,26 @@ export default function ProductsSection() {
 
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-24 gap-8">
           <div>
-            <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-5">商品一覧</p>
+            <p className="text-xs tracking-[0.3em] text-gray-500 uppercase mb-5">商品一覧</p>
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 leading-tight">
               QRコード印字<br />
               <span className="font-semibold">商品ラインナップ</span>
             </h2>
           </div>
-          <p className="text-gray-400 text-sm leading-[2] max-w-xs lg:text-right">
+          <p className="text-gray-500 text-sm leading-[2] max-w-xs lg:text-right">
             すべての商品にQRコード印字サービスが含まれています。<br />
             送料無料・税込価格。
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-gray-100" data-product-shop>
-          {products.map((p) => (
-            <div
+          {products.map((p, index) => (
+            <motion.div
               key={p.name}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="border-r border-b border-gray-100 group cursor-default"
             >
               <div className="relative overflow-hidden bg-gray-50">
@@ -89,7 +94,7 @@ export default function ProductsSection() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{p.name}</h3>
                 <p className="text-3xl font-light text-gray-900 mb-6">
                   {p.price}
-                  <span className="text-xs font-normal text-gray-400 ml-2">税込・送料無料</span>
+                  <span className="text-xs font-normal text-gray-500 ml-2">税込・送料無料</span>
                 </p>
                 <ul className="space-y-3 mb-8">
                   {p.features.map((f) => (
@@ -107,12 +112,12 @@ export default function ProductsSection() {
                   カートに追加
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         <div className="mt-16 text-center">
-          <p className="text-gray-400 text-sm tracking-wide leading-relaxed">
+          <p className="text-gray-500 text-sm tracking-wide leading-relaxed">
             QRコードの作成・管理は無料です。商品購入時にQRコードを印字してお届けします。
           </p>
         </div>

@@ -43,7 +43,7 @@ export default function LPFooter() {
               </div>
               <span className="text-base font-bold tracking-widest">LIEN</span>
             </div>
-            <p className="text-sm leading-[2.2] mb-8" style={{color:'rgba(255,255,255,0.4)'}}>
+            <p className="text-sm leading-[2.2] mb-8" style={{color:'rgba(255,255,255,0.6)'}}>
               愛犬・愛猫の安全を守るスマートQRペットタグサービス。QRコード作成は完全無料。首輪・ハーネスへの印字商品もご用意しています。
             </p>
             <div className="flex items-center gap-3">
@@ -56,7 +56,7 @@ export default function LPFooter() {
           </div>
           <div className="flex flex-col sm:flex-row gap-16">
             <div>
-              <p className="text-xs tracking-[0.3em] mb-6" style={{color:'rgba(255,255,255,0.3)'}}>NAVIGATION</p>
+              <p className="text-xs tracking-[0.3em] mb-6" style={{color:'rgba(255,255,255,0.5)'}}>NAVIGATION</p>
               <ul className="space-y-4">
                 {[
                   ['#features','特徴'],
@@ -73,8 +73,8 @@ export default function LPFooter() {
               </ul>
             </div>
             <div className="max-w-xs">
-              <p className="text-xs tracking-[0.3em] mb-6" style={{color:'rgba(255,255,255,0.3)'}}>NEWSLETTER</p>
-              <p className="text-sm leading-[2] mb-6" style={{color:'rgba(255,255,255,0.4)'}}>
+              <p className="text-xs tracking-[0.3em] mb-6" style={{color:'rgba(255,255,255,0.5)'}}>NEWSLETTER</p>
+              <p className="text-sm leading-[2] mb-6" style={{color:'rgba(255,255,255,0.6)'}}>
                 新商品やお得な情報をいち早くお知らせします。
               </p>
               <form id="newsletter-form" onSubmit={handleNewsletterSubmit} className="space-y-4">
@@ -106,13 +106,13 @@ export default function LPFooter() {
           </div>
         </div>
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4" style={{borderTop:'1px solid rgba(255,255,255,0.06)'}}>
-          <p className="text-xs" style={{color:'rgba(255,255,255,0.2)'}}>© 2025 LIEN. All rights reserved.</p>
+          <p className="text-xs" style={{color:'rgba(255,255,255,0.4)'}}>© 2025 LIEN. All rights reserved.</p>
           <div className="flex items-center gap-8">
             {[
               ['#','プライバシーポリシー'],
               ['#','利用規約']
             ].map(([href, label]) => (
-              <a key={label} href={href} className="text-xs transition-colors cursor-pointer hover:opacity-70" style={{color:'rgba(255,255,255,0.2)'}}>
+              <a key={label} href={href} className="text-xs transition-colors cursor-pointer hover:opacity-70" style={{color:'rgba(255,255,255,0.4)'}}>
                 {label}
               </a>
             ))}

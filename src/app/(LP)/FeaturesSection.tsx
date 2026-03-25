@@ -1,4 +1,5 @@
 'use client';
+import { motion } from 'framer-motion';
 
 const features = [
   {
@@ -70,7 +71,7 @@ export default function FeaturesSection() {
             他のドッグタグと<br />
             <span style={{color:'#e8836a'}}>ここが違う</span>
           </h2>
-          <p className="text-sm leading-[2]" style={{color:'#a07060'}}>
+          <p className="text-sm leading-[2]" style={{color:'#8c5a4c'}}>
             金属タグに名前を刻印するだけでは、もう時代遅れ。<br />
             LIENは迷子対策を次のレベルへ。
           </p>
@@ -80,8 +81,12 @@ export default function FeaturesSection() {
           {features.map((feature, index) => {
             const isEven = index % 2 === 1;
             return (
-              <div
+              <motion.div
                 key={feature.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.1 }}
                 className={`flex flex-col ${isEven ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-stretch rounded-3xl overflow-hidden shadow-sm`}
                 style={{backgroundColor:'#fff', border:'1.5px solid #f5e6df'}}
               >
@@ -102,14 +107,14 @@ export default function FeaturesSection() {
                   <h3 className="text-2xl md:text-3xl font-bold mb-4 leading-tight" style={{color:'#3d2218'}}>
                     {feature.title}
                   </h3>
-                  <p className="text-sm leading-[2] mb-3" style={{color:'#7a5a50'}}>
+                  <p className="text-sm leading-[2] mb-3" style={{color:'#6b4337'}}>
                     {feature.description}
                   </p>
-                  <p className="text-sm leading-[2]" style={{color:'#b09080'}}>
+                  <p className="text-sm leading-[2]" style={{color:'#9c7769'}}>
                     {feature.detail}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

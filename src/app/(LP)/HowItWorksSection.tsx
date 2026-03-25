@@ -1,4 +1,5 @@
 'use client';
+import { motion } from 'framer-motion';
 
 export default function HowItWorksSection() {
   return (
@@ -13,7 +14,7 @@ export default function HowItWorksSection() {
             3ステップで<br />
             <span style={{color:'#e8836a'}}>簡単スタート</span>
           </h2>
-          <p className="text-sm" style={{color:'#a07060'}}>登録から装着まで最短1週間</p>
+          <p className="text-sm" style={{color:'#8c5a4c'}}>登録から装着まで最短1週間</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -40,7 +41,15 @@ export default function HowItWorksSection() {
               img: 'https://readdy.ai/api/search-image?query=happy%20dog%20wearing%20a%20stylish%20collar%20with%20QR%20code%20tag%20walking%20with%20owner%20in%20a%20sunny%20park%2C%20peaceful%20morning%20walk%2C%20warm%20golden%20light%2C%20lifestyle%20photography%2C%20clean%20green%20background%2C%20high%20quality%20realistic&width=800&height=600&seq=step03&orientation=landscape',
             }
           ].map((item, i) => (
-            <div key={i} className="rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow" style={{backgroundColor:'#fff', border:'1.5px solid #f5e6df'}}>
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              className="rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow" 
+              style={{backgroundColor:'#fff', border:'1.5px solid #f5e6df'}}
+            >
               <div className="relative overflow-hidden">
                 <img
                   src={item.img}
@@ -56,9 +65,9 @@ export default function HowItWorksSection() {
               <div className="p-8">
                 <p className="text-xs font-bold tracking-widest mb-3" style={{color:'#e8836a'}}>{item.label}</p>
                 <h3 className="text-xl font-bold mb-3 leading-snug" style={{color:'#3d2218'}}>{item.title}</h3>
-                <p className="text-sm leading-[2]" style={{color:'#7a5a50'}}>{item.desc}</p>
+                <p className="text-sm leading-[2]" style={{color:'#6b4337'}}>{item.desc}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -87,7 +96,7 @@ export default function HowItWorksSection() {
             <p className="text-base font-bold mb-2 leading-relaxed" style={{color:'#3d2218'}}>
               QRコード作成及びQRコードのダウンロードは無料です。
             </p>
-            <p className="text-sm leading-[2]" style={{color:'#7a5a50'}}>
+            <p className="text-sm leading-[2]" style={{color:'#6b4337'}}>
               管理画面を作成してお使いください。
             </p>
             <a href="/login" className="inline-flex items-center gap-2 mt-6 text-sm font-bold px-8 py-3 rounded-full text-white whitespace-nowrap transition-all hover:opacity-90 cursor-pointer shadow-sm" style={{backgroundColor:'#e8836a'}}>
