@@ -111,7 +111,7 @@ export default function DashboardClient({ initialProfile }: DashboardClientProps
 
           <PetHero isEmergencyMode={isEmergencyMode} petData={pet} />
 
-      <div className="max-w-lg mx-auto px-4 pb-28 space-y-6 relative z-10">
+      <div className="max-w-lg mx-auto px-4 mt-6 pb-28 space-y-6 relative z-10">
         <EmergencyToggle isEmergencyMode={isEmergencyMode} onToggle={handleToggle} />
         <QRPreview tagHash={pet?.tags?.[0]?.tag_hash} />
         <VaccineWallet petId={pet?.id} vaccineRecords={pet?.vaccineRecords || []} />
